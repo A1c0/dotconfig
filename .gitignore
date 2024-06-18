@@ -1,0 +1,9 @@
+*
+!*/
+!.gitignore
+!/zellij/*
+!/nushell/*
+/nushell/history.txt
+!topgrade.toml 
+!starship.toml
+!alacritty/*
