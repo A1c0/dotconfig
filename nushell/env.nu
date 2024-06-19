@@ -131,5 +131,9 @@ carapace _carapace nushell | save --force ~/.cache/carapace/init.nu
 # podman
 $env.DOCKER_CONTEXT = podman
 
-$env.AWS_CONFIG_FILE = ($env.HOME | path join .config/.aws/config)
-$env.AWS_SHARED_CREDENTIALS_FILE = ($env.HOME | path join .config/.aws/credentials)
+# git config global
+$env.GIT_CONFIG_GLOBAL = ($env.XDG_CONFIG_HOME | path join .gitconfig)
+
+# AWS CLI
+$env.AWS_CONFIG_FILE = ($env.XDG_CONFIG_HOME | path join /.aws/config)
+$env.AWS_SHARED_CREDENTIALS_FILE = ($env.XDG_CONFIG_HOME | path join .aws/credentials)

@@ -6,4 +6,5 @@
 /nushell/history.txt
 !topgrade.toml 
 !starship.toml
+!.gitconfig
 !alacritty/*
