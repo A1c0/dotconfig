@@ -130,3 +130,6 @@ carapace _carapace nushell | save --force ~/.cache/carapace/init.nu
 
 # podman
 $env.DOCKER_CONTEXT = podman
+
+$env.AWS_CONFIG_FILE = ($env.HOME | path join .config/.aws/config)
+$env.AWS_SHARED_CREDENTIALS_FILE = ($env.HOME | path join .config/.aws/credentials)

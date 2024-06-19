@@ -977,4 +977,4 @@ module alacritty-config {
 }
 use alacritty-config;
 
-#aws profile switch personal
+aws profile switch personal

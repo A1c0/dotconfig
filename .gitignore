@@ -2,7 +2,7 @@
 !*/
 !.gitignore
 !/zellij/*
-!/nushell/*
+!/nushell/**/*
 /nushell/history.txt
 !topgrade.toml 
 !starship.toml
