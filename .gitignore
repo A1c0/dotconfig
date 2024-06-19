@@ -8,3 +8,4 @@
 !starship.toml
 !.gitconfig
 !alacritty/*
+!brew_manifest.json
