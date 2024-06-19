@@ -103,7 +103,7 @@ mods = "Alt"
 program = "/opt/homebrew/bin/nu"
 
 [window]
-blur = true
+blur = false
 decorations = "Buttonless"
-opacity = 0.8
+opacity = 1.0
 option_as_alt = "Both"

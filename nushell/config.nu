@@ -937,7 +937,7 @@ use ~/.nu-script-official/custom-completions/glow/glow-completions.nu *
 use ~/.nu-script-official/themes/nu-themes/snazzy.nu
 $env.config = ($env.config | merge {color_config: (snazzy)})
 
-source ~/.my-nu-scripts/_all.nu
+source .my-nu-scripts/_all.nu
 
 # Prompt
 use ~/.cache/starship/init.nu
