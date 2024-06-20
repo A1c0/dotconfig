@@ -135,5 +135,5 @@ $env.DOCKER_CONTEXT = podman
 $env.GIT_CONFIG_GLOBAL = ($env.XDG_CONFIG_HOME | path join .gitconfig)
 
 # AWS CLI
-$env.AWS_CONFIG_FILE = ($env.XDG_CONFIG_HOME | path join /.aws/config)
+$env.AWS_CONFIG_FILE = ($env.XDG_CONFIG_HOME | path join .aws/config)
 $env.AWS_SHARED_CREDENTIALS_FILE = ($env.XDG_CONFIG_HOME | path join .aws/credentials)
