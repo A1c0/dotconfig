@@ -9,3 +9,4 @@
 !.gitconfig
 !alacritty/*
 !brew_manifest.json
+!.aws/*
