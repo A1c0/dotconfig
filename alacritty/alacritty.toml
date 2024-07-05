@@ -32,6 +32,9 @@ foreground = "#eff0eb"
 background = "#feffff"
 text = "#282a36"
 
+[env]
+XDG_CONFIG_HOME = "/Users/a1c0/.config"
+
 [font]
 size = 13
 
@@ -99,11 +102,8 @@ mods = "Alt"
 [shell]
 program = "/opt/homebrew/bin/nu"
 
-[env]
-XDG_CONFIG_HOME = "/Users/a1c0/.config"
-
 [window]
 blur = true
 decorations = "Buttonless"
-opacity = 0.8
+opacity = 0.85
 option_as_alt = "Both"

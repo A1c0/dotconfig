@@ -6,3 +6,5 @@ source yarn.nu;
 source git.nu;
 source array.nu;
 source proto-completion.nu;
+
+use nap.nu;

@@ -7,7 +7,7 @@
       "tap": "homebrew/core",
       "versions":
       {
-        "stable": "2.16.10",
+        "stable": "2.17.5",
         "head": "HEAD",
         "bottle": true
       }
@@ -29,7 +29,7 @@
       "tap": "rsteube/tap",
       "versions":
       {
-        "stable": "1.0.3",
+        "stable": "1.0.4",
         "head": null,
         "bottle": false
       }
@@ -51,7 +51,7 @@
       "tap": "homebrew/core",
       "versions":
       {
-        "stable": "2.51.0",
+        "stable": "2.52.0",
         "head": "HEAD",
         "bottle": true
       }
@@ -79,6 +79,17 @@
       }
     },
     {
+      "name": "gitmoji",
+      "full_name": "gitmoji",
+      "tap": "homebrew/core",
+      "versions":
+      {
+        "stable": "9.4.0",
+        "head": null,
+        "bottle": true
+      }
+    },
+    {
       "name": "glow",
       "full_name": "glow",
       "tap": "homebrew/core",
@@ -95,7 +106,7 @@
       "tap": "homebrew/core",
       "versions":
       {
-        "stable": "0.94.2",
+        "stable": "0.95.0",
         "head": "HEAD",
         "bottle": true
       }
@@ -112,34 +123,12 @@
       }
     },
     {
-      "name": "podman",
-      "full_name": "podman",
-      "tap": "homebrew/core",
-      "versions":
-      {
-        "stable": "5.1.1",
-        "head": "HEAD",
-        "bottle": true
-      }
-    },
-    {
-      "name": "podman-compose",
-      "full_name": "podman-compose",
-      "tap": "homebrew/core",
-      "versions":
-      {
-        "stable": "1.0.6",
-        "head": null,
-        "bottle": true
-      }
-    },
-    {
       "name": "proto",
       "full_name": "proto",
       "tap": "homebrew/core",
       "versions":
       {
-        "stable": "0.37.1",
+        "stable": "0.37.2",
         "head": "HEAD",
         "bottle": true
       }
@@ -183,7 +172,7 @@
       "tap": "homebrew/core",
       "versions":
       {
-        "stable": "3.8.1",
+        "stable": "3.9.0",
         "head": "HEAD",
         "bottle": true
       }
@@ -194,7 +183,7 @@
       "tap": "sst/tap",
       "versions":
       {
-        "stable": "0.0.431",
+        "stable": "0.0.481",
         "head": null,
         "bottle": false
       }
@@ -216,7 +205,7 @@
       "tap": "homebrew/core",
       "versions":
       {
-        "stable": "14.0.1",
+        "stable": "15.0.0",
         "head": "HEAD",
         "bottle": true
       }
@@ -299,7 +288,7 @@
       [
         "Arc"
       ],
-      "version": "1.47.1,50893"
+      "version": "1.49.1,51495"
     },
     {
       "token": "bartender",
@@ -321,7 +310,7 @@
       [
         "Boom 3D"
       ],
-      "version": "2.1.1,102.1.1009"
+      "version": "2.2.0,102.2.0052"
     },
     {
       "token": "bruno",
@@ -332,7 +321,7 @@
       [
         "Bruno"
       ],
-      "version": "1.19.0"
+      "version": "1.20.0"
     },
     {
       "token": "caffeine",
@@ -354,7 +343,7 @@
       [
         "Discord"
       ],
-      "version": "0.0.308"
+      "version": "0.0.309"
     },
     {
       "token": "fluor",
@@ -398,7 +387,7 @@
       [
         "JetBrains Toolbox"
       ],
-      "version": "2.3.2,2.3.2.31487"
+      "version": "2.4,2.4.0.32175"
     },
     {
       "token": "joplin",
@@ -409,7 +398,7 @@
       [
         "Joplin"
       ],
-      "version": "2.14.22"
+      "version": "3.0.12"
     },
     {
       "token": "logseq",
@@ -445,6 +434,17 @@
       "version": "4.2.0"
     },
     {
+      "token": "ngrok",
+      "full_token": "ngrok",
+      "old_tokens": [],
+      "tap": "homebrew/cask",
+      "name":
+      [
+        "ngrok"
+      ],
+      "version": "3.12.0,d2tzJ5RRFo1,a"
+    },
+    {
       "token": "openvpn-connect",
       "full_token": "openvpn-connect",
       "old_tokens": [],
@@ -456,6 +456,17 @@
       "version": "3.4.9,4830"
     },
     {
+      "token": "orbstack",
+      "full_token": "orbstack",
+      "old_tokens": [],
+      "tap": "homebrew/cask",
+      "name":
+      [
+        "OrbStack"
+      ],
+      "version": "1.6.3_17138"
+    },
+    {
       "token": "readdle-spark",
       "full_token": "readdle-spark",
       "old_tokens": [],
@@ -464,7 +475,7 @@
       [
         "Spark"
       ],
-      "version": "3.16.4.76580"
+      "version": "3.16.5.77201"
     },
     {
       "token": "rectangle-pro",
@@ -486,7 +497,7 @@
       [
         "Scroll Reverser"
       ],
-      "version": "1.8.2"
+      "version": "1.9"
     },
     {
       "token": "shadow",
@@ -497,7 +508,7 @@
       [
         "Shadow"
       ],
-      "version": "9.9.10056"
+      "version": "9.9.10060"
     },
     {
       "token": "signal",
@@ -508,7 +519,7 @@
       [
         "Signal"
       ],
-      "version": "7.12.0"
+      "version": "7.15.0"
     },
     {
       "token": "slack",
@@ -530,7 +541,7 @@
       [
         "Spotify"
       ],
-      "version": "1.2.39.578,0ea3f38b,108"
+      "version": "1.2.40.599,606b7f29,602"
     },
     {
       "token": "visual-studio-code",
@@ -542,7 +553,7 @@
         "Microsoft Visual Studio Code",
         "VS Code"
       ],
-      "version": "1.90.2"
+      "version": "1.91.0"
     },
     {
       "token": "zed",
@@ -553,7 +564,7 @@
       [
         "Zed"
       ],
-      "version": "0.140.5"
+      "version": "0.142.4"
     }
   ]
 }

@@ -128,9 +128,6 @@ $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
 mkdir ~/.cache/carapace
 carapace _carapace nushell | save --force ~/.cache/carapace/init.nu
 
-# podman
-$env.DOCKER_CONTEXT = podman
-
 # git config global
 $env.GIT_CONFIG_GLOBAL = ($env.XDG_CONFIG_HOME | path join .gitconfig)
 

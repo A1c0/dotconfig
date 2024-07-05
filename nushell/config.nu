@@ -944,20 +944,6 @@ use ~/.cache/starship/init.nu
 
 # Utils
 def toxic-slack [] {input | str downcase | split chars | each {$":alphabet-white-($in):"} | str join '' | str replace --all ":alphabet-white- :" "   " | str replace --all ":alphabet-white-!:" ":alphabet-white-exclamation:" | pbcopy}
-def nap-clean-all-img-key [] {
-    alias psql = podman exec -w /dumps -e PGUSER=postgres apricity-nap_postgres_1 psql;
-    psql -U postgres -d liv -c "UPDATE apricity_client.client SET picture = NULL"
-    psql -U postgres -d liv -c "UPDATE apricity_staff.staff SET picture = NULL"
-}
-
-def nap-hash-password [pwd:string] {
-    node /Users/a1c0/dev/apricity-nap/apricity-api/sandbox/hash-password.js $pwd
-}
-
-def nap-dashboard [] {
-    wd api;
-    zellij -l dashboard/full-nap-debug.kdl
-} 
 
 def new-node-projet [] {
     {name: (pwd | path basename), version: "0.0.0" licence: "MIT"} | save package.json
@@ -971,6 +957,7 @@ def unselect [...columns_to_filter: string] {
 }
 
 def open-dot-env [file:string] {open $file | lines --skip-empty | filter {$in =~ '^\s*[^#]'} | parse -r '(?<key>[^=#]+)=\"?(?<value>.*?)\"?$' | transpose -rd}
+
 module alacritty-config {
     export def opacity [ratio: float] {open ~/.config/alacritty/alacritty.toml | update window.opacity $ratio | collect {save -f ~/.config/alacritty/alacritty.toml}}
     export def blur [blur: bool] {open ~/.config/alacritty/alacritty.toml | update window.blur $blur | collect {save -f ~/.config/alacritty/alacritty.toml}}
