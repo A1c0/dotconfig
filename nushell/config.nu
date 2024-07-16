@@ -153,13 +153,6 @@ let carapace_completer = {|spans|
     carapace $spans.0 nushell ...$spans | from json
 }
 
-let multiple_completers = {|spans|
-    match $spans.0 {
-        __zoxide_z | __zoxide_zi => $zoxide_completer
-        _ => $carapace_completer
-    } | do $in $spans
-}
-
 # The default config record. This is where much of your global configuration is setup.
 $env.config = {
     show_banner: false # true or false to enable or disable the welcome banner at startup
@@ -943,10 +936,15 @@ source .my-nu-scripts/_all.nu
 use ~/.cache/starship/init.nu
 
 # Utils
+
 def toxic-slack [] {input | str downcase | split chars | each {$":alphabet-white-($in):"} | str join '' | str replace --all ":alphabet-white- :" "   " | str replace --all ":alphabet-white-!:" ":alphabet-white-exclamation:" | pbcopy}
 
 def new-node-projet [] {
     {name: (pwd | path basename), version: "0.0.0" licence: "MIT"} | save package.json
+}
+
+def pinggy [port: int] {
+    ssh -p 443 $"-R0:localhost:($port)" a.pinggy.io
 }
 
 def unselect [...columns_to_filter: string] {

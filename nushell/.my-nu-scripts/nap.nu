@@ -41,3 +41,21 @@ export def "db reset" [] {
     NODE_ENV=dev ./node_modules/.bin/typeorm migration:run --config ./dist/ormconfig.json
     clean-all-img-key;
 }
+
+# Generate a new migration based on entities changes
+export def "db migration generate" [name: string] {
+    wd api;
+    y;yb;
+    let output = NODE_ENV=dev ./node_modules/.bin/typeorm migration:generate --config dist/ormconfig.json --dir src/data/migration --pretty --name $name;
+    print $output;
+    $output | str replace -r '^.*?(\/.*?\.ts).*$' '$1' | ws $in
+}
+
+# Delete the last migration and generate a new one
+export def "db migration refresh" [] {
+    wd api;    
+    let file = ls src/data/migration | sort-by modified | last | get name;
+    let name = $file | str replace -r '.*\d+\-(.*?)\.ts' '$1';
+    rm $file;
+    db migration generate $name;
+}
