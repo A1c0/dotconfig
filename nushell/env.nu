@@ -104,8 +104,10 @@ $env.PATH = ($env.PATH | prepend "/opt/homebrew/bin")
 $env.PATH = ($env.PATH | prepend ($env.HOME + ".cargo/bin"))
 $env.PATH = ($env.PATH | append "/usr/local/bin")
 $env.PATH = ($env.PATH | append ($env.HOME + "/.jetbrains"))
-$env.PATH = $env.PATH ++ ./node_modules/.bin
 $env.PATH = ($env.PATH | append ($env.HOME + "/.custom-bin"))
+
+# Set the shell to the current shell. Needed for topgrade or zellij
+$env.SHELL = (^which nu) 
 
 # proto
 $env.PROTO_HOME = ($env.HOME | path join .proto)
@@ -113,8 +115,8 @@ $env.PATH = ($env.PATH
   | prepend ($env.PROTO_HOME | path join bin)
   | prepend ($env.PROTO_HOME | path join shims)
   | uniq)
-
-$env.SHELL = (^which nu)
+mkdir ~/.cache/proto
+proto completions --shell nu | save -f ~/.cache/proto/completions.nu
 
 # starship
 mkdir ~/.cache/starship

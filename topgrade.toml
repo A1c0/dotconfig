@@ -75,7 +75,7 @@ repos = [
 [commands]
 "Proto Upgrade" = "proto upgrade"
 "SST Upgrade" = "sst upgrade"
-#"Python Environment" = "~/dev/.env/bin/pip install -i https://pypi.python.org/simple -U --upgrade-strategy eager jupyter"
+"Brew State Upgrade" = "nu $\"($env.XDG_CONFIG_HOME)/brew_state_update.nu\""
 
 [brew]
 #greedy_cask = true

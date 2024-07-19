@@ -144,6 +144,7 @@ let light_theme = {
 # }
 source ~/.zoxide.nu;
 source ~/.cache/carapace/init.nu
+source ~/.cache/proto/completions.nu
 
 let zoxide_completer = {|spans|
     $spans | skip 1 | zoxide query -l ...$in | lines | where {|x| $x != $env.PWD}
@@ -932,11 +933,11 @@ $env.config = ($env.config | merge {color_config: (snazzy)})
 
 source .my-nu-scripts/_all.nu
 
+
 # Prompt
 use ~/.cache/starship/init.nu
 
 # Utils
-
 def toxic-slack [] {input | str downcase | split chars | each {$":alphabet-white-($in):"} | str join '' | str replace --all ":alphabet-white- :" "   " | str replace --all ":alphabet-white-!:" ":alphabet-white-exclamation:" | pbcopy}
 
 def new-node-projet [] {
@@ -961,5 +962,19 @@ module alacritty-config {
     export def blur [blur: bool] {open ~/.config/alacritty/alacritty.toml | update window.blur $blur | collect {save -f ~/.config/alacritty/alacritty.toml}}
 }
 use alacritty-config;
+
+# The list of installed brew formulae and casks as a nu table
+def "brew state" [] {
+    let brew_formula = brew list --installed-on-request -1 | lines; 
+    brew info --json=v2 --installed 
+    | from json 
+    | update formulae {
+        where name in $brew_formula 
+        | select name full_name tap versions 
+        | rename --block {str camel-case}} 
+    | update casks {
+        select token full_token tap name version 
+        | rename --block {str camel-case}}
+}
 
 aws profile switch personal
