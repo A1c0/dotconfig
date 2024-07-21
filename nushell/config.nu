@@ -967,7 +967,7 @@ use alacritty-config;
 def set_brighness_keyboard [
     --reverse # reverse the change
     ] {
-    let mapping = '{"UserKeyMapping":[{"HIDKeyboardModifierMappingSrc": 0x0C00000221,"HIDKeyboardModifierMappingDst":0xFF00000009},{"HIDKeyboardModifierMappingSrc":0xC000000CF,"HIDKeyboardModifierMappingDst":0xFF00000008}]}';
+    let mapping = '{"UserKeyMapping":[{"HIDKeyboardModifierMappingSrc":51539608097,"HIDKeyboardModifierMappingDst":1095216660489},{"HIDKeyboardModifierMappingSrc":51539607759,"HIDKeyboardModifierMappingDst":1095216660488}]}';
 
     if ($reverse) {
         let reverse_mapping = $mapping | from json | update UserKeyMapping {rename HIDKeyboardModifierMappingDst HIDKeyboardModifierMappingSrc} | to json --raw
