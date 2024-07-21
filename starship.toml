@@ -2,3 +2,6 @@ command_timeout = 2000
 
 [docker_context]
 symbol = "\uf21f  "
+
+[package]
+symbol = "\uf487  "

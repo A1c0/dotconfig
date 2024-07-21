@@ -963,6 +963,20 @@ module alacritty-config {
 }
 use alacritty-config;
 
+# Set brighness_keyboard as F4 and F5
+def set_brighness_keyboard [
+    --reverse # reverse the change
+    ] {
+    let mapping = '{"UserKeyMapping":[{"HIDKeyboardModifierMappingSrc": 0x0C00000221,"HIDKeyboardModifierMappingDst":0xFF00000009},{"HIDKeyboardModifierMappingSrc":0xC000000CF,"HIDKeyboardModifierMappingDst":0xFF00000008}]}';
+
+    if ($reverse) {
+        let reverse_mapping = $mapping | from json | update UserKeyMapping {rename HIDKeyboardModifierMappingDst HIDKeyboardModifierMappingSrc} | to json --raw
+        sudo hidutil property --set $reverse_mapping
+    } else {
+        sudo hidutil property --set $mapping
+    }
+}
+
 # The list of installed brew formulae and casks as a nu table
 def "brew state" [] {
     let brew_formula = brew list --installed-on-request -1 | lines; 
