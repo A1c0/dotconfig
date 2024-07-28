@@ -138,8 +138,8 @@ let light_theme = {
     shape_raw_string: light_purple
 }
 
-let zoxide_completer = {|spans| 
-    zoxide query -l ...$spans | skip 1 | lines | where $it != $env.PWD
+let zoxide_completer = {|spans|
+    $spans | skip 1 | zoxide query -l ...$in | lines | where {|x| $x != $env.PWD}
 }
 
 let carapace_completer = {|spans|
