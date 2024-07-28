@@ -138,16 +138,12 @@ let light_theme = {
     shape_raw_string: light_purple
 }
 
-# External completer example
-# let carapace_completer = {|spans|
-#     carapace $spans.0 nushell ...$spans | from json
-# }
-source ~/.zoxide.nu;
+source ~/.cache/.zoxide.nu;
 source ~/.cache/carapace/init.nu
 source ~/.cache/proto/completions.nu
 
 let zoxide_completer = {|spans|
-    $spans | skip 1 | zoxide query -l ...$in | lines | where {|x| $x != $env.PWD}
+    $spans | skip 1 | zoxide query -l ...$in | lines | where $it != $env.PWD | append (try {ls $spans.1 | where type == dir | get name} catch {[]})
 }
 
 let carapace_completer = {|spans|
@@ -226,11 +222,9 @@ $env.config = {
             completer: {|spans|
                 match $spans.0 {
                     z => $zoxide_completer
-                    zi => $zoxide_completer
-                    __zoxide_z | __zoxide_zi => $zoxide_completer
                     _ => $carapace_completer
                 } | do $in $spans
-            } # check 'carapace_completer' above as an example
+            }
         }
         use_ls_colors: true # set this to true to enable file/path/directory completions using LS_COLORS
     }
@@ -989,6 +983,16 @@ def "brew state" [] {
     | update casks {
         select token full_token tap name version 
         | rename --block {str camel-case}}
+}
+
+def --env yy [...args] {
+	let tmp = (mktemp -t "yazi-cwd.XXXXXX")
+	yazi ...$args --cwd-file $tmp
+	let cwd = (open $tmp)
+	if $cwd != "" and $cwd != $env.PWD {
+		cd $cwd
+	}
+	rm -fp $tmp
 }
 
 aws profile switch personal
