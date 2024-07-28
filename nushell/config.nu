@@ -133,17 +133,13 @@ let light_theme = {
     shape_string: green
     shape_string_interpolation: cyan_bold
     shape_table: blue_bold
-    shape_variable: purple
+    shape_variable: purple 
     shape_vardecl: purple
     shape_raw_string: light_purple
 }
 
-source ~/.cache/.zoxide.nu;
-source ~/.cache/carapace/init.nu
-source ~/.cache/proto/completions.nu
-
-let zoxide_completer = {|spans|
-    $spans | skip 1 | zoxide query -l ...$in | lines | where $it != $env.PWD | append (try {ls $spans.1 | where type == dir | get name} catch {[]})
+let zoxide_completer = {|spans| 
+    zoxide query -l ...$spans | skip 1 | lines | where $it != $env.PWD
 }
 
 let carapace_completer = {|spans|
@@ -905,6 +901,10 @@ $env.config = {
         }
     ]
 }
+
+source ~/.cache/.zoxide.nu;
+source ~/.cache/carapace/init.nu;
+source ~/.cache/proto/completions.nu;
 
 alias meteo = curl v2.wttr.in
 

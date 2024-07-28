@@ -123,7 +123,7 @@ mkdir ~/.cache/starship
 starship init nu | save -f ~/.cache/starship/init.nu
 
 # zoxide
-zoxide init nushell --hook pwd | save -f ~/.cache/.zoxide.nu
+zoxide init nushell | save -f ~/.cache/.zoxide.nu
 
 # carapace
 $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional

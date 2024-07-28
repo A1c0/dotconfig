@@ -105,5 +105,5 @@ program = "/opt/homebrew/bin/nu"
 [window]
 blur = true
 decorations = "Buttonless"
-opacity = 0.85
+opacity = 0.9
 option_as_alt = "Both"
