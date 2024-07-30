@@ -902,7 +902,7 @@ $env.config = {
     ]
 }
 
-source ~/.cache/.zoxide.nu;
+source ~/.cache/zoxide/.zoxide.nu;
 source ~/.cache/carapace/init.nu;
 source ~/.cache/proto/completions.nu;
 
@@ -995,4 +995,4 @@ def --env yy [...args] {
 	rm -fp $tmp
 }
 
-aws profile switch personal
+aws_custom profile switch personal

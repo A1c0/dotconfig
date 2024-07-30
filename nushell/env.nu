@@ -106,6 +106,9 @@ $env.PATH = ($env.PATH | append "/usr/local/bin")
 $env.PATH = ($env.PATH | append ($env.HOME + "/.jetbrains"))
 $env.PATH = ($env.PATH | append ($env.HOME + "/.custom-bin"))
 
+# Homebrew
+$env.HOMEBREW_NO_AUTO_UPDATE = 1;
+
 # Set the shell to the current shell. Needed for topgrade or zellij
 $env.SHELL = (^which nu) 
 
@@ -123,7 +126,8 @@ mkdir ~/.cache/starship
 starship init nu | save -f ~/.cache/starship/init.nu
 
 # zoxide
-zoxide init nushell | save -f ~/.cache/.zoxide.nu
+mkdir ~/.cache/zoxide
+zoxide init nushell | save -f ~/.cache/zoxide/.zoxide.nu
 
 # carapace
 $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional

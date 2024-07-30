@@ -1,10 +1,10 @@
 def aws_profil [] = {open $"($env.XDG_CONFIG_HOME)/.aws/config" | lines | parse "[profile {profil}]" | get profil | append "default"};
 
-export def "aws profile current" [] {
+export def "profile current" [] {
     aws sts get-caller-identity | str replace --all --regex '\n\s*' '' | from json
 }
 
-export def --env "aws profile switch" [profile: string@aws_profil] {
+export def --env "profile switch" [profile: string@aws_profil] {
     if $profile == "default" {
         hide-env AWS_PROFILE
     } else {
@@ -12,7 +12,7 @@ export def --env "aws profile switch" [profile: string@aws_profil] {
     }
 }
 
-export def "aws custom remove_role" [role_name : string] = {
+export def "remove_role" [role_name : string] = {
     print $"removing role ($role_name)..."
 
     let rolePolicies = aws iam list-role-policies --role-name $role_name | from json | get PolicyNames;
