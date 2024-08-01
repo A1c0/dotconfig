@@ -101,7 +101,7 @@ $env.NU_PLUGIN_DIRS = [
 $env.EDITOR = vim
 
 $env.PATH = ($env.PATH | prepend "/opt/homebrew/bin")
-$env.PATH = ($env.PATH | prepend ($env.HOME + ".cargo/bin"))
+$env.PATH = ($env.PATH | prepend ($env.HOME + "/.cargo/bin"))
 $env.PATH = ($env.PATH | append "/usr/local/bin")
 $env.PATH = ($env.PATH | append ($env.HOME + "/.jetbrains"))
 $env.PATH = ($env.PATH | append ($env.HOME + "/.custom-bin"))
@@ -110,7 +110,7 @@ $env.PATH = ($env.PATH | append ($env.HOME + "/.custom-bin"))
 $env.HOMEBREW_NO_AUTO_UPDATE = 1;
 
 # Set the shell to the current shell. Needed for topgrade or zellij
-$env.SHELL = (^which nu) 
+$env.SHELL = (^which nu)
 
 # proto
 $env.PROTO_HOME = ($env.HOME | path join .proto)

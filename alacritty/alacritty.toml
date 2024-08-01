@@ -100,7 +100,7 @@ key = ")"
 mods = "Alt"
 
 [shell]
-program = "/opt/homebrew/bin/nu"
+program = "/Users/a1c0/.cargo/bin/nu"
 
 [window]
 blur = true
