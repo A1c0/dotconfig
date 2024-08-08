@@ -78,7 +78,7 @@ repos = [
 "Brew State Upgrade" = "nu $\"($env.XDG_CONFIG_HOME)/brew_state_update.nu\""
 
 [brew]
-#greedy_cask = true
+greedy_cask = true
 autoremove = true
 
 [linux]
