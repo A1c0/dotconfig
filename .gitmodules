@@ -1,0 +1,9 @@
+[submodule "yazi/flavors"]
+	path = yazi/flavors
+	url = https://github.com/yazi-rs/flavors.git
+[submodule "alacritty/themes"]
+	path = alacritty/themes
+	url = https://github.com/catppuccin/alacritty.git
+[submodule "nushell/nu_scripts"]
+	path = nushell/nu_scripts
+	url = https://github.com/nushell/nu_scripts.git

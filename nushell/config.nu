@@ -922,8 +922,11 @@ use ~/.nu-script-official/custom-completions/git/git-completions.nu *
 use ~/.nu-script-official/custom-completions/glow/glow-completions.nu *
 
 # Theme
-use ~/.nu-script-official/themes/nu-themes/snazzy.nu
-$env.config = ($env.config | merge {color_config: (snazzy)})
+# use ~/.nu-script-official/themes/nu-themes/snazzy.nu
+# $env.config = ($env.config | merge {color_config: (snazzy)})
+
+# source ./nu_scripts/themes/nu-themes/catppuccin-mocha.nu
+
 
 source .my-nu-scripts/_all.nu
 
