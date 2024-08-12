@@ -132,7 +132,7 @@ Windows = "󰍲 "
 
 [package]
 symbol = "󰏗 "
-style = "bold 216"
+style = "#f5a97f"
 
 [perl]
 symbol = " "

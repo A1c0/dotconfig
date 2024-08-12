@@ -99,12 +99,15 @@ $env.NU_PLUGIN_DIRS = [
 # source ($nu.default-cosnfig-dir | path join 'custom.nu')
 
 $env.EDITOR = hx
+$env.BAT_THEME = "Catppuccin Macchiato"
 
 $env.PATH = ($env.PATH | prepend "/opt/homebrew/bin")
 $env.PATH = ($env.PATH | prepend ($env.HOME + "/.cargo/bin"))
 $env.PATH = ($env.PATH | append "/usr/local/bin")
 $env.PATH = ($env.PATH | append ($env.HOME + "/.jetbrains"))
 $env.PATH = ($env.PATH | append ($env.HOME + "/.custom-bin"))
+
+$env.LS_COLORS = (vivid generate catppuccin-macchiato | str trim)
 
 # Homebrew
 $env.HOMEBREW_NO_AUTO_UPDATE = 1;
