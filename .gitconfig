@@ -23,5 +23,5 @@
 	defaultBranch = main
 
 [include]
-	path = ~/.config/catppuccin.gitconfig
+	path = ~/.config/delta/catppuccin.gitconfig
 
