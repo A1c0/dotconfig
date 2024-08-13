@@ -995,4 +995,9 @@ def --env yy [...args] {
 	rm -fp $tmp
 }
 
+def "dock hide delay" [second: int] {
+    defaults write com.apple.dock autohide-delay -float $second
+    killall Dock
+}
+
 aws_custom profile switch personal
