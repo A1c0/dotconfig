@@ -101,6 +101,7 @@ $env.NU_PLUGIN_DIRS = [
 $env.EDITOR = hx
 
 $env.PATH = ($env.PATH | prepend "/opt/homebrew/bin")
+$env.PATH = ($env.PATH | prepend "/opt/homebrew/sbin")
 $env.PATH = ($env.PATH | prepend ($env.HOME + "/.cargo/bin"))
 $env.PATH = ($env.PATH | append "/usr/local/bin")
 $env.PATH = ($env.PATH | append ($env.HOME + "/.jetbrains"))
