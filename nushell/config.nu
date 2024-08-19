@@ -1004,4 +1004,6 @@ def "dock hide delay" [second: int] {
     killall Dock
 }
 
+$env.PATH = ($env.PATH | uniq)
+
 aws_custom profile switch personal
