@@ -98,7 +98,7 @@ $env.NU_PLUGIN_DIRS = [
 # To load from a custom file you can use:
 # source ($nu.default-cosnfig-dir | path join 'custom.nu')
 
-$env.EDITOR = hx
+$env.EDITOR = 'hx'
 
 $env.PATH = ($env.PATH | prepend "/opt/homebrew/bin")
 $env.PATH = ($env.PATH | prepend "/opt/homebrew/sbin")
