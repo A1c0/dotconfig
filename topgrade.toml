@@ -72,7 +72,6 @@ disable = ["node", "pnpm", "shell", "yarn"]
 # Custom commands
 [commands]
 "Proto Upgrade" = "proto upgrade"
-"SST Upgrade" = "sst upgrade"
 "Brew State Upgrade" = "nu $\"($env.XDG_CONFIG_HOME)/brew_state_update.nu\""
 
 [brew]

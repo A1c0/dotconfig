@@ -99,13 +99,19 @@ $env.NU_PLUGIN_DIRS = [
 # source ($nu.default-cosnfig-dir | path join 'custom.nu')
 
 $env.EDITOR = 'hx'
-
+  
 $env.PATH = ($env.PATH | prepend "/opt/homebrew/bin")
 $env.PATH = ($env.PATH | prepend "/opt/homebrew/sbin")
-$env.PATH = ($env.PATH | prepend ($env.HOME + "/.cargo/bin"))
+$env.PATH = ($env.PATH | append ($env.HOME + "/.cargo/bin"))
 $env.PATH = ($env.PATH | append "/usr/local/bin")
 $env.PATH = ($env.PATH | append ($env.HOME + "/.jetbrains"))
 $env.PATH = ($env.PATH | append ($env.HOME + "/.custom-bin"))
+
+# proto
+$env.PROTO_HOME = ($env.HOME | path join .proto)
+$env.PATH = ($env.PATH
+  | prepend ($env.PROTO_HOME | path join bin)
+  | prepend ($env.PROTO_HOME | path join shims))
 
 # Homebrew
 $env.HOMEBREW_NO_AUTO_UPDATE = 1;
@@ -113,12 +119,6 @@ $env.HOMEBREW_NO_AUTO_UPDATE = 1;
 # Set the shell to the current shell. Needed for topgrade or zellij
 $env.SHELL = (^which nu)
 
-# proto
-$env.PROTO_HOME = ($env.HOME | path join .proto)
-$env.PATH = ($env.PATH
-  | prepend ($env.PROTO_HOME | path join bin)
-  | prepend ($env.PROTO_HOME | path join shims)
-  | uniq)
 mkdir ~/.cache/proto
 proto completions --shell nu | save -f ~/.cache/proto/completions.nu
 
@@ -129,6 +129,8 @@ starship init nu | save -f ~/.cache/starship/init.nu
 # zoxide
 mkdir ~/.cache/zoxide
 zoxide init nushell | save -f ~/.cache/zoxide/.zoxide.nu
+
+$env.VIRTUAL_ENV_DISABLE_PROMPT = 1
 
 # carapace
 $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
