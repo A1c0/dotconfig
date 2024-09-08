@@ -1,6 +1,6 @@
 # Nushell Config File
 #
-# version = "0.94.0"
+# version = "0.97.1"
 
 # For more information on defining custom themes, see
 # https://www.nushell.sh/book/coloring_and_theming.html
@@ -47,7 +47,8 @@ let dark_theme = {
     shape_flag: blue_bold
     shape_float: purple_bold
     # shapes are used to change the cli syntax highlighting
-    shape_garbage: { fg: white bg: red attr: b}
+    shape_garbage: { fg: white bg: red attr: b }
+    shape_glob_interpolation: cyan_bold
     shape_globpattern: cyan_bold
     shape_int: purple_bold
     shape_internalcall: cyan_bold
@@ -113,7 +114,8 @@ let light_theme = {
     shape_flag: blue_bold
     shape_float: purple_bold
     # shapes are used to change the cli syntax highlighting
-    shape_garbage: { fg: white bg: red attr: b}
+    shape_garbage: { fg: white bg: red attr: b }
+    shape_glob_interpolation: cyan_bold
     shape_globpattern: cyan_bold
     shape_int: purple_bold
     shape_internalcall: cyan_bold
@@ -133,17 +135,9 @@ let light_theme = {
     shape_string: green
     shape_string_interpolation: cyan_bold
     shape_table: blue_bold
-    shape_variable: purple 
+    shape_variable: purple
     shape_vardecl: purple
     shape_raw_string: light_purple
-}
-
-let zoxide_completer = {|spans|
-    $spans | skip 1 | zoxide query -l ...$in | lines | where {|x| $x != $env.PWD}
-}
-
-let carapace_completer = {|spans|
-    carapace $spans.0 nushell ...$spans | from json
 }
 
 # The default config record. This is where much of your global configuration is setup.
@@ -192,16 +186,11 @@ $env.config = {
             warn: {}
             info: {}
         },
-        table: {
-            split_line: { fg: "#404040" },
-            selected_cell: { bg: light_blue },
-            selected_row: {},
-            selected_column: {},
-        },
+        selected_cell: { bg: light_blue },
     }
 
     history: {
-        max_size: 100_000_000 # Session has to be reloaded for this to take effect
+        max_size: 100_000 # Session has to be reloaded for this to take effect
         sync_on_enter: true # Enable to share history between multiple sessions, else you have to close the session to write history to file
         file_format: "plaintext" # "sqlite" or "plaintext"
         isolation: false # only available with sqlite file_format. true enables history isolation, false disables it. true will allow the history to be isolated to the current session using up/down arrows. false will allow the history to be shared across all sessions.
@@ -212,15 +201,11 @@ $env.config = {
         quick: true    # set this to false to prevent auto-selecting completions when only one remains
         partial: true    # set this to false to prevent partial filling of the prompt
         algorithm: "prefix"    # prefix or fuzzy
+        sort: "smart" # "smart" (alphabetical for prefix matching, fuzzy score for fuzzy matching) or "alphabetical"
         external: {
             enable: true # set to false to prevent nushell looking into $env.PATH to find more suggestions, `false` recommended for WSL users as this look up may be very slow
             max_results: 100 # setting it lower can improve completion performance at the cost of omitting some options
-            completer: {|spans|
-                match $spans.0 {
-                    z => $zoxide_completer
-                    _ => $carapace_completer
-                } | do $in $spans
-            }
+            completer: null # check 'carapace_completer' above as an example
         }
         use_ls_colors: true # set this to true to enable file/path/directory completions using LS_COLORS
     }
@@ -238,9 +223,9 @@ $env.config = {
 
     color_config: $dark_theme # if you want a more interesting theme, you can replace the empty record with `$dark_theme`, `$light_theme` or another custom record
     use_grid_icons: true
-    footer_mode: "25" # always, never, number_of_rows, auto
+    footer_mode: 25 # always, never, number_of_rows, auto
     float_precision: 2 # the precision for displaying floats in tables
-    buffer_editor: "" # command that will be used to edit the current line buffer with ctrl+o, if unset fallback to $env.EDITOR and $env.VISUAL
+    buffer_editor: null # command that will be used to edit the current line buffer with ctrl+o, if unset fallback to $env.EDITOR and $env.VISUAL
     use_ansi_coloring: true
     bracketed_paste: true # enable bracketed paste, currently useless on windows
     edit_mode: emacs # emacs, vi
@@ -265,7 +250,7 @@ $env.config = {
         # 633;B - Mark prompt end
         # 633;C - Mark pre-execution
         # 633;D;exit - Mark execution finished with exit code
-        # 633;E - NOT IMPLEMENTED - Explicitly set the command line with an optional nonce
+        # 633;E - Explicitly set the command line with an optional nonce
         # 633;P;Cwd=<path> - Mark the current working directory and communicate it to the terminal
         # and also helps with the run recent menu in vscode
         osc633: true
@@ -922,15 +907,14 @@ use ~/.nu-script-official/custom-completions/git/git-completions.nu *
 use ~/.nu-script-official/custom-completions/glow/glow-completions.nu *
 
 # Theme
-
 source ./nu_scripts/themes/nu-themes/catppuccin-macchiato.nu
+print -n "\n"; # to fix lsp (0.97.1)
 $env.BAT_THEME = "Catppuccin Macchiato"
 $env.MANPAGER = "sh -c 'col -bx | bat -l man -p'"
 $env.LS_COLORS = (vivid generate catppuccin-macchiato | str trim)
 $env.FZF_DEFAULT_OPTS = " --color=bg+:#363a4f,bg:#24273a,spinner:#f4dbd6,hl:#ed8796 --color=fg:#cad3f5,header:#ed8796,info:#c6a0f6,pointer:#f4dbd6 --color=marker:#b7bdf8,fg+:#cad3f5,prompt:#c6a0f6,hl+:#ed8796 --color=selected-bg:#494d64 --multi";
 
 source .my-nu-scripts/_all.nu
-
 
 # Prompt
 use ~/.cache/starship/init.nu
@@ -961,20 +945,6 @@ module alacritty-config {
 }
 use alacritty-config;
 
-# Set brighness_keyboard as F4 and F5
-def set_brighness_keyboard [
-    --reverse # reverse the change
-    ] {
-    let mapping = '{"UserKeyMapping":[{"HIDKeyboardModifierMappingSrc":51539608097,"HIDKeyboardModifierMappingDst":1095216660489},{"HIDKeyboardModifierMappingSrc":51539607759,"HIDKeyboardModifierMappingDst":1095216660488}]}';
-
-    if ($reverse) {
-        let reverse_mapping = $mapping | from json | update UserKeyMapping {rename HIDKeyboardModifierMappingDst HIDKeyboardModifierMappingSrc} | to json --raw
-        sudo hidutil property --set $reverse_mapping
-    } else {
-        sudo hidutil property --set $mapping
-    }
-}
-
 # The list of installed brew formulae and casks as a nu table
 def "brew state" [] {
     let brew_formula = brew list --installed-on-request -1 | lines; 
@@ -1003,7 +973,5 @@ def "dock hide delay" [second: int] {
     defaults write com.apple.dock autohide-delay -float $second
     killall Dock
 }
-
-$env.PATH = ($env.PATH | uniq)
 
 aws_custom profile switch personal
