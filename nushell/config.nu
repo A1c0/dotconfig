@@ -901,6 +901,7 @@ alias ws = webstorm
 alias clr = clear
 alias la = ls -la
 alias gm = pnpm dlx gitmoji-cli -c
+alias lg = lazygit
 
 use ~/.nu-script-official/custom-completions/zellij/zellij-completions.nu *
 use ~/.nu-script-official/custom-completions/git/git-completions.nu *
