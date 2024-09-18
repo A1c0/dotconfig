@@ -59,3 +59,17 @@ export def "db migration refresh" [] {
     rm $file;
     db migration generate $name;
 }
+
+def --env "db_set_env" [environment: string] {
+    const postgres_regex = 'postgres:\/\/(?<PGUSER>[^:@]+)(:(?<PGPASSWORD>[^@]+))?@(?<PGHOST>[^:]+):(?<PGPORT>\d+)\/(?<PGDATABASE>[a-z_]+)';
+    let pg_config = op read $"op://SysAdmin/Postgres URL/NAP/($environment)" | parse -r $postgres_regex | first | reject capture1;
+    load-env $pg_config;
+}
+
+export def --env "db set_env staging" [] {
+    db_set_env staging
+}
+
+export def --env "db set_env production" [] {
+    db_set_env production
+}

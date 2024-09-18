@@ -1,6 +1,6 @@
 # Nushell Environment Config File
 #
-# version = "0.97.1"
+# version = "0.98.0"
 
 def create_left_prompt [] {
     let dir = match (do --ignore-shell-errors { $env.PWD | path relative-to $nu.home-path }) {
@@ -100,7 +100,6 @@ $env.NU_PLUGIN_DIRS = [
 # To load from a custom file you can use:
 # source ($nu.default-config-dir | path join 'custom.nu')
 
-
 $env.EDITOR = 'hx'
   
 $env.PATH = ($env.PATH | prepend "/opt/homebrew/bin")
@@ -121,8 +120,13 @@ $env.HOMEBREW_NO_AUTO_UPDATE = 1;
 # Set the shell to the current shell. Needed for topgrade or zellij
 $env.SHELL = (^which nu)
 
+# Proto
 mkdir ~/.cache/proto
 proto completions --shell nu | save -f ~/.cache/proto/completions.nu
+
+# Pueue
+mkdir ~/.cache/pueue
+pueue completions nushell | save -f ~/.cache/pueue/completions.nu
 
 # starship
 mkdir ~/.cache/starship
