@@ -942,13 +942,6 @@ def pinggy [port: int] {
     ssh -p 443 $"-R0:localhost:($port)" a.pinggy.io
 }
 
-def unselect [...columns_to_filter: string] {
-    let table = $in;
-    let table_columns = $table | columns | where $it not-in $columns_to_filter;
-
-    $table | select ...$table_columns;
-}
-
 def open-dot-env [file:string] {open $file | lines --skip-empty | filter {$in =~ '^\s*[^#]'} | parse -r '(?<key>[^=#]+)=\"?(?<value>.*?)\"?$' | transpose -rd}
 
 module alacritty-config {
