@@ -1,5 +1,8 @@
 theme = "catppuccin_macchiato_bgt"
 
+[editor]
+shell = ["nu", "-c"]
+
 [editor.soft-wrap]
 enable = true
 
