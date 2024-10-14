@@ -6,4 +6,5 @@ source yarn.nu;
 source git.nu;
 source array.nu;
 
+use pg.nu *;
 use nap.nu;
