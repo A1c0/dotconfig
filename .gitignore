@@ -11,6 +11,7 @@
 !brew_state_update.nu
 !.aws/*
 !alfred/**
+alfred/Alfred.alfredpreferences/remote
 !helix/*
 helix/runtime
 alfred/Alfred.alfredpreferences/workflows/user.workflow.D8722B68-046A-49F9-96DF-43C2C3634077/image_cache

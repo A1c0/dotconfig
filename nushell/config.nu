@@ -928,6 +928,9 @@ $env.FZF_DEFAULT_OPTS = " --color=bg+:#363a4f,bg:#24273a,spinner:#f4dbd6,hl:#ed8
 
 source .my-nu-scripts/_all.nu
 
+# Nu Shells feature
+use std/dirs shells-aliases *
+
 # Prompt
 use ~/.cache/starship/init.nu
 
