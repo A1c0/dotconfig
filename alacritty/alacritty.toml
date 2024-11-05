@@ -1,3 +1,4 @@
+[general]
 import = ["~/.config/alacritty/themes/catppuccin-macchiato.toml"]
 
 [env]
@@ -67,7 +68,7 @@ chars = "}"
 key = ")"
 mods = "Alt"
 
-[shell]
+[terminal.shell]
 program = "/opt/homebrew/bin/nu"
 
 [window]

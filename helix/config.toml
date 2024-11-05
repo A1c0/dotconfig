@@ -7,8 +7,8 @@ shell = ["nu", "-c"]
 enable = true
 
 [keys.normal]
-S-A-up = ["extend_to_line_bounds", "delete_selection", "move_line_up", "paste_before"]
-S-A-down = ["extend_to_line_bounds", "delete_selection", "paste_after"]
+S-C-up = ["extend_to_line_bounds", "delete_selection", "move_line_up", "paste_before"]
+S-C-down = ["extend_to_line_bounds", "delete_selection", "paste_after"]
 C-y = ":sh zellij run -f -x 10% -y 10% --width 80% --height 80% -- bash ~/.config/helix/yazi-picker.sh"
 
 [keys.normal."space"]
