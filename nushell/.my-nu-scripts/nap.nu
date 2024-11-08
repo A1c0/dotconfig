@@ -73,3 +73,10 @@ export def --env "db set_env staging" [] {
 export def --env "db set_env production" [] {
     db_set_env production
 }
+
+export def "complete_bump_types" [] { ["patch", "minor", "major"] }
+
+export def "bump" [type: string@complete_bump_types] {
+    yarn run $"bump:($type)"
+    git commit --all --message $"🔖 (open package.json | get version)"
+}
