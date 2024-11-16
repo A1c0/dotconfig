@@ -427,3 +427,8 @@ default_layout "compact"
 // Default: true (if the host terminal supports it)
 // 
 // support_kitty_keyboard_protocol false
+ui {
+    pane_frames {
+        rounded_corners true
+    }
+}

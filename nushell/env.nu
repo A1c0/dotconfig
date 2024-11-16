@@ -106,6 +106,7 @@ $env.EDITOR = 'hx'
 $env.PATH = ($env.PATH | prepend "/opt/homebrew/bin")
 $env.PATH = ($env.PATH | prepend "/opt/homebrew/sbin")
 $env.PATH = ($env.PATH | append ($env.HOME + "/.cargo/bin"))
+$env.PATH = ($env.PATH | append ($env.HOME + "/go/bin"))
 $env.PATH = ($env.PATH | append ($env.HOME + "/.config/yarn/global/node_modules/.bin"))
 $env.PATH = ($env.PATH | append "/usr/local/bin")
 
