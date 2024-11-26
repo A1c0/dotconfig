@@ -901,6 +901,7 @@ source ~/.cache/zoxide/.zoxide.nu;
 source ~/.cache/carapace/init.nu;
 source ~/.cache/proto/completions.nu;
 source ~/.cache/pueue/completions.nu;
+source ~/.cache/jj/completions-jj.nu;
 
 alias meteo = curl v2.wttr.in
 
