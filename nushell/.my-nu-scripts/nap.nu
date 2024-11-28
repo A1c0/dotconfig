@@ -74,9 +74,40 @@ export def --env "db set_env production" [] {
     db_set_env production
 }
 
-export def "complete_bump_types" [] { ["patch", "minor", "major"] }
+def "complete_bump_types" [] { ["patch", "minor", "major"] }
 
 export def "bump" [type: string@complete_bump_types] {
     yarn run $"bump:($type)"
     git commit --all --message $"🔖 (open package.json | get version)"
+}
+
+def "redis_cli_complete" [] {["production", "nonproduction"]}
+
+# use redis-cli on production or nonproduction pod
+export def "redis-cli" [
+stage: string@redis_cli_complete
+-c : string
+] {
+    print $"(ansi yellow)Warning: It use VPN to connect to pod, be sure it's on(ansi reset)"
+    if ($stage == "nonproduction") {
+        AWS_PROFILE=nonproduction aws eks update-kubeconfig --region eu-west-1 --name apr-eks-nonproduction
+        let pod_name = kubectl get pods -n nap-staging
+        | detect columns 
+        | rename -b {str snake-case } 
+        | where name like 'api' and status == 'Running' 
+        | first 
+        | get name;
+        print $"Connect to ($pod_name)..."
+        kubectl exec -it $pod_name -n nap-staging -- /bin/bash -c 'redis-cli -u $REDIS_URI'
+    } else if ($stage == "production") {
+        AWS_PROFILE=production aws eks update-kubeconfig --region eu-west-1 --name apr-eks-production
+        let pod_name = kubectl get pods -n nap-production 
+        | detect columns 
+        | rename -b {str snake-case } 
+        | where name like 'api' and status == 'Running' 
+        | first 
+        | get name;
+        print $"Connect to ($pod_name)..."
+        kubectl exec -it $pod_name -n nap-production -- /bin/bash -c 'redis-cli -u $REDIS_URI'
+  }
 }

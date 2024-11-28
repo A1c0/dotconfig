@@ -1,3 +1,6 @@
 [[language]]
 name = "sql"
 formatter = { command = 'pg_format' }
+
+[language-server.rust-analyzer.config.check]
+command = "clippy"

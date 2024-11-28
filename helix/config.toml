@@ -6,14 +6,18 @@ shell = ["nu", "-c"]
 [editor.soft-wrap]
 enable = true
 
+[editor.auto-save]
+focus-lost = true
+
 [keys.normal]
 S-C-up = ["extend_to_line_bounds", "delete_selection", "move_line_up", "paste_before"]
 S-C-down = ["extend_to_line_bounds", "delete_selection", "paste_after"]
 C-y = ":sh zellij run -f -x 10% -y 10% --width 80% --height 80% -- bash ~/.config/helix/yazi-picker.sh"
 
 [keys.normal."space"]
-# o = "file_picker_in_current_buffer_directory"
+o = "file_picker_in_current_buffer_directory"
+# D = "@xd"
 
-[keys.normal."space"."o"]
-n = ":o <C-r>%<C-w>"
-x = ":sh rm <C-r>%"
+# [keys.normal."space"."o"]
+# n = ":o <C-r>%<C-w>"
+# x = ":sh rm <C-r>%"
