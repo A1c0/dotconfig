@@ -1,7 +1,7 @@
 theme = "catppuccin_macchiato_bgt"
 
 [editor]
-shell = ["nu", "-c"]
+shell = ["nu", "--stdin", "-c"]
 
 [editor.soft-wrap]
 enable = true
@@ -17,6 +17,16 @@ C-y = ":sh zellij run -f -x 10% -y 10% --width 80% --height 80% -- bash ~/.confi
 [keys.normal."space"]
 o = "file_picker_in_current_buffer_directory"
 # D = "@xd"
+
+[keys.normal."space"."m"]
+1 = ":pipe str downcase"
+2 = ":pipe str snake-case"
+3 = ":pipe str screaming-snake-case"
+4 = ":pipe str camel-case"
+5 = ":pipe str kebab-case"
+6 = ":pipe str pascal-case"
+7 = ":pipe str title-case"
+8 = ":pipe str upcase"
 
 # [keys.normal."space"."o"]
 # n = ":o <C-r>%<C-w>"
