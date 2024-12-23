@@ -935,9 +935,26 @@ use std/dirs shells-aliases *
 # Prompt
 use ~/.cache/starship/init.nu
 
+$env.__ORIG_PATH = $env.PATH;
+
+# Add node_module/.bin & proto_hook
+$env.config.hooks.env_change.PWD = $env.config.hooks.env_change.PWD | append {|before, after| 
+    let config = proto activate --json --no-bin | from json;
+
+    let node_bin_path = $after | path join node_modules .bin; 
+    let is_node_path = $node_bin_path | path exists;
+
+    if $is_node_path {
+        $env.PATH = $env.__ORIG_PATH | prepend $node_bin_path | prepend ($config.paths | reverse)
+    } else {
+        $env.PATH = $env.__ORIG_PATH | prepend ($config.paths | reverse)
+    }
+}
+
 # Utils
 def toxic-slack [] {input | str downcase | split chars | each {$":alphabet-white-($in):"} | str join '' | str replace --all ":alphabet-white- :" "   " | str replace --all ":alphabet-white-!:" ":alphabet-white-exclamation:" | pbcopy}
 
+# Spawn new Node.js projet 
 def new-node-projet [] {
     {name: (pwd | path basename), version: "0.0.0" licence: "MIT"} | save package.json
 }
@@ -948,13 +965,16 @@ def pinggy [port: int] {
 
 def open-dot-env [file:string] {open $file | lines --skip-empty | filter {$in =~ '^\s*[^#]'} | parse -r '(?<key>[^=#]+)=\"?(?<value>.*?)\"?$' | transpose -rd}
 
+alias za = zellij attach;
+def update_file [file: string, closure: closure] {open $file | do $closure $in | save -f $file};
+
 module alacritty-config {
-    export def opacity [ratio: float] {open ~/.config/alacritty/alacritty.toml | update window.opacity $ratio | collect {save -f ~/.config/alacritty/alacritty.toml}}
-    export def blur [blur: bool] {open ~/.config/alacritty/alacritty.toml | update window.blur $blur | collect {save -f ~/.config/alacritty/alacritty.toml}}
+    export def opacity [ratio: float] {update_file ~/.config/alacritty/alacritty.toml { update window.opacity $ratio }}
+    export def blur [blur: bool] {update_file ~/.config/alacritty/alacritty.toml { update window.blur $blur }}
 }
 use alacritty-config;
 
-# The list of installed brew formulae and casks as a nu table
+# List of installed brew formulae and casks as a nu table
 def "brew state" [] {
     let brew_formula = brew list --installed-on-request -1 | lines; 
     brew info --json=v2 --installed 
