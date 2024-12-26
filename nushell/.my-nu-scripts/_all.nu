@@ -1,6 +1,6 @@
 use wd.nu;
 use transfer.nu;
-use aws_custom.nu;
+use aws_profile.nu;
 source docker.nu;
 source yarn.nu;
 source git.nu;
