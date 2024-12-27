@@ -62,14 +62,6 @@ $env.SHELL = (^which nu)
 mkdir ~/.cache/proto
 proto completions --shell nu | save -f ~/.cache/proto/completions.nu
 
-# Pueue
-mkdir ~/.cache/pueue
-pueue completions nushell | save -f ~/.cache/pueue/completions.nu
-
-# JJ
-mkdir ~/.cache/jj
-jj util completion nushell | save -f ~/.cache/jj/completions-jj.nu
-
 # starship
 mkdir ~/.cache/starship
 starship init nu | save -f ~/.cache/starship/init.nu

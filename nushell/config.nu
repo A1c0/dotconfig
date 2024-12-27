@@ -900,8 +900,6 @@ $env.config = {
 source ~/.cache/zoxide/.zoxide.nu;
 source ~/.cache/carapace/init.nu;
 source ~/.cache/proto/completions.nu;
-source ~/.cache/pueue/completions.nu;
-source ~/.cache/jj/completions-jj.nu;
 
 alias meteo = curl v2.wttr.in
 
@@ -915,9 +913,9 @@ alias la = ls -la
 alias gm = pnpm dlx gitmoji-cli -c
 alias lg = lazygit
 
-use ~/.nu-script-official/custom-completions/zellij/zellij-completions.nu *
-use ~/.nu-script-official/custom-completions/git/git-completions.nu *
-use ~/.nu-script-official/custom-completions/glow/glow-completions.nu *
+use ./nu_scripts/custom-completions/zellij/zellij-completions.nu *
+use ./nu_scripts/custom-completions/git/git-completions.nu *
+use ./nu_scripts/custom-completions/glow/glow-completions.nu *
 
 # Theme
 source ./nu_scripts/themes/nu-themes/catppuccin-macchiato.nu
