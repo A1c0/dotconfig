@@ -1,5 +1,5 @@
 # Nushell Environment Config File
-#
+
 # Specifies how environment variables are:
 # - converted from a string to a value on Nushell startup (from_string)
 # - converted from a value back to a string when running external commands (to_string)
@@ -71,6 +71,14 @@ mkdir ~/.cache/zoxide
 zoxide init nushell | save -f ~/.cache/zoxide/.zoxide.nu
 
 $env.VIRTUAL_ENV_DISABLE_PROMPT = 1
+
+# Transient Prompt
+$env.TRANSIENT_PROMPT_COMMAND = ^starship module character
+$env.TRANSIENT_PROMPT_INDICATOR = ""
+$env.TRANSIENT_PROMPT_INDICATOR_VI_INSERT = ""
+$env.TRANSIENT_PROMPT_INDICATOR_VI_NORMAL = ""
+$env.TRANSIENT_PROMPT_MULTILINE_INDICATOR = ""
+$env.TRANSIENT_PROMPT_COMMAND_RIGHT = ^starship module time
 
 # carapace
 $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
