@@ -1,0 +1,5 @@
+# App shortcuts 
+hyper - a : open -a 'Alacritty'
+hyper - m : open -a 'Spotify'
+hyper - l : open -a 'Logseq'
+hyper - b : open -a 'Arc'
