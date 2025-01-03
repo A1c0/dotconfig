@@ -3,17 +3,15 @@ hyper - a : open -a 'Alacritty'
 hyper - m : open -a 'Spotify'
 hyper - l : open -a 'Logseq'
 hyper - b : open -a 'Arc'
-cmd - brightness_up : nu -c "mac-brightnessctl O.O1"
-cmd - brightness_down : mac-brightnessctl 0
+
+# Keyboard brightness
+cmd - brightness_up : nu $HOME/.config/skhd/mac_brightness_plus.nu
+cmd - brightness_down : nu $HOME/.config/skhd/mac_brightness_minus.nu
 
 alt - return : yabai -m window --toggle zoom-fullscreen
 
-
-# Déplacer le focus vers la gauche
+# Focus Change
 alt - h : yabai -m window --focus west
-# Déplacer le focus vers la droite
 alt - l : yabai -m window --focus east
-# Déplacer le focus vers le haut
 alt - k : yabai -m window --focus north
-# Déplacer le focus vers le bas
 alt - j : yabai -m window --focus south
