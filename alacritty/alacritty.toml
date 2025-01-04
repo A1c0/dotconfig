@@ -2,7 +2,7 @@
 import = ["~/.config/alacritty/themes/catppuccin-macchiato.toml"]
 
 [env]
-XDG_CONFIG_HOME = "/Users/contassot/.config"
+XDG_CONFIG_HOME = "/Users/a1c0/.config"
 
 [font]
 size = 14
