@@ -11,7 +11,10 @@ cmd - brightness_down : nu $HOME/.config/skhd/mac_brightness_minus.nu
 alt - return : yabai -m window --toggle zoom-fullscreen
 
 # Focus Change
-alt - h : yabai -m window --focus west
-alt - l : yabai -m window --focus east
-alt - k : yabai -m window --focus north
-alt - j : yabai -m window --focus south
+ctrl + alt - left : yabai -m window --focus west
+ctrl + alt - right : yabai -m window --focus east
+ctrl + alt - up : yabai -m window --focus north
+ctrl + alt - down : yabai -m window --focus south
+
+# Opacity
+hyper - t : yabai -m window --opacity 1.00
