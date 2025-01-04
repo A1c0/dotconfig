@@ -8,6 +8,10 @@ hyper - b : open -a 'Arc'
 cmd - brightness_up : nu $HOME/.config/skhd/mac_brightness_plus.nu
 cmd - brightness_down : nu $HOME/.config/skhd/mac_brightness_minus.nu
 
+# Opacity
+cmd - sound_up : nu $HOME/.config/skhd/opacity_plus.nu
+cmd - sound_down : nu $HOME/.config/skhd/opacity_minus.nu
+
 alt - return : yabai -m window --toggle zoom-fullscreen
 
 # Focus Change
