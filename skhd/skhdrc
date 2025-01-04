@@ -20,5 +20,10 @@ ctrl + alt - right : yabai -m window --focus east
 ctrl + alt - up : yabai -m window --focus north
 ctrl + alt - down : yabai -m window --focus south
 
+meh - left : yabai -m window --swap west
+meh - right : yabai -m window --swap east
+meh - up : yabai -m window --swap north
+meh - down : yabai -m window --swap south
+
 # Opacity
 hyper - t : yabai -m window --opacity 1.00
