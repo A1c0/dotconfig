@@ -12,4 +12,7 @@ yabai -m config right_padding 10
 
 yabai -m config window_shadow off
 
+# for SketchyBar
+# yabai -m config menubar_opacity 0.0
+
 borders active_color=0xffbcbec2 inactive_color=0xff494d64 width=5.0 &

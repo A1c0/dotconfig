@@ -12,13 +12,21 @@ cmd - brightness_down : nu $HOME/.config/skhd/mac_brightness_minus.nu
 cmd - sound_up : nu $HOME/.config/skhd/opacity_plus.nu
 cmd - sound_down : nu $HOME/.config/skhd/opacity_minus.nu
 
-alt - return : yabai -m window --toggle zoom-fullscreen
+ctrl + alt - return : yabai -m window --toggle zoom-fullscreen
 
 # Focus Change
 ctrl + alt - left : yabai -m window --focus west
 ctrl + alt - right : yabai -m window --focus east
 ctrl + alt - up : yabai -m window --focus north
 ctrl + alt - down : yabai -m window --focus south
+
+ctrl + alt - 0x12 : yabai -m space --focus 1
+ctrl + alt - 0x13 : yabai -m space --focus 2
+ctrl + alt - 0x14 : yabai -m space --focus 3
+ctrl + alt - 0x15 : yabai -m space --focus 4
+ctrl + alt - 0x16 : yabai -m space --focus 5
+ctrl + alt - 0x17 : yabai -m space --focus 6
+ctrl + alt - 0x18 : yabai -m space --focus 7
 
 meh - left : yabai -m window --swap west
 meh - right : yabai -m window --swap east
