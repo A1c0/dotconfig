@@ -937,15 +937,15 @@ $env.__ORIG_PATH = $env.PATH;
 
 # Add node_module/.bin & proto_hook
 $env.config.hooks.env_change.PWD = $env.config.hooks.env_change.PWD | append {|before, after| 
-    let config = proto activate --json --no-bin | from json;
+    let config = proto activate --json | from json;
 
     let node_bin_path = $after | path join node_modules .bin; 
     let is_node_path = $node_bin_path | path exists;
 
     if $is_node_path {
-        $env.PATH = $env.__ORIG_PATH | prepend $node_bin_path | prepend ($config.paths | reverse)
+        $env.PATH = $env.__ORIG_PATH | prepend $node_bin_path | prepend $config.paths
     } else {
-        $env.PATH = $env.__ORIG_PATH | prepend ($config.paths | reverse)
+        $env.PATH = $env.__ORIG_PATH | prepend $config.paths
     }
 }
 
