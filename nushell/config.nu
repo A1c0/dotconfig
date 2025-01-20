@@ -906,8 +906,6 @@ alias meteo = curl v2.wttr.in
 # PUPPETEER Chromium fail on M1 chip
 $env.PUPPETEER_SKIP_CHROMIUM_DOWNLOAD = true
 
-alias webstorm = webstorm1
-alias ws = webstorm
 alias clr = clear
 alias la = ls -la
 alias gm = pnpm dlx gitmoji-cli -c
