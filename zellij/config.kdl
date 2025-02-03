@@ -140,8 +140,8 @@ keybinds clear-defaults=true {
         bind "Super +" { Resize "Increase"; }
         bind "Super -" { Resize "Decrease"; }
         bind "Super =" { Resize "Increase"; }
-        bind "Super [" { PreviousSwapLayout; }
-        bind "Super ]" { NextSwapLayout; }
+        bind "Super ;" { PreviousSwapLayout; }
+        bind "Super :" { NextSwapLayout; }
         bind "Super f" { ToggleFloatingPanes; }
         bind "Super h" { MoveFocusOrTab "left"; }
         bind "Super i" { MoveTab "left"; }

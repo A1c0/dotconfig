@@ -3,6 +3,8 @@ hyper - a : open -a 'Alacritty'
 hyper - m : open -a 'Spotify'
 hyper - l : open -a 'Logseq'
 hyper - b : open -a 'Arc'
+hyper - w : open -a 'Webstorm'
+hyper - s : open -a 'Slack'
 
 # Keyboard brightness
 cmd - brightness_up : nu $HOME/.config/skhd/mac_brightness_plus.nu

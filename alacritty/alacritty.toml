@@ -1,11 +1,8 @@
 [general]
 import = ["~/.config/alacritty/themes/catppuccin-macchiato.toml"]
 
-[env]
-XDG_CONFIG_HOME = "/Users/a1c0/.config"
-
 [font]
-size = 14
+size = 13
 
 [font.bold]
 family = "Hack Nerd Font"
