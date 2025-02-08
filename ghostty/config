@@ -1,0 +1,12 @@
+theme = catppuccin-macchiato
+command = "/opt/homebrew/bin/nu"
+macos-titlebar-proxy-icon = hidden
+title = " "
+font-size = 13
+mouse-hide-while-typing = true
+
+# Unbind cmd because of Zellij main key
+keybind = cmd+left=unbind
+keybind = cmd+right=unbind
+keybind = cmd+up=unbind
+keybind = cmd+down=unbind
