@@ -280,7 +280,7 @@ shift-down = ['volume set 0', 'mode main']
 
 [[on-window-detected]]
     if.app-id = 'app.zen-browser.zen'
-    run = 'move-node-to-workspace W' # mnemonics Z - Zen
+    run = 'move-node-to-workspace Z' # mnemonics Z - Zen
 
 [[on-window-detected]]
     if.app-id = 'org.whispersystems.signal-desktop'
