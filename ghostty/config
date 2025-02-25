@@ -1,8 +1,13 @@
 theme = catppuccin-macchiato
+
 command = "/opt/homebrew/bin/nu"
+
+# Top bar
 macos-titlebar-proxy-icon = hidden
 title = " "
+
 font-size = 13
+
 mouse-hide-while-typing = true
 
 # Unbind cmd because of Zellij main key

@@ -93,6 +93,9 @@ outer.right =      10
 # end tell'
 # '''
 
+
+cmd-alt-ctrl-f1 = 'exec-and-forget open -a Terminal'
+
 # See: https://nikitabobko.github.io/AeroSpace/commands#layout
 cmd-alt-ctrl-slash = 'layout tiles horizontal vertical'
 cmd-alt-ctrl-comma = 'layout accordion horizontal vertical'
@@ -136,7 +139,7 @@ cmd-alt-ctrl-n = 'workspace N'
 cmd-alt-ctrl-o = 'workspace O'
 cmd-alt-ctrl-p = 'workspace P'
 cmd-alt-ctrl-q = 'workspace Q'
-cmd-alt-ctrl-r = 'workspace R'
+# cmd-alt-ctrl-r = 'workspace R'
 cmd-alt-ctrl-s = 'workspace S'
 cmd-alt-ctrl-t = 'workspace T'
 cmd-alt-ctrl-u = 'workspace U'
@@ -169,7 +172,7 @@ cmd-alt-ctrl-shift-n = 'move-node-to-workspace N'
 cmd-alt-ctrl-shift-o = 'move-node-to-workspace O'
 cmd-alt-ctrl-shift-p = 'move-node-to-workspace P'
 cmd-alt-ctrl-shift-q = 'move-node-to-workspace Q'
-cmd-alt-ctrl-shift-r = 'move-node-to-workspace R'
+# cmd-alt-ctrl-shift-r = 'move-node-to-workspace R'
 cmd-alt-ctrl-shift-s = 'move-node-to-workspace S'
 cmd-alt-ctrl-shift-t = 'move-node-to-workspace T'
 cmd-alt-ctrl-shift-u = 'move-node-to-workspace U'
@@ -186,6 +189,7 @@ cmd-alt-ctrl-shift-tab = 'move-workspace-to-monitor --wrap-around next'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#mode
 cmd-alt-ctrl-shift-semicolon = 'mode service'
+cmd-alt-ctrl-shift-r = 'mode resize'
 
 # 'service' binding mode declaration.
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
@@ -206,6 +210,11 @@ cmd-alt-ctrl-shift-l = ['join-with right', 'mode main']
 down = 'volume down'
 up = 'volume up'
 shift-down = ['volume set 0', 'mode main']
+
+[mode.resize.binding]
+minus = 'resize smart -50'
+equal = 'resize smart +50'
+esc = 'mode main'
 
 # Azerty Keyboard binding
 [key-mapping.key-notation-to-key-code]
@@ -256,7 +265,7 @@ shift-down = ['volume set 0', 'mode main']
     comma = 'm'
     semicolon = 'comma'
     colon = 'period'
-    # '=' = 'slash'
+    equal = 'slash'
 
 [[on-window-detected]]
     if.app-id = 'com.spotify.client'
