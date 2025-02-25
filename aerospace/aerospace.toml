@@ -112,10 +112,6 @@ cmd-alt-ctrl-shift-j = 'move down'
 cmd-alt-ctrl-shift-k = 'move up'
 cmd-alt-ctrl-shift-l = 'move right'
 
-# See: https://nikitabobko.github.io/AeroSpace/commands#resize
-# alt-shift-minus = 'resize smart -50'
-# alt-shift-equal = 'resize smart +50'
-
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
 cmd-alt-ctrl-1 = 'workspace 1'
 cmd-alt-ctrl-2 = 'workspace 2'
@@ -214,6 +210,7 @@ shift-down = ['volume set 0', 'mode main']
 [mode.resize.binding]
 minus = 'resize smart -50'
 equal = 'resize smart +50'
+r = ['balance-sizes', 'mode main']
 esc = 'mode main'
 
 # Azerty Keyboard binding
