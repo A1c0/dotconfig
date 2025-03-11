@@ -2,16 +2,33 @@ theme = catppuccin-macchiato
 
 command = "/opt/homebrew/bin/nu"
 
-# Top bar
-macos-titlebar-proxy-icon = hidden
-title = " "
-
 font-size = 13
 
 mouse-hide-while-typing = true
+
+
+# ==== TOP BAR ====
+# macos-titlebar-proxy-icon = hidden
+# title = " "
+# ======= or ======
+macos-titlebar-style = hidden
+# =================
+
 
 # Unbind cmd because of Zellij main key
 keybind = cmd+left=unbind
 keybind = cmd+right=unbind
 keybind = cmd+up=unbind
 keybind = cmd+down=unbind
+
+macos-option-as-alt = true
+
+# Thx French keyboard
+keybind = alt+n=text:~
+keybind = alt+shift+l=text:|
+keybind = alt+shift+:=text:\\
+
+keybind = alt+shift+(=text:[
+keybind = alt+shift+)=text:]
+keybind = alt+(=text:{
+keybind = alt+)=text:}

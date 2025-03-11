@@ -58,21 +58,20 @@ use ~/.cache/starship/init.nu
 
 $env.__ORIG_PATH = $env.PATH;
 
-# Add node_module/.bin & proto_hook
+# Add node_module/.bin
 $env.config = ($env | default {} config).config
 $env.config = ($env.config | default {} hooks)
 $env.config = ($env.config | update hooks ($env.config.hooks | default {} env_change))
 $env.config = ($env.config | update hooks.env_change ($env.config.hooks.env_change | default [] PWD))
 $env.config = ($env.config | update hooks.env_change.PWD ($env.config.hooks.env_change.PWD | append {|before, after| 
-    let config = proto activate --json | from json;
 
     let node_bin_path = $after | path join node_modules .bin;
     let is_node_path = $after | path join package.json | path exists;
 
     if $is_node_path {
-        $env.PATH = $env.__ORIG_PATH | prepend $node_bin_path | prepend $config.paths
+        $env.PATH = $env.__ORIG_PATH | prepend $node_bin_path
     } else {
-        $env.PATH = $env.__ORIG_PATH | prepend $config.paths
+        $env.PATH = $env.__ORIG_PATH
     }
 }))
 
@@ -84,14 +83,12 @@ def new-node-projet [] {
     {name: (pwd | path basename), version: "0.0.0" licence: "MIT"} | save package.json
 }
 
-def pinggy [port: int] {
-    ssh -p 443 $"-R0:localhost:($port)" a.pinggy.io
-}
-
 def open-dot-env [file:string] {open $file | lines --skip-empty | filter {$in =~ '^\s*[^#]'} | parse -r '(?<key>[^=#]+)=\"?(?<value>.*?)\"?$' | transpose -rd}
 
 alias za = zellij attach;
 def update_file [file: string, closure: closure] {open $file | do $closure $in | save -f $file};
+
+def unlines [] {$in | str join (char newline)};
 
 module alacritty-config {
     export def opacity [ratio: float] {update_file ~/.config/alacritty/alacritty.toml { update window.opacity $ratio }}
@@ -132,3 +129,5 @@ def restart_superkey [] {
   ps | where name like '(?i)superkey' | first | kill $in.pid;
   ^open /Applications/Superkey.app
 }
+
+source localconfig.nu
