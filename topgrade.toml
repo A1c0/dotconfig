@@ -3,7 +3,7 @@
 #assume_yes = true
 
 # Disable specific steps - same options as the command line flag
-disable = ["node", "pnpm", "shell", "yarn"]
+disable = ["node", "yarn", "uv"]
 
 # Ignore failures for these steps
 #ignore_failures = ["powershell"]
@@ -71,7 +71,7 @@ disable = ["node", "pnpm", "shell", "yarn"]
 
 # Custom commands
 [commands]
-"Proto Upgrade" = "proto upgrade"
+"Proto" = "proto upgrade"
 # "Brew State Upgrade" = "nu $\"($env.XDG_CONFIG_HOME)/brew_state_update.nu\""
 
 [brew]
