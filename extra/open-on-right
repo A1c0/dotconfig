@@ -1,0 +1,8 @@
+#!/usr/bin/env nu
+
+def main [file:string] {
+  zellij action move-focus right;
+  zellij action write-chars $":o ($file)";
+  zellij action write 13;
+  zellij action move-focus left;
+}

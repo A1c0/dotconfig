@@ -43,6 +43,7 @@ use ./nu_scripts/custom-completions/glow/glow-completions.nu *
 
 # Theme
 source ./nu_scripts/themes/nu-themes/catppuccin-macchiato.nu
+print ""
 $env.BAT_THEME = "Catppuccin Macchiato"
 $env.MANPAGER = "sh -c 'col -bx | bat -l man -p'"
 $env.LS_COLORS = (vivid generate catppuccin-macchiato | str trim)
@@ -129,5 +130,8 @@ def restart_superkey [] {
   ps | where name like '(?i)superkey' | first | kill $in.pid;
   ^open /Applications/Superkey.app
 }
+
+use '~/.config/broot/launcher/nushell/br' *
+alias br-zellij = with-env ({EDITOR: ("~/.config/extra/open-on-right" | path expand)}) {br}
 
 source localconfig.nu
