@@ -2,6 +2,7 @@
 !*/
 !.gitignore
 !/zellij/*
+!/broot/**/*
 !/nushell/**/*
 /nushell/history.txt
 /nushell/plugin.msgpackz

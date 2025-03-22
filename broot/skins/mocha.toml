@@ -1,0 +1,15 @@
+[skin]
+default = "#cdd6f4 #1e1e2e"  # Texte principal sur fond sombre
+tree = "#89b4fa"             # Icônes de l'arborescence
+file = "#f9e2af"             # Noms de fichiers
+directory = "#94e2d5"        # Répertoires
+exe = "#a6e3a1"              # Fichiers exécutables
+link = "#f5c2e7"             # Liens symboliques
+pruning = "#f38ba8"          # Éléments ignorés
+perm_r = "#fab387"           # Permissions lecture
+perm_w = "#eba0ac"           # Permissions écriture
+perm_x = "#b4befe"           # Permissions exécution
+selected_line = "none #181825"  # Ligne sélectionnée avec fond légèrement plus sombre
+status_normal = "#cdd6f4 #1e1e2e"  # Statut normal
+status_error = "#f38ba8 #1e1e2e"   # Erreurs
+status_job = "#89dceb"             # Tâches en cours
