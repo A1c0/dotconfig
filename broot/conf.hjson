@@ -298,3 +298,5 @@ imports: [
         file: skins/white.hjson
     }
 ]
+
+icon_theme: nerdfont
