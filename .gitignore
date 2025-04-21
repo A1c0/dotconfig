@@ -7,6 +7,8 @@
 /nushell/history.txt
 /nushell/plugin.msgpackz
 /nushell/localconfig.nu
+/nushell/local
+!/atuin/config.toml
 !topgrade.toml 
 !starship.toml
 !.gitconfig

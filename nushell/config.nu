@@ -26,6 +26,7 @@ $env.ENV_CONVERSIONS = $env.ENV_CONVERSIONS | insert __zoxide_hooked $bool_conve
 source ~/.cache/zoxide/.zoxide.nu;
 source ~/.cache/carapace/init.nu;
 source ~/.cache/proto/completions.nu;
+source ~/.cache/atuin/init.nu;
 
 alias meteo = curl v2.wttr.in
 
@@ -36,6 +37,7 @@ alias clr = clear
 alias la = ls -la
 alias gm = pnpm dlx gitmoji-cli -c
 alias lg = lazygit
+alias ld = lazydocker
 
 use ./nu_scripts/custom-completions/zellij/zellij-completions.nu *
 use ./nu_scripts/custom-completions/git/git-completions.nu *
@@ -132,6 +134,6 @@ def restart_superkey [] {
 }
 
 use '~/.config/broot/launcher/nushell/br' *
-alias br-zellij = with-env ({EDITOR: ("~/.config/extra/open-on-right" | path expand)}) {br}
+alias br-zellij = with-env ({EDITOR: ("~/.config/extra/open-on-right" | path expand)}) {broot}
 
 source localconfig.nu

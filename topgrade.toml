@@ -72,6 +72,7 @@ disable = ["node", "yarn", "uv"]
 # Custom commands
 [commands]
 "Proto" = "proto upgrade"
+"Init Script Reload" = "nu $\"($env.XDG_CONFIG_HOME)/nushell/cache_init.nu\""
 # "Brew State Upgrade" = "nu $\"($env.XDG_CONFIG_HOME)/brew_state_update.nu\""
 
 [brew]
