@@ -1,6 +1,7 @@
 #!/usr/bin/env nu
 
 use ./icon.nu *;
+use ../utils/sketchy_display.nu
 
 def find_workspace_display [workspace: string] {
   open ./states/display.nuon

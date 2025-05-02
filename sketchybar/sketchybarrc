@@ -6,9 +6,6 @@
 # https://github.com/FelixKratz/dotfiles
 
 let PLUGIN_DIR = $"($env.CONFIG_DIR)/plugins"
-let STATE_DIR = $"($env.CONFIG_DIR)/states"
-
-$env.STATE_DIR = $"($env.CONFIG_DIR)/states"
 
 ##### Bar Appearance #####
 # Configuring the general appearance of the bar.
@@ -60,25 +57,9 @@ label.padding_right=4
 #   )
 #   sketchybar --add space space."$sid" left --set space."$sid" "${space[@]}"
 # done
+use ./utils/sketchy_display.nu
 
-let monitor_table = aerospace list-monitors --json
-  | from json
-  | select monitor-id
-  | rename monitor_id
-  | insert workspace {aerospace list-workspaces --monitor $in.monitor_id | lines}
-  | flatten
-
-  let display_monitor_table = sketchybar --query displays
-  | from json
-  | insert sort-value { $in.frame.x - $in.frame.y }
-  | sort-by sort-value
-  | enumerate
-  | rename id
-  | update id {$in + 1}
-  | flatten
-  | rename monitor_id display_id
-
-  $monitor_table | join $display_monitor_table monitor_id | save -f $"($STATE_DIR)/display.nuon"
+sketchy_display refresh
 
 sketchybar --add event aerospace_workspace_change
 sketchybar --add event aerospace_monitor_change
