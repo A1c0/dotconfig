@@ -6,20 +6,7 @@ font-size = 13
 
 mouse-hide-while-typing = true
 
-
-# ==== TOP BAR ====
-# macos-titlebar-proxy-icon = hidden
-# title = " "
-# ======= or ======
 macos-titlebar-style = hidden
-# =================
-
-
-# Unbind cmd because of Zellij main key
-keybind = cmd+left=unbind
-keybind = cmd+right=unbind
-keybind = cmd+up=unbind
-keybind = cmd+down=unbind
 
 macos-option-as-alt = true
 
