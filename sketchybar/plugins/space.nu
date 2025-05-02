@@ -26,8 +26,8 @@ def render_workspace [sid: string, workspace: string] {
                            icon.color=0xeeeeeeee
                            label.color=0xeeeeeeee
                            background.color=0xff24273a
-                           background.border_width=1
-                           background.border_color=0xeeeeeeee
+                           background.border_width=2
+                           background.border_color=0xffcad3f5
                            $"display=($display)"
                            drawing=on)
   } else {
