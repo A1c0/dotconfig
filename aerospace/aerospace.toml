@@ -1,9 +1,12 @@
-# after-startup-command = ['exec-and-forget sketchybar']
-# exec-on-workspace-change = [
-#     '/bin/bash',
-#     '-c',
-#     '/opt/homebrew/opt/sketchybar/bin/sketchybar --trigger aerospace_workspace_change AEROSPACE_FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE AEROSPACE_PREV_WORKSPACE=$AEROSPACE_PREV_WORKSPACE',
-# ]
+after-startup-command = [
+    # 'exec-and-forget sketchybar',
+    # 'exec-and-forget borders active_color=0xffcad3f5 inactive_color=0xff494d64 width=5.0'
+]
+exec-on-workspace-change = [
+    '/bin/bash',
+    '-c',
+    'sketchybar --trigger aerospace_workspace_change AEROSPACE_FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE AEROSPACE_PREV_WORKSPACE=$AEROSPACE_PREV_WORKSPACE',
+]
 start-at-login = false
 enable-normalization-flatten-containers = true
 enable-normalization-opposite-orientation-for-nested-containers = true
@@ -41,15 +44,15 @@ cmd-alt-ctrl-shift-j = 'move down'
 cmd-alt-ctrl-shift-k = 'move up'
 cmd-alt-ctrl-shift-l = 'move right'
 
-cmd-alt-ctrl-1 = 'workspace 1'
-cmd-alt-ctrl-2 = 'workspace 2'
-cmd-alt-ctrl-3 = 'workspace 3'
-cmd-alt-ctrl-4 = 'workspace 4'
-cmd-alt-ctrl-5 = 'workspace 5'
-cmd-alt-ctrl-6 = 'workspace 6'
-cmd-alt-ctrl-7 = 'workspace 7'
-cmd-alt-ctrl-8 = 'workspace 8'
-cmd-alt-ctrl-9 = 'workspace 9'
+cmd-alt-ctrl-1 = 'focus-monitor 1'
+cmd-alt-ctrl-2 = 'focus-monitor 2'
+cmd-alt-ctrl-3 = 'focus-monitor 3'
+cmd-alt-ctrl-4 = 'focus-monitor 4'
+cmd-alt-ctrl-5 = 'focus-monitor 5'
+cmd-alt-ctrl-6 = 'focus-monitor 6'
+cmd-alt-ctrl-7 = 'focus-monitor 7'
+cmd-alt-ctrl-8 = 'focus-monitor 8'
+cmd-alt-ctrl-9 = 'focus-monitor 9'
 cmd-alt-ctrl-a = 'workspace A' # In your config, you can drop workspace bindings that you don't need
 cmd-alt-ctrl-b = 'workspace B'
 cmd-alt-ctrl-c = 'workspace C'
@@ -72,15 +75,15 @@ cmd-alt-ctrl-x = 'workspace X'
 cmd-alt-ctrl-y = 'workspace Y'
 cmd-alt-ctrl-z = 'workspace Z'
 
-cmd-alt-ctrl-shift-1 = ['move-node-to-workspace 1', 'workspace 1' ]
-cmd-alt-ctrl-shift-2 = ['move-node-to-workspace 2', 'workspace 2' ]
-cmd-alt-ctrl-shift-3 = ['move-node-to-workspace 3', 'workspace 3' ]
-cmd-alt-ctrl-shift-4 = ['move-node-to-workspace 4', 'workspace 4' ]
-cmd-alt-ctrl-shift-5 = ['move-node-to-workspace 5', 'workspace 5' ]
-cmd-alt-ctrl-shift-6 = ['move-node-to-workspace 6', 'workspace 6' ]
-cmd-alt-ctrl-shift-7 = ['move-node-to-workspace 7', 'workspace 7' ]
-cmd-alt-ctrl-shift-8 = ['move-node-to-workspace 8', 'workspace 8' ]
-cmd-alt-ctrl-shift-9 = ['move-node-to-workspace 9', 'workspace 9' ]
+cmd-alt-ctrl-shift-1 = ['move-workspace-to-monitor 1', 'workspace 1' ]
+cmd-alt-ctrl-shift-2 = ['move-workspace-to-monitor 2', 'workspace 2' ]
+cmd-alt-ctrl-shift-3 = ['move-workspace-to-monitor 3', 'workspace 3' ]
+cmd-alt-ctrl-shift-4 = ['move-workspace-to-monitor 4', 'workspace 4' ]
+cmd-alt-ctrl-shift-5 = ['move-workspace-to-monitor 5', 'workspace 5' ]
+cmd-alt-ctrl-shift-6 = ['move-workspace-to-monitor 6', 'workspace 6' ]
+cmd-alt-ctrl-shift-7 = ['move-workspace-to-monitor 7', 'workspace 7' ]
+cmd-alt-ctrl-shift-8 = ['move-workspace-to-monitor 8', 'workspace 8' ]
+cmd-alt-ctrl-shift-9 = ['move-workspace-to-monitor 9', 'workspace 9' ]
 cmd-alt-ctrl-shift-a = ['move-node-to-workspace A', 'workspace A' ]
 cmd-alt-ctrl-shift-b = ['move-node-to-workspace B', 'workspace B' ]
 cmd-alt-ctrl-shift-c = ['move-node-to-workspace C', 'workspace C' ]
@@ -104,7 +107,7 @@ cmd-alt-ctrl-shift-y = ['move-node-to-workspace Y', 'workspace Y' ]
 cmd-alt-ctrl-shift-z = ['move-node-to-workspace Z', 'workspace Z' ]
 
 cmd-alt-ctrl-tab = 'workspace-back-and-forth'
-cmd-alt-ctrl-shift-tab = 'move-workspace-to-monitor --wrap-around next'
+cmd-alt-ctrl-shift-tab = ['move-workspace-to-monitor --wrap-around next', 'exec-and-forget sketchybar --trigger aerospace_monitor_change AEROSPACE_FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE']
 
 cmd-alt-ctrl-shift-semicolon = 'mode service'
 cmd-alt-ctrl-shift-r = 'mode resize'

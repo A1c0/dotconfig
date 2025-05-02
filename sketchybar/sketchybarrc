@@ -6,6 +6,9 @@
 # https://github.com/FelixKratz/dotfiles
 
 let PLUGIN_DIR = $"($env.CONFIG_DIR)/plugins"
+let STATE_DIR = $"($env.CONFIG_DIR)/states"
+
+$env.STATE_DIR = $"($env.CONFIG_DIR)/states"
 
 ##### Bar Appearance #####
 # Configuring the general appearance of the bar.
@@ -25,7 +28,7 @@ sketchybar --bar position=top height=35 blur_radius=0 color=0x00000000
 padding_left=5
 padding_right=5
 icon.font="Hack Nerd Font:Bold:15.0"
-label.font="SF Pro:Normal:13.0"
+label.font="SF Pro:Regular:13.0"
 icon.color=0xffffffff
 label.color=0xffffffff
 icon.padding_left=4
@@ -57,31 +60,46 @@ label.padding_right=4
 #   )
 #   sketchybar --add space space."$sid" left --set space."$sid" "${space[@]}"
 # done
-use ./plugins/icon.nu *;
 
+let monitor_table = aerospace list-monitors --json
+  | from json
+  | select monitor-id
+  | rename monitor_id
+  | insert workspace {aerospace list-workspaces --monitor $in.monitor_id | lines}
+  | flatten
 
-let table = aerospace list-workspaces --all | lines | wrap workspace | sort-by workspace | par-each { insert apps {aerospace list-windows --workspace $in.workspace --json | from json | get app-name} } | where ($it.apps | length) > 0 | update apps {each {to-icon}|str join ' ' } 
+  let display_monitor_table = sketchybar --query displays
+  | from json
+  | insert sort-value { $in.frame.x - $in.frame.y }
+  | sort-by sort-value
+  | enumerate
+  | rename id
+  | update id {$in + 1}
+  | flatten
+  | rename monitor_id display_id
 
-for x in $table {
-let sid = $"space.($x.workspace)";
-(sketchybar --add item $sid left
-            --set $sid $"icon=($x.workspace)"
-                       icon.color=0xdddddddd
-                       icon.font="SF Pro:Regular:15.0"
-                       $"label=($x.apps)"
-                       label.color=0xdddddddd
-                       label.font="sketchybar-app-font:Regular:16.0"
-                       background.color=0x9924273a
-                       background.corner_radius=5
-                       background.height=30
-                       drawing=on
-                       blur_radius=50
-                       $"click_script=aerospace workspace ($x.workspace)"
-                       display=1)
-            
+  $monitor_table | join $display_monitor_table monitor_id | save -f $"($STATE_DIR)/display.nuon"
+
+sketchybar --add event aerospace_workspace_change
+sketchybar --add event aerospace_monitor_change
+
+for workspace in (aerospace list-workspaces --all | lines) {
+let sid = $"space.($workspace)";
+  (sketchybar --add item $sid left
+              --subscribe $sid aerospace_workspace_change
+              --subscribe $sid aerospace_monitor_change
+              --subscribe $sid front_app_switched
+              --subscribe $sid space_windows_change
+              --set $sid drawing=false
+                         $"icon=($workspace)"
+                         icon.font="SF Pro:Bold:15.0"
+                         label.font="sketchybar-app-font:Regular:16.0"
+                         background.corner_radius=5
+                         background.height=30
+                         blur_radius=50
+                         $"click_script=aerospace workspace ($workspace)"
+                         $"script=($PLUGIN_DIR)/space.nu ($sid) ($workspace)")
 }
-sketchybar --set space.T background.color=0xff24273a icon.color=0xffffffff label.color=0xffffffff
-
 
 ##### Adding Right Items #####
 # In the same way as the left items we can add items to the right side.
