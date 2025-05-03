@@ -21,18 +21,16 @@ sketchybar --bar position=top height=35 blur_radius=0 color=0x00000000
 # For a full list of all available item properties see:
 # https://felixkratz.github.io/SketchyBar/config/items
 
-(sketchybar --default
-padding_left=5
-padding_right=5
-icon.font="Hack Nerd Font:Bold:15.0"
-label.font="SF Pro:Regular:13.0"
-icon.color=0xffffffff
-label.color=0xffffffff
-icon.padding_left=4
-icon.padding_right=4
-label.padding_left=4
-label.padding_right=4
-)
+(sketchybar --default padding_left=5
+                      padding_right=5
+                      icon.font="Hack Nerd Font:Bold:15.0"
+                      label.font="SF Pro:Regular:13.0"
+                      icon.color=0xffffffff
+                      label.color=0xffffffff
+                      icon.padding_left=4
+                      icon.padding_right=4
+                      label.padding_left=4
+                      label.padding_right=4)
 
 ##### Adding Mission Control Space Indicators #####
 # Let's add some mission control spaces:
@@ -65,21 +63,21 @@ sketchybar --add event aerospace_workspace_change
 sketchybar --add event aerospace_monitor_change
 
 for workspace in (aerospace list-workspaces --all | lines) {
-let sid = $"space.($workspace)";
-  (sketchybar --add item $sid left
-              --subscribe $sid aerospace_workspace_change
-              --subscribe $sid aerospace_monitor_change
-              --subscribe $sid front_app_switched
-              --subscribe $sid space_windows_change
-              --set $sid drawing=false
-                         $"icon=($workspace)"
-                         icon.font="SF Pro:Bold:15.0"
-                         label.font="sketchybar-app-font:Regular:16.0"
-                         background.corner_radius=5
-                         background.height=30
-                         blur_radius=50
-                         $"click_script=aerospace workspace ($workspace)"
-                         $"script=($PLUGIN_DIR)/space.nu ($sid) ($workspace)")
+  let sid = $"space.($workspace)";
+    (sketchybar --add item $sid left
+                --subscribe $sid aerospace_workspace_change
+                --subscribe $sid aerospace_monitor_change
+                --subscribe $sid front_app_switched
+                --subscribe $sid space_windows_change
+                --set $sid drawing=false
+                           $"icon=($workspace)"
+                           icon.font="SF Pro:Bold:15.0"
+                           label.font="sketchybar-app-font:Regular:16.0"
+                           background.corner_radius=5
+                           background.height=30
+                           blur_radius=50
+                           $"click_script=aerospace workspace ($workspace)"
+                           $"script=($PLUGIN_DIR)/space.nu ($sid) ($workspace)")
 }
 
 ##### Adding Right Items #####
