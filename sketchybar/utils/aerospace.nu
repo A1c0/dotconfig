@@ -1,4 +1,4 @@
-export def get_table [] {
+export def table [] {
   let visible_workspaces = aerospace list-workspaces --monitor all --visible | lines
   let focused_workspace = aerospace list-workspaces --focused
 
@@ -35,8 +35,8 @@ export def get_table [] {
   }
 
   $monitor_table
-  | join $display_monitor_table monitor
-  | join $app_table workspace | par-each {
+  | join -l $display_monitor_table monitor
+  | join -l $app_table workspace | par-each {
     $in
     | insert visible {$in.workspace in $visible_workspaces}
     | insert focused {$in.workspace == $focused_workspace}

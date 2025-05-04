@@ -1,60 +1,52 @@
 #!/usr/bin/env nu
 
-use ../utils/icon.nu *;
+use ../utils/icon.nu;
+use ../utils/aerospace.nu;
 
-def find_workspace_display [workspace: string] {
-  open ./states/display.nuon
-  | where workspace == $workspace
-  | get 0.display_id
-}
+def render_workspace [] {
 
-def render_workspace [sid: string, workspace: string] {
-  let app = aerospace list-windows --workspace $workspace --json
-  | from json
-  | get app-name
-  | each { to-icon }
-  | str join ''
-
-  let focused_workspace = aerospace list-workspaces --focused
-  let is_focused = $focused_workspace == $workspace
-
-  let display = find_workspace_display $workspace
-
-  if $is_focused {
-    (sketchybar --set $sid $"label=($app)"
-                           icon.color=0xeeeeeeee
-                           label.color=0xeeeeeeee
-                           background.color=0xff24273a
-                           background.border_width=2
-                           background.border_color=0xffcad3f5
-                           $"display=($display)"
-                           drawing=on)
-  } else {
-    if ($app | is-empty) {
-      sketchybar --set $sid drawing=off
+  let aerospace_table = aerospace table | update apps {default [] | par-each {icon from name}};
+  let options = $aerospace_table | par-each {|space|
+  let sid = $"space.($space.workspace)"
+    if $space.visible {
+      return [
+        --set, $sid, $"label=($space.apps | str join)",
+                     icon.color=0xeeeeeeee,
+                     label.color=0xeeeeeeee,
+                     background.color=0xff24273a,
+                     background.border_width=(if $space.focused {2} else {1}),
+                     background.border_color=0xffcad3f5,
+                     $"display=($space.display)",
+                     drawing=on,
+        
+      ]
     } else {
-     (sketchybar --set $sid $"label=($app)"
-                            icon.color=0xdddddddd
-                            label.color=0xdddddddd
-                            background.color=0x9924273a
-                            background.border_width=0
-                            $"display=($display)"
-                            drawing=on)
-    }   
-  }  
+      if ($space.apps | is-empty) {
+        return [--set, $sid, drawing=off]
+      } else {
+        return [ --set, $sid, $"label=($space.apps | str join)",
+                              icon.color=0xdddddddd,
+                              label.color=0xdddddddd,
+                              background.color=0x9924273a,
+                              background.border_width=0,
+                              $"display=($space.display)",
+                              drawing=on,
+        ]
+      }   
+    }
+  }
+
+  sketchybar ...($options | flatten)
+
 }
 
 def main [] {
-  print $'event: ($env.SENDER)'
-  match $env.SENDER {
-    'aerospace_workspace_change' => {
-      # if ($workspace == $env.AEROSPACE_FOCUSED_WORKSPACE or $workspace == $env.AEROSPACE_PREV_WORKSPACE) {
-      #   render_workspace $sid $workspace
-      # }
-    }
-    'aerospace_monitor_change' => {}    
-    'forced' => {}
-    'space_windows_change' => {}
-    'front_app_switched' => {}
-  }
+  # match $env.SENDER {
+    # 'aerospace_workspace_change' => {
+    #   # if ($workspace == $env.AEROSPACE_FOCUSED_WORKSPACE or $workspace == $env.AEROSPACE_PREV_WORKSPACE) {
+    #   #   render_workspace $sid $workspace
+    #   # }
+    # }
+  # }
+  render_workspace 
 }

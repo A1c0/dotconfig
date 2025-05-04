@@ -21,8 +21,8 @@ sketchybar --add event aerospace_workspace_change
 sketchybar --add event aerospace_monitor_change
 
 let space_icon_default = [
-   icon.font="SF Pro:Bold:15.0",
-   label.font="sketchybar-app-font:Regular:16.0",
+   "icon.font=SF Pro:Bold:15.0",
+   "label.font=sketchybar-app-font:Regular:16.0",
    background.corner_radius=5,
    background.height=30,
    blur_radius=50,
@@ -40,7 +40,7 @@ let sketchybar_options = aerospace list-workspaces --all | lines | each {|worksp
 } | flatten;
 
 sketchybar ...$sketchybar_options;
-
+ 
 let space_subcriber = 'space_subcriber'
 
 (sketchybar --add item $space_subcriber left

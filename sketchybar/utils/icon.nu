@@ -1,6 +1,6 @@
 #!/usr/bin/env nu
 
-export def to-icon [] {
+export def 'from name' [] {
   match $in {
    "Lie" => { ":ableton:" }
    "Activity Monitor" => { ":activity_monitor:" }
