@@ -76,58 +76,49 @@ cmd-alt-ctrl-y = 'workspace Y'
 cmd-alt-ctrl-z = 'workspace Z'
 
 cmd-alt-ctrl-shift-1 = [
-'move-workspace-to-monitor 1',
-'workspace 1',
-'exec-and-forget nu -c "use ~/.config/sketchybar/utils/sketchy_display.nu; sketchy_display refresh"',
-'exec-and-forget sketchybar --trigger aerospace_monitor_change'
+    'move-workspace-to-monitor 1',
+    'focus-monitor 1',
+    'exec-and-forget sketchybar --trigger aerospace_monitor_change'
 ]
 cmd-alt-ctrl-shift-2 = [
-'move-workspace-to-monitor 2',
-'workspace 2',
-'exec-and-forget nu -c "use ~/.config/sketchybar/utils/sketchy_display.nu; sketchy_display refresh"',
-'exec-and-forget sketchybar --trigger aerospace_monitor_change'
+    'move-workspace-to-monitor 2',
+    'focus-monitor 2',
+    'exec-and-forget sketchybar --trigger aerospace_monitor_change'
 ]
 cmd-alt-ctrl-shift-3 = [
-'move-workspace-to-monitor 3',
-'workspace 3',
-'exec-and-forget nu -c "use ~/.config/sketchybar/utils/sketchy_display.nu; sketchy_display refresh"',
-'exec-and-forget sketchybar --trigger aerospace_monitor_change'
+    'move-workspace-to-monitor 3',
+    'focus-monitor 3',
+    'exec-and-forget sketchybar --trigger aerospace_monitor_change'
 ]
 cmd-alt-ctrl-shift-4 = [
-'move-workspace-to-monitor 4',
-'workspace 4',
-'exec-and-forget nu -c "use ~/.config/sketchybar/utils/sketchy_display.nu; sketchy_display refresh"',
-'exec-and-forget sketchybar --trigger aerospace_monitor_change'
+    'move-workspace-to-monitor 4',
+    'focus-monitor 4',
+    'exec-and-forget sketchybar --trigger aerospace_monitor_change'
 ]
 cmd-alt-ctrl-shift-5 = [
-'move-workspace-to-monitor 5',
-'workspace 5',
-'exec-and-forget nu -c "use ~/.config/sketchybar/utils/sketchy_display.nu; sketchy_display refresh"',
-'exec-and-forget sketchybar --trigger aerospace_monitor_change'
+    'move-workspace-to-monitor 5',
+    'focus-monitor 5',
+    'exec-and-forget sketchybar --trigger aerospace_monitor_change'
 ]
 cmd-alt-ctrl-shift-6 = [
-'move-workspace-to-monitor 6',
-'workspace 6',
-'exec-and-forget nu -c "use ~/.config/sketchybar/utils/sketchy_display.nu; sketchy_display refresh"',
-'exec-and-forget sketchybar --trigger aerospace_monitor_change'
+    'move-workspace-to-monitor 6',
+    'focus-monitor 6',
+    'exec-and-forget sketchybar --trigger aerospace_monitor_change'
 ]
 cmd-alt-ctrl-shift-7 = [
-'move-workspace-to-monitor 7',
-'workspace 7',
-'exec-and-forget nu -c "use ~/.config/sketchybar/utils/sketchy_display.nu; sketchy_display refresh"',
-'exec-and-forget sketchybar --trigger aerospace_monitor_change'
+    'move-workspace-to-monitor 7',
+    'focus-monitor 7',
+    'exec-and-forget sketchybar --trigger aerospace_monitor_change'
 ]
 cmd-alt-ctrl-shift-8 = [
-'move-workspace-to-monitor 8',
-'workspace 8',
-'exec-and-forget nu -c "use ~/.config/sketchybar/utils/sketchy_display.nu; sketchy_display refresh"',
-'exec-and-forget sketchybar --trigger aerospace_monitor_change'
+    'move-workspace-to-monitor 8',
+    'focus-monitor 8',
+    'exec-and-forget sketchybar --trigger aerospace_monitor_change'
 ]
 cmd-alt-ctrl-shift-9 = [
-'move-workspace-to-monitor 9',
-'workspace 9',
-'exec-and-forget nu -c "use ~/.config/sketchybar/utils/sketchy_display.nu; sketchy_display refresh"',
-'exec-and-forget sketchybar --trigger aerospace_monitor_change'
+    'move-workspace-to-monitor 9',
+    'focus-monitor 9',
+    'exec-and-forget sketchybar --trigger aerospace_monitor_change'
 ]
 
 cmd-alt-ctrl-shift-a = ['move-node-to-workspace A', 'workspace A' ]

@@ -1,26 +1,10 @@
 #!/usr/bin/env nu
-
-# This is a demo config to showcase some of the most important commands.
-# It is meant to be changed and configured, as it is intentionally kept sparse.
-# For a (much) more advanced configuration example see my dotfiles:
-# https://github.com/FelixKratz/dotfiles
-
 let PLUGIN_DIR = $"($env.CONFIG_DIR)/plugins"
 
-##### Bar Appearance #####
-# Configuring the general appearance of the bar.
-# These are only some of the options available. For all options see:
-# https://felixkratz.github.io/SketchyBar/config/bar
-# If you are looking for other colors, see the color picker:
-# https://felixkratz.github.io/SketchyBar/config/tricks#color-picker
-
+# Bar
 sketchybar --bar position=top height=35 blur_radius=0 color=0x00000000
 
-##### Changing Defaults #####
-# We now change some default values, which are applied to all further items.
-# For a full list of all available item properties see:
-# https://felixkratz.github.io/SketchyBar/config/items
-
+# Defaults
 (sketchybar --default padding_left=5
                       padding_right=5
                       icon.font="Hack Nerd Font:Bold:15.0"
@@ -32,77 +16,51 @@ sketchybar --bar position=top height=35 blur_radius=0 color=0x00000000
                       label.padding_left=4
                       label.padding_right=4)
 
-##### Adding Mission Control Space Indicators #####
-# Let's add some mission control spaces:
-# https://felixkratz.github.io/SketchyBar/config/components#space----associate-mission-control-spaces-with-an-item
-# to indicate active and available mission control spaces.
-
-# SPACE_ICONS=("1" "2" "3" "4" "5" "6" "7" "8" "9" "10")
-# for i in "${!SPACE_ICONS[@]}"
-# do
-#   sid="$(($i+1))"
-#   space=(
-#     space="$sid"
-#     icon="${SPACE_ICONS[i]}"
-#     icon.padding_left=7
-#     icon.padding_right=7
-#     background.color=0x40ffffff
-#     background.corner_radius=5
-#     background.height=25
-#     label.drawing=off
-#     script="$PLUGIN_DIR/space.sh"
-#     click_script="yabai -m space --focus $sid"
-#   )
-#   sketchybar --add space space."$sid" left --set space."$sid" "${space[@]}"
-# done
-use ./utils/sketchy_display.nu
-
-sketchy_display refresh
-
+# Spaces
 sketchybar --add event aerospace_workspace_change
 sketchybar --add event aerospace_monitor_change
 
-for workspace in (aerospace list-workspaces --all | lines) {
+let space_icon_default = [
+   icon.font="SF Pro:Bold:15.0",
+   label.font="sketchybar-app-font:Regular:16.0",
+   background.corner_radius=5,
+   background.height=30,
+   blur_radius=50,
+]
+
+let sketchybar_options = aerospace list-workspaces --all | lines | each {|workspace|
   let sid = $"space.($workspace)";
-    (sketchybar --add item $sid left
-                --subscribe $sid aerospace_workspace_change
-                --subscribe $sid aerospace_monitor_change
-                --subscribe $sid front_app_switched
-                --subscribe $sid space_windows_change
-                --set $sid drawing=false
-                           $"icon=($workspace)"
-                           icon.font="SF Pro:Bold:15.0"
-                           label.font="sketchybar-app-font:Regular:16.0"
-                           background.corner_radius=5
-                           background.height=30
-                           blur_radius=50
-                           $"click_script=aerospace workspace ($workspace)"
-                           $"script=($PLUGIN_DIR)/space.nu ($sid) ($workspace)")
-}
+  [
+    --add, item, $sid, left,
+    --set, $sid, drawing=false,
+    $"icon=($workspace)",
+    $"click_script=aerospace workspace ($workspace)",
+    ...$space_icon_default
+  ]
+} | flatten;
 
-##### Adding Right Items #####
-# In the same way as the left items we can add items to the right side.
-# Additional position (e.g. center) are available, see:
-# https://felixkratz.github.io/SketchyBar/config/items#adding-items-to-sketchybar
+sketchybar ...$sketchybar_options;
 
-# Some items refresh on a fixed cycle, e.g. the clock runs its script once
-# every 10s. Other items respond to events they subscribe to, e.g. the
-# volume.sh script is only executed once an actual change in system audio
-# volume is registered. More info about the event system can be found here:
-# https://felixkratz.github.io/SketchyBar/config/events
+let space_subcriber = 'space_subcriber'
 
+(sketchybar --add item $space_subcriber left
+            --subscribe $space_subcriber aerospace_workspace_change
+            --subscribe $space_subcriber aerospace_monitor_change
+            --subscribe $space_subcriber front_app_switched
+            --subscribe $space_subcriber space_windows_change
+            --set $space_subcriber drawing=false
+            $"script=($PLUGIN_DIR)/space.nu")
+
+# Aldente
 sketchybar --add alias "AlDente,Item-0" right
 
+# Clock
 (sketchybar --add item clock right 
-            --set clock
-                        background.color=0x9924273a
+            --set clock background.color=0x9924273a
                         background.corner_radius=5
                         background.height=30
                         update_freq=10
-                        $"script=($PLUGIN_DIR)/clock.nu"
-                        )
-
-sketchybar --hotload on
+                        $"script=($PLUGIN_DIR)/clock.nu")
 
 ##### Force all scripts to run the first time (never do this in a script) #####
 sketchybar --update

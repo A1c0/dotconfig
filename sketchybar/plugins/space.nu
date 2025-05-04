@@ -1,7 +1,6 @@
 #!/usr/bin/env nu
 
-use ./icon.nu *;
-use ../utils/sketchy_display.nu
+use ../utils/icon.nu *;
 
 def find_workspace_display [workspace: string] {
   open ./states/display.nuon
@@ -45,15 +44,17 @@ def render_workspace [sid: string, workspace: string] {
   }  
 }
 
-def main [sid: string, workspace: string] {
+def main [] {
+  print $'event: ($env.SENDER)'
   match $env.SENDER {
     'aerospace_workspace_change' => {
-      if ($workspace == $env.AEROSPACE_FOCUSED_WORKSPACE or $workspace == $env.AEROSPACE_PREV_WORKSPACE) {
-        render_workspace $sid $workspace
-      }
+      # if ($workspace == $env.AEROSPACE_FOCUSED_WORKSPACE or $workspace == $env.AEROSPACE_PREV_WORKSPACE) {
+      #   render_workspace $sid $workspace
+      # }
     }
-    'aerospace_monitor_change' => { render_workspace $sid $workspace  }    
-    'forced' => { render_workspace $sid $workspace }
-    'space_windows_change' => { render_workspace $sid $workspace }
+    'aerospace_monitor_change' => {}    
+    'forced' => {}
+    'space_windows_change' => {}
+    'front_app_switched' => {}
   }
 }
