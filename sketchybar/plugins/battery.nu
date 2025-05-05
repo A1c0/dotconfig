@@ -19,17 +19,6 @@ def get_icon [percentage:number] {
 
 def main [] {
   let status = aldente status;
-  let icon = get_icon ($status.percentage | into int) 
+  let icon = get_icon $status.percentage
   sketchybar --set $env.NAME $"label=($status.percentage)%" $"icon=($icon)"
 }
-
-
-
-
-
-
-
-
-
-
-

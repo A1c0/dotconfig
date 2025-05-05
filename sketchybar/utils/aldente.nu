@@ -10,4 +10,5 @@ export def 'status' [] {
   | par-each { shortcuts run $in | into string }
   | do { |value| [state, percentage] | zip $value } $in
   | into record
+  | update percentage {into int}
 }

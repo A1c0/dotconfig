@@ -69,6 +69,7 @@ let space_subcriber = 'space_subcriber'
             --set battery
                   label.font="SF Pro Display:Medium:13.0"
                   update_freq=10
+                  click_script="open -a AlDente"
                   $"script=($PLUGIN_DIR)/battery.nu")
 
 # Right Space
@@ -121,6 +122,6 @@ let space_subcriber = 'space_subcriber'
                                        blur_radius=50)
 
 
-sketchybar --hotload true
+# sketchybar --hotload true
 ##### Force all scripts to run the first time (never do this in a script) #####
 sketchybar --update
