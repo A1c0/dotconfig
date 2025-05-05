@@ -1,5 +1,3 @@
-#!/usr/bin/env nu
-
 export def 'from name' [] {
   match $in {
    "Lie" => { ":ableton:" }
