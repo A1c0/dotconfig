@@ -57,64 +57,69 @@ let space_subcriber = 'space_subcriber'
             --set $space_subcriber drawing=false
             $"script=($PLUGIN_DIR)/space.nu")
 
-#Clock
 (sketchybar --add item clock right
             --set clock update_freq=10
                         $"script=($PLUGIN_DIR)/clock.nu"
                         icon=
-                        label.font="SF Pro Display:Medium:13.0")
+                        label.font="SF Pro Display:Medium:13.0"
 
-# Battery
-(sketchybar --add item battery right
+            --add item battery right
             --set battery
                   label.font="SF Pro Display:Medium:13.0"
                   update_freq=10
                   click_script="open -a AlDente"
-                  $"script=($PLUGIN_DIR)/battery.nu")
+                  $"script=($PLUGIN_DIR)/battery.nu"
 
-# Right Space
-(sketchybar --add bracket sys_panel clock battery
+            --add bracket sys_panel clock battery
             --set         sys_panel background.color=0x9924273a
                                     background.corner_radius=10
                                     background.height=25
-                                    blur_radius=50)
+                                    blur_radius=50
 
-(sketchybar --add item spacer_1 right
+            --add item spacer_1 right
             --set spacer_1
                   padding_left=0
                   padding_right=5
                   label.drawing=false)
 
-# Github
 (sketchybar --add item github_release right
             --set github_release icon=
                                  icon.font="Hack Nerd Font:Regular:14.0"
                                  icon.color=0xff939ab7
-                                 label=1
-            --add item github_issue_merge right
-            --set github_issue_merge icon=
-                                  icon.font="Hack Nerd Font:Regular:14.0"
-                                  icon.color=0xffc69ff6
-                                  label=1
+                                 drawing=false
+            --add item github_issue_closed right
+            --set github_issue_closed icon=
+                                      icon.font="Hack Nerd Font:Regular:14.0"
+                                      icon.color=0xffc69ff6
+                                      drawing=false
             --add item github_issue_open right
             --set github_issue_open icon=
-                                 icon.font="Hack Nerd Font:Regular:14.0"
-                                 icon.color=0xffa6da95
-                                 label=1
-            --add item github_pr_merge right
-            --set github_pr_merge icon=
+                                    icon.font="Hack Nerd Font:Regular:14.0"
+                                    icon.color=0xffa6da95
+                                    drawing=false
+            --add item github_pr_closed right
+            --set github_pr_closed icon=
+                                   icon.font="Hack Nerd Font:Regular:14.0"
+                                   icon.color=0xffed8796
+                                   drawing=false
+            --add item github_pr_merged right
+            --set github_pr_merged icon=
                                   icon.font="Hack Nerd Font:Regular:14.0"
                                   icon.color=0xffc69ff6
-                                  label=1
+                                  drawing=false
             --add item github_pr_open right
             --set github_pr_open icon=
                                  icon.font="Hack Nerd Font:Regular:14.0"
                                  icon.color=0xffa6da95
-                                 label=1
+                                 drawing=false
             --add item github_icon right
             --set github_icon icon=
                               icon.font="Hack Nerd Font:Regular:21.0"
                               label.drawing=false
+                              icon.padding_left=6
+                              icon.padding_right=6
+                              click_script="open https://github.com/notifications"
+                              $"script=($PLUGIN_DIR)/github.nu"
             --add bracket github_panel /github.*/
             --set         github_panel background.color=0x9924273a
                                        background.corner_radius=10
@@ -122,6 +127,6 @@ let space_subcriber = 'space_subcriber'
                                        blur_radius=50)
 
 
-# sketchybar --hotload true
+sketchybar --hotload true
 ##### Force all scripts to run the first time (never do this in a script) #####
 sketchybar --update
