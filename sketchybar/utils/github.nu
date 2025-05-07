@@ -1,5 +1,5 @@
 export def notifications_count [] {
-  gh api notifications
+  let notifications = gh api notifications
   | from json
   | get subject
   | where type in ["Issue", "PullRequest", "Release"]
@@ -20,10 +20,16 @@ export def notifications_count [] {
         }
       }
     }
+  };
+
+  if ($notifications | is-not-empty) {
+    return ($notifications
+    | reject url
+    | each {values | str join '_' | str snake-case }
+    | group-by --to-table
+    | update items { length }
+    | rename type count)
+  } else {
+    return []
   }
-  | reject url
-  | each {values | str join '_' | str snake-case }
-  | group-by --to-table
-  | update items { length }
-  | rename type count
 }

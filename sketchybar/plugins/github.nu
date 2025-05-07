@@ -14,16 +14,23 @@ let table = [
 
 def main [] {
   let notification_count = github notifications_count;
-  let options = $table
-  | join -l $notification_count github_item type
-  | update count {default 0}
-  | each { |item |
-    if $item.count == 0 {
-      return [--set $item.skechybar_item drawing=false]
-    } else {
-      return [--set $item.skechybar_item drawing=true $"label=($item.count)"]
+  let options = if ($notification_count | is-empty) {
+    $table
+    | each {|item| [--set $item.skechybar_item drawing=false]}
+    | prepend [--set $env.NAME drawing=flase]
+  } else {
+    $table
+    | join -l $notification_count github_item type
+    | update count {default 0}
+    | each { |item |
+      if $item.count == 0 {
+        return [--set $item.skechybar_item drawing=false]
+      } else {
+        return [--set $item.skechybar_item drawing=true $"label=($item.count)"]
+      }
     }
+    | prepend [--set $env.NAME drawing=true]
   }
-  | flatten 
-  sketchybar ...$options
+  | flatten
+  sketchybar ...$options 
 }
