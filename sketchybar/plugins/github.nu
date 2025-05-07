@@ -1,6 +1,7 @@
 #!/usr/bin/env nu
 
 use ../utils/github.nu;
+use ../utils/internet.nu;
 
 let table = [
   [skechybar_item     , github_item];
@@ -13,7 +14,7 @@ let table = [
 ]
 
 def main [] {
-  let notification_count = github notifications_count;
+  let notification_count = do --ignore-errors {github notifications_count};
   let options = if ($notification_count | is-empty) {
     $table
     | each {|item| [--set $item.skechybar_item drawing=false]}
