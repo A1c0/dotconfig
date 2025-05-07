@@ -62,15 +62,22 @@ let space_subcriber = 'space_subcriber'
                         $"script=($PLUGIN_DIR)/clock.nu"
                         icon=
                         label.font="SF Pro Display:Medium:13.0"
-
             --add item battery right
             --set battery
                   label.font="SF Pro Display:Medium:13.0"
                   update_freq=10
                   click_script="open -a AlDente"
                   $"script=($PLUGIN_DIR)/battery.nu"
+            --add item no_internet right
+            --set no_internet
+                  label.drawing=false
+                  icon=󰤭
+                  icon.padding_right=6
+                  icon.color=0xff939ab7
+                  update_freq=10
+                  $"script=($PLUGIN_DIR)/internet.nu"
 
-            --add bracket sys_panel clock battery
+            --add bracket sys_panel clock battery no_internet
             --set         sys_panel background.color=0x9924273a
                                     background.corner_radius=10
                                     background.height=25
