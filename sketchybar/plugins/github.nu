@@ -26,7 +26,7 @@ def main [] {
       if $item.count == 0 {
         return [--set $item.skechybar_item drawing=false]
       } else {
-        return [--set $item.skechybar_item drawing=true $"label=($item.count)"]
+        return [--set $item.skechybar_item drawing=true label=($item.count)]
       }
     }
     | prepend [--set $env.NAME drawing=true]
