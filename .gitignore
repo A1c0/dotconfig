@@ -23,3 +23,5 @@ helix/runtime
 !yabai/*
 !aerospace/*
 !ghostty/*
+!sketchybar/**/*
+sketchybar/states

@@ -1,0 +1,142 @@
+#!/usr/bin/env nu
+let PLUGIN_DIR = $"($env.CONFIG_DIR)/plugins"
+
+use ./utils/color.nu;
+
+# Bar
+sketchybar --bar position=top height=35 blur_radius=0 color=0x00000000
+
+# Defaults
+(sketchybar --default padding_left=0
+                      padding_right=0
+                      icon.font="Hack Nerd Font:Bold:15.0"
+                      label.font="SF Pro:Regular:13.0"
+                      icon.color=(color macchiato text)
+                      label.color=(color macchiato text)
+                      icon.padding_left=6
+                      icon.padding_right=2
+                      label.padding_left=2
+                      label.padding_right=6)
+
+# Spaces
+sketchybar --add event aerospace_workspace_change
+sketchybar --add event aerospace_monitor_change
+
+let space_icon_default = [
+   "icon.font=SF Pro:Bold:15.0",
+   "label.font=sketchybar-app-font:Regular:16.0",
+   background.corner_radius=5,
+   background.height=25,
+   blur_radius=50,
+   padding_left=5,
+   padding_right=5,
+   icon.padding_left=4,
+   icon.padding_right=4,
+   label.padding_left=4,
+   label.padding_right=4,
+]
+
+let sketchybar_options = aerospace list-workspaces --all | lines | each {|workspace|
+  let sid = $"space.($workspace)";
+  [
+    --add, item, $sid, left,
+    --set, $sid, drawing=false,
+    icon=($workspace),
+    $"click_script=aerospace workspace ($workspace)",
+    ...$space_icon_default
+  ]
+} | flatten;
+
+sketchybar ...$sketchybar_options;
+
+let space_subcriber = 'space_subcriber'
+
+(sketchybar --add item $space_subcriber left
+            --subscribe $space_subcriber aerospace_workspace_change
+            --subscribe $space_subcriber aerospace_monitor_change
+            --subscribe $space_subcriber front_app_switched
+            --subscribe $space_subcriber space_windows_change
+            --set $space_subcriber drawing=false
+            $"script=($PLUGIN_DIR)/space.nu")
+
+(sketchybar --add item clock right
+            --set clock update_freq=10
+                        $"script=($PLUGIN_DIR)/clock.nu"
+                        icon=
+                        label.font="SF Pro Display:Medium:13.0"
+            --add item battery right
+            --set battery
+                  label.font="SF Pro Display:Medium:13.0"
+                  update_freq=10
+                  click_script="open -a AlDente"
+                  $"script=($PLUGIN_DIR)/battery.nu"
+            --add item no_internet right
+            --set no_internet
+                  label.drawing=false
+                  icon=󰤭
+                  icon.padding_right=6
+                  icon.color=(color macchiato overlay2)
+                  update_freq=10
+                  $"script=($PLUGIN_DIR)/internet.nu"
+
+            --add bracket sys_panel clock battery no_internet
+            --set         sys_panel background.color=(color macchiato base --alpha 0.6)
+                                    background.corner_radius=10
+                                    background.height=25
+                                    blur_radius=50
+
+            --add item spacer_1 right
+            --set spacer_1
+                  padding_left=0
+                  padding_right=5
+                  label.drawing=false)
+
+(sketchybar --add item github_release right
+            --set github_release icon=
+                                 icon.font="Hack Nerd Font:Regular:14.0"
+                                 icon.color=(color macchiato overlay2)
+                                 drawing=false
+            --add item github_issue_closed right
+            --set github_issue_closed icon=
+                                      icon.font="Hack Nerd Font:Regular:14.0"
+                                      icon.color=(color macchiato mauve)
+                                      drawing=false
+            --add item github_issue_open right
+            --set github_issue_open icon=
+                                    icon.font="Hack Nerd Font:Regular:14.0"
+                                    icon.color=(color macchiato green)
+                                    drawing=false
+            --add item github_pr_closed right
+            --set github_pr_closed icon=
+                                   icon.font="Hack Nerd Font:Regular:14.0"
+                                   icon.color=(color macchiato red)
+                                   drawing=false
+            --add item github_pr_merged right
+            --set github_pr_merged icon=
+                                  icon.font="Hack Nerd Font:Regular:14.0"
+                                  icon.color=(color macchiato mauve)
+                                  drawing=false
+            --add item github_pr_open right
+            --set github_pr_open icon=
+                                 icon.font="Hack Nerd Font:Regular:14.0"
+                                 icon.color=(color macchiato green)
+                                 drawing=false
+            --add item github_icon right
+            --set github_icon icon=
+                              icon.font="Hack Nerd Font:Regular:21.0"
+                              label.drawing=false
+                              icon.padding_left=6
+                              icon.padding_right=6
+                              click_script="open https://github.com/notifications"
+                              update_freq=30
+                              $"script=($PLUGIN_DIR)/github.nu"
+            --add bracket github_panel /github.*/
+            --set         github_panel background.color=(color macchiato base --alpha 0.6)
+                                       background.corner_radius=10
+                                       background.height=25
+                                       blur_radius=50)
+
+
+# sketchybar --hotload true
+##### Force all scripts to run the first time (never do this in a script) #####
+sketchybar --update
