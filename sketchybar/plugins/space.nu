@@ -23,7 +23,7 @@ def render_workspace [
                      label.color=(color macchiato text),
                      background.color=(color macchiato base --alpha 0.9),
                      background.border_width=(if $space.focused {2} else {1}),
-                     background.border_color=(color macchiato text),
+                     background.border_color=(if $space.focused {color macchiato text} else {color macchiato text --alpha 0.8}),
                      display=($space.display),
                      drawing=on,
       ]
