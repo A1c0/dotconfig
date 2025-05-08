@@ -137,3 +137,4 @@ use '~/.config/broot/launcher/nushell/br' *
 alias br-zellij = with-env ({EDITOR: ("~/.config/extra/open-on-right" | path expand)}) {broot}
 
 source localconfig.nu
+source $"($nu.home-path)/.cargo/env.nu"
