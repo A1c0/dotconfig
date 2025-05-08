@@ -24,4 +24,4 @@ helix/runtime
 !aerospace/*
 !ghostty/*
 !sketchybar/**/*
-sketchybar/states
+!btop/**/*
