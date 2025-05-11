@@ -71,3 +71,5 @@ $env.TRANSIENT_PROMPT_MULTILINE_INDICATOR = ""
 $env.TRANSIENT_PROMPT_COMMAND_RIGHT = ^starship module time
 
 $env.config.table.missing_value_symbol = $"(ansi grey)∅(ansi reset)"
+
+$env.PAGER = 'less -RS'

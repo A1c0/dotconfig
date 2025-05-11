@@ -22,5 +22,6 @@ atuin init nu
 
 # Carapace
 mkdir ~/.cache/carapace
-carapace _carapace nushell | save -f ~/.cache/carapace/init.nu
+carapace _carapace nushell
+| save -f ~/.cache/carapace/init.nu
 

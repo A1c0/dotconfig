@@ -2,22 +2,22 @@
 import = ["~/.config/alacritty/themes/catppuccin-macchiato.toml"]
 
 [font]
-size = 13
+size = 14
 
 [font.bold]
-family = "Hack Nerd Font"
+family = "JetbrainsMono Nerd Font"
 style = "Bold"
 
 [font.bold_italic]
-family = "Hack Nerd Font"
+family = "JetbrainsMono Nerd Font"
 style = "Bold Italic"
 
 [font.italic]
-family = "Hack Nerd Font"
+family = "JetbrainsMono Nerd Font"
 style = "Italic"
 
 [font.normal]
-family = "Hack Nerd Font"
+family = "JetbrainsMono Nerd Font"
 style = "Regular"
 
 [[keyboard.bindings]]
@@ -64,6 +64,26 @@ mods = "Alt | Shift"
 chars = "}"
 key = ")"
 mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "¼"
+key = "h"
+mods = "Command"
+
+[[keyboard.bindings]]
+chars = "½"
+key = "-"
+mods = "Command"
+
+[[keyboard.bindings]]
+chars = "¾"
+key = "="
+mods = "Command"
+
+[[keyboard.bindings]]
+chars = ""
+key = "m"
+mods = "Command"
 
 [mouse]
 hide_when_typing = true

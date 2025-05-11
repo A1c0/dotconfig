@@ -86,7 +86,7 @@ def new-node-projet [] {
     {name: (pwd | path basename), version: "0.0.0" licence: "MIT"} | save package.json
 }
 
-def open-dot-env [file:string] {open $file | lines --skip-empty | filter {$in =~ '^\s*[^#]'} | parse -r '(?<key>[^=#]+)=\"?(?<value>.*?)\"?$' | transpose -rd}
+def open-dot-env [file:string] {open $file | lines --skip-empty | where {$in =~ '^\s*[^#]'} | parse -r '(?<key>[^=#]+)=\"?(?<value>.*?)\"?$' | transpose -rd}
 
 alias za = zellij attach;
 def update_file [file: string, closure: closure] {open $file | do $closure $in | save -f $file};

@@ -1,0 +1,18 @@
+#!/usr/bin/env nu
+
+def main [variation: float] {
+  let current: float = mac-brightnessctl
+    | str replace 'Current brightness: ' ''
+    | into float
+
+  let new_value = if ($variation > 0) {
+    $current + $variation
+    | [$in 1]
+    | math min
+  } else {
+    $current + $variation
+    | [$in 0]
+    | math max
+  }
+  mac-brightnessctl $new_value
+}

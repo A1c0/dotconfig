@@ -14,7 +14,7 @@ export def table [] {
 
   let display_monitor_table = sketchybar --query displays
   | from json
-  | insert sort-value { $in.frame.x - $in.frame.y }
+  | insert sort-value { $in.frame.x + $in.frame.y }
   | sort-by sort-value
   | enumerate
   | rename id
@@ -23,6 +23,8 @@ export def table [] {
   | rename monitor display
   | select monitor display
 
+  let focused_window_id = aerospace list-windows --focused --json | from json | get 0.window-id --ignore-errors 
+  
   let app_table = aerospace list-workspaces --monitor all --empty no
   | lines
   | wrap workspace
@@ -30,15 +32,16 @@ export def table [] {
     insert apps {
       aerospace list-windows --workspace $in.workspace --json
       | from json
-      | get app-name
+      | insert focused {$in.window-id == $focused_window_id}
+      | rename name id title focused
     }
   }
-
   $monitor_table
   | join -l $display_monitor_table monitor
-  | join -l $app_table workspace | par-each {
-    $in
-    | insert visible {$in.workspace in $visible_workspaces}
-    | insert focused {$in.workspace == $focused_workspace}
-  }
+  | join -l $app_table workspace
+  | each {|it|
+    $it
+    | insert visible {$it.workspace in $visible_workspaces}
+    | insert focused {$it.workspace == $focused_workspace}
+  } | default [] apps;
 }

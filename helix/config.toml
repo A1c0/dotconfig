@@ -8,6 +8,12 @@ end-of-line-diagnostics = "hint"
 [editor.soft-wrap]
 enable = true
 
+[editor.file-picker]
+hidden = false
+
+[editor.auto-save]
+focus-lost = true
+
 # [editor.auto-save]
 # focus-lost = true
 

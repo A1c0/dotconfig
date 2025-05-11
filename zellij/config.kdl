@@ -5,6 +5,7 @@
 keybinds clear-defaults=true {
     locked {
         bind "Ctrl g" { SwitchToMode "normal"; }
+        bind "Ctrl l" { Clear; }
     }
     pane {
         bind "left" { MoveFocus "left"; }
@@ -141,23 +142,23 @@ keybinds clear-defaults=true {
         }
     }
     shared_among "normal" "locked" {
-        bind "Ctrl Alt left" { MoveFocusOrTab "left"; }
-        bind "Ctrl Alt down" { MoveFocus "down"; }
-        bind "Ctrl Alt up" { MoveFocus "up"; }
-        bind "Ctrl Alt right" { MoveFocusOrTab "right"; }
-        bind "Ctrl Alt +" { Resize "Increase"; }
-        bind "Ctrl Alt -" { Resize "Decrease"; }
-        bind "Ctrl Alt =" { Resize "Increase"; }
-        bind "Ctrl Alt [" { PreviousSwapLayout; }
-        bind "Ctrl Alt ]" { NextSwapLayout; }
-        bind "Ctrl Alt f" { ToggleFloatingPanes; }
-        bind "Ctrl Alt h" { MoveFocusOrTab "left"; }
-        bind "Ctrl Alt i" { MoveTab "left"; }
-        bind "Ctrl Alt j" { MoveFocus "down"; }
-        bind "Ctrl Alt k" { MoveFocus "up"; }
-        bind "Ctrl Alt l" { MoveFocusOrTab "right"; }
-        bind "Ctrl Alt n" { NewPane; }
-        bind "Ctrl Alt o" { MoveTab "right"; }
+        bind "Super left" { MoveFocusOrTab "left"; }
+        bind "Super down" { MoveFocus "down"; }
+        bind "Super up" { MoveFocus "up"; }
+        bind "Super right" { MoveFocusOrTab "right"; }
+        bind "¾" { Resize "Increase"; }
+        bind "½" { Resize "Decrease"; }
+        bind "Super =" { Resize "Increase"; }
+        bind "Super [" { PreviousSwapLayout; }
+        bind "Super ]" { NextSwapLayout; }
+        bind "Super f" { ToggleFloatingPanes; }
+        bind "¼" { MoveFocusOrTab "left"; }
+        bind "Super i" { MoveTab "left"; }
+        bind "Super j" { MoveFocus "down"; }
+        bind "Super k" { MoveFocus "up"; }
+        bind "Super l" { MoveFocusOrTab "right"; }
+        bind "Super n" { NewPane; }
+        bind "Super o" { MoveTab "right"; }
     }
     shared_except "locked" "renametab" "renamepane" {
         bind "Ctrl g" { SwitchToMode "locked"; }

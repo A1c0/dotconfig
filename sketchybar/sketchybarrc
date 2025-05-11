@@ -21,6 +21,7 @@ sketchybar --bar position=top height=35 blur_radius=0 color=0x00000000
 # Spaces
 sketchybar --add event aerospace_workspace_change
 sketchybar --add event aerospace_monitor_change
+sketchybar --add event aerospace_mode_change
 
 let space_icon_default = [
    "icon.font=SF Pro:Bold:15.0",
@@ -39,17 +40,53 @@ let space_icon_default = [
 let sketchybar_options = aerospace list-workspaces --all | lines | each {|workspace|
   let sid = $"space.($workspace)";
   [
-    --add, item, $sid, left,
-    --set, $sid, drawing=false,
-    icon=($workspace),
-    $"click_script=aerospace workspace ($workspace)",
-    ...$space_icon_default
+    --add item $sid left,
+    --set $sid drawing=false,
+               icon=($workspace),
+               $"click_script=aerospace workspace ($workspace)",
+               ...$space_icon_default
   ]
 } | flatten;
 
 sketchybar ...$sketchybar_options;
 
+let visible_workspace_option = aerospace list-monitors --json
+  | from json
+  | get monitor-id
+  | each {|display|
+    [
+      --add item $"focused_space.($display).label" left
+      --set $"focused_space.($display).label" "icon.font=SF Pro:Bold:15.0"
+                                              label.drawing=false
+                                              display=($display)
+                                              padding_right=4
+      --add item $"focused_space.($display).focused_app" left
+      --set $"focused_space.($display).focused_app" "label.font=sketchybar-app-font:Regular:16.0"
+                                               label.color=(color macchiato mauve)
+                                               icon.drawing=false
+                                               padding_left=0
+                                               padding_right=2
+                                               display=($display)
+      --add item $"focused_space.($display).unfocused_apps" left
+      --set $"focused_space.($display).unfocused_apps" "label.font=sketchybar-app-font:Regular:16.0"
+                                               label.color=(color macchiato text)
+                                               icon.drawing=false
+                                               padding_left=0
+                                               padding_right=2
+                                               display=($display)
+      --add bracket $"focused_space.($display).panel" $"/focused_space.($display).*/"
+      --set         $"focused_space.($display).panel" background.color=(color macchiato base --alpha 0.9)
+                                                      background.corner_radius=5
+                                                      background.height=25
+                                                      blur_radius=50
+                                                      display=($display)
+    ]
+  }
+
+sketchybar ...($visible_workspace_option | flatten)
+
 let space_subcriber = 'space_subcriber'
+
 
 (sketchybar --add item $space_subcriber left
             --subscribe $space_subcriber aerospace_workspace_change
@@ -59,6 +96,26 @@ let space_subcriber = 'space_subcriber'
             --set $space_subcriber drawing=false
                                    script=($PLUGIN_DIR)/space.nu)
 
+
+(sketchybar --add item aerospace_mode left
+            --subscribe aerospace_mode aerospace_mode_change
+            --set aerospace_mode background.color=(color macchiato base --alpha 0.7)
+                                 background.corner_radius=15
+                                 background.height=20
+                                 background.border_color=(color macchiato mauve --alpha 0.9)
+                                 background.border_width=2
+                                 background.padding_left=5
+                                 background.padding_right=5
+                                 icon.drawing=false
+                                 label.font="SF Pro:Bold:13.0"
+                                 label.color=(color macchiato mauve --alpha 0.9)
+                                 label.align=center
+                                 label.padding_left=7
+                                 label.padding_right=7
+                                 blur_radius=50
+                                 script=($PLUGIN_DIR)/space_mode.nu
+                                 display=1)
+
 (sketchybar --add item keyboard_switcher left
             --subscribe keyboard_switcher front_app_switched
             --set keyboard_switcher drawing=false
@@ -66,14 +123,15 @@ let space_subcriber = 'space_subcriber'
 
 # Right items
 (sketchybar --add item clock right
-            --set clock update_freq=10
+            --set clock update_freq=1
                         script=($PLUGIN_DIR)/clock.nu
                         icon=
-                        label.font="SF Pro Display:Medium:13.0"
+                        "label.font=SF Mono:Regular:13.0"
             --add item battery right
+            --subscribe battery power_source_change
             --set battery
-                  label.font="SF Pro Display:Medium:13.0"
-                  update_freq=10
+                  "label.font=SF Mono:Regular:13.0"
+                  update_freq=1
                   click_script="open -a AlDente"
                   script=($PLUGIN_DIR)/battery.nu
             --add item no_internet right
@@ -142,6 +200,25 @@ let space_subcriber = 'space_subcriber'
                                        background.height=25
                                        blur_radius=50)
 
-sketchybar --hotload true
+# (sketchybar --add item remember right
+#             --set remember icon=23min
+#                            icon.font="Hack Nerd Font:Regular:11.0"
+#                            background.color=(color macchiato base --alpha 0.6)
+#                            background.corner_radius=10
+#                            background.height=25
+#                            background.border_width=2
+#                            background.padding_right=10
+#                            icon.color=(color macchiato text)
+#                            icon.padding_right=10
+#                            icon.padding_left=10
+#                            label="Reunion"
+#                            label.font="Hack Nerd Font:Regular:11.0"
+#                            label.max_chars=10
+#                            scroll_texts=true
+#                            label.scroll_duration=200
+# )
+#                          # background.border_color=(color macchiato green)
+
+# sketchybar --hotload true
 ##### Force all scripts to run the first time (never do this in a script) #####
 sketchybar --update
