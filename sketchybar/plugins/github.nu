@@ -2,6 +2,7 @@
 
 use ../utils/github.nu;
 use ../utils/internet.nu;
+use ../utils/color.nu;
 
 let table = [
   [skechybar_item     , github_item];
@@ -13,7 +14,19 @@ let table = [
   [github_pr_open     , pull_request_open],
 ]
 
+
 def main [] {
+  let there_is_not_internet = internet there_is_not_internet;
+  if $there_is_not_internet {
+    let options = $table
+    | each {|item| [--set $item.skechybar_item drawing=false]}
+    | prepend [--set $env.NAME drawing=true icon.color=(color macchiato overlay2)]
+    | flatten
+
+    sketchybar ...$options
+    return
+  }
+
   let notification_count = do --ignore-errors {github notifications_count};
   let options = if ($notification_count | is-empty) {
     $table
@@ -30,7 +43,7 @@ def main [] {
         return [--set $item.skechybar_item drawing=true label=($item.count)]
       }
     }
-    | prepend [--set $env.NAME drawing=true]
+    | prepend [--set $env.NAME drawing=true icon.color=(color macchiato text)]
   }
   | flatten
   sketchybar ...$options 
