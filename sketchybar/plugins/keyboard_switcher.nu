@@ -4,7 +4,7 @@ def main [] {
   let current_app = do --ignore-errors {$env.INFO} | default ""
 
   match $current_app {
-    "Ghostty" => {keyboardSwitcher select "French dev"}
-    _ => {keyboardSwitcher select "French"}
+    "Ghostty" | "Webstorm" => {keyboardSwitcher select "French dev" | ignore }
+    _ => {keyboardSwitcher select "French" | ignore}
   }
 }
