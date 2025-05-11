@@ -60,9 +60,9 @@ let space_subcriber = 'space_subcriber'
             $"script=($PLUGIN_DIR)/space.nu")
 
 (sketchybar --add item keyboard_switcher left
---subscribe keyboard_switcher front_app_switched
+            --subscribe keyboard_switcher front_app_switched
             --set keyboard_switcher drawing=false
-                                     script=($PLUGIN_DIR)/keyboard_switcher.nu)
+                                    script=($PLUGIN_DIR)/keyboard_switcher.nu)
 
 # Right items
 (sketchybar --add item clock right
@@ -142,6 +142,6 @@ let space_subcriber = 'space_subcriber'
                                        background.height=25
                                        blur_radius=50)
 
-# sketchybar --hotload true
+sketchybar --hotload true
 ##### Force all scripts to run the first time (never do this in a script) #####
 sketchybar --update
