@@ -57,7 +57,7 @@ let space_subcriber = 'space_subcriber'
             --subscribe $space_subcriber front_app_switched
             --subscribe $space_subcriber space_windows_change
             --set $space_subcriber drawing=false
-            $"script=($PLUGIN_DIR)/space.nu")
+                                   script=($PLUGIN_DIR)/space.nu)
 
 (sketchybar --add item keyboard_switcher left
             --subscribe keyboard_switcher front_app_switched
@@ -67,7 +67,7 @@ let space_subcriber = 'space_subcriber'
 # Right items
 (sketchybar --add item clock right
             --set clock update_freq=10
-                        $"script=($PLUGIN_DIR)/clock.nu"
+                        script=($PLUGIN_DIR)/clock.nu
                         icon=
                         label.font="SF Pro Display:Medium:13.0"
             --add item battery right
@@ -75,7 +75,7 @@ let space_subcriber = 'space_subcriber'
                   label.font="SF Pro Display:Medium:13.0"
                   update_freq=10
                   click_script="open -a AlDente"
-                  $"script=($PLUGIN_DIR)/battery.nu"
+                  script=($PLUGIN_DIR)/battery.nu
             --add item no_internet right
             --set no_internet
                   label.drawing=false
@@ -83,7 +83,7 @@ let space_subcriber = 'space_subcriber'
                   icon.padding_right=6
                   icon.color=(color macchiato overlay2)
                   update_freq=10
-                  $"script=($PLUGIN_DIR)/internet.nu"
+                  script=($PLUGIN_DIR)/internet.nu
 
             --add bracket sys_panel clock battery no_internet
             --set         sys_panel background.color=(color macchiato base --alpha 0.6)
@@ -135,7 +135,7 @@ let space_subcriber = 'space_subcriber'
                               icon.padding_right=6
                               click_script="open https://github.com/notifications"
                               update_freq=30
-                              $"script=($PLUGIN_DIR)/github.nu"
+                              script=($PLUGIN_DIR)/github.nu
             --add bracket github_panel /github.*/
             --set         github_panel background.color=(color macchiato base --alpha 0.6)
                                        background.corner_radius=10
