@@ -23,6 +23,8 @@ export def table [] {
   | rename monitor display
   | select monitor display
 
+  let focused_window_id = aerospace list-windows --focused --json | from json | first | get window-id
+
   let app_table = aerospace list-workspaces --monitor all --empty no
   | lines
   | wrap workspace
@@ -30,7 +32,8 @@ export def table [] {
     insert apps {
       aerospace list-windows --workspace $in.workspace --json
       | from json
-      | get app-name
+      | insert focused {$in.window-id == $focused_window_id}
+      | rename name id title focused
     }
   }
 

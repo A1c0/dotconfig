@@ -1,8 +1,9 @@
 #!/usr/bin/env nu
 
 use ../utils/aldente.nu;
+use ../utils/color.nu;
 
-def get_icon [percentage:number] {
+def get_icon [percentage:number, state:string] {
   match $percentage {
     1..10 => {'󰁺'}
     11..20 => {'󰁻'}
@@ -19,6 +20,6 @@ def get_icon [percentage:number] {
 
 def main [] {
   let status = aldente status;
-  let icon = get_icon $status.percentage
-  sketchybar --set $env.NAME label=($status.percentage)% icon=($icon)
+  let icon = get_icon $status.percentage $status.state
+  sketchybar --set $env.NAME label=($status.percentage)% icon=($icon) icon.color=(color macchiato text)
 }

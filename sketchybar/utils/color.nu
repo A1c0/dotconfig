@@ -31,8 +31,8 @@ def "nu-complete color" [] { $palette | columns }
 
 # Generate unicode color
 export def macchiato [
-  color:string@"nu-complete color"  # the color palette
-  --alpha:float # the transpacency between 0 and 1
+  color  :string@"nu-complete color" # the color palette
+  --alpha:float                      # the transpacency between 0 and 1
 ] {
   let prefix = $alpha
   | default 1

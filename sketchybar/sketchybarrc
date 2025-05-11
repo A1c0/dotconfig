@@ -49,6 +49,38 @@ let sketchybar_options = aerospace list-workspaces --all | lines | each {|worksp
 
 sketchybar ...$sketchybar_options;
 
+let visible_workspace_option = aerospace list-monitors --json
+  | from json
+  | get monitor-id
+  | each {|display|
+    [
+      --add item $"space_separator.($display)" left
+      --set $"space_separator.($display)" label=▶
+                                          label.font.size=16
+                                          label.color=(color macchiato overlay0 --alpha 0.9)
+                                          display=($display)
+                                          icon.drawing=false
+                                          label.padding_left=4
+                                          label.padding_right=10
+      --add item $"focused_space.($display).label" left
+      --set $"focused_space.($display).label" icon.font="SF Pro:Bold:15.0"
+                                              label.drawing=false
+                                              display=($display)
+      --add item $"focused_space.($display).item.last" left
+      --set $"focused_space.($display).item.last" label.padding_right=4
+                                                  icon.drawing=false
+                                                  label.padding_left=0
+                                                  display=($display)
+      --add bracket $"focused_space.($display).panel" $"/focused_space.($display).*/"
+      --set         $"focused_space.($display).panel" background.color=(color macchiato base --alpha 0.9)
+                                                      background.corner_radius=5
+                                                      background.height=25
+                                                      blur_radius=50
+                                                      display=($display)
+    ]
+  }
+sketchybar ...($visible_workspace_option | flatten)
+
 let space_subcriber = 'space_subcriber'
 
 (sketchybar --add item $space_subcriber left
