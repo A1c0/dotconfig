@@ -43,13 +43,13 @@ def render_visible_workspace [item, table] {
       --set $"focused_space.($display).label" "icon.font=SF Pro:Bold:15.0"
                                               label.drawing=false
                                               icon=($workspace)
-                    display=($display)
+                                              display=($display)
       ...$app_options
       --add item $"focused_space.($display).item.last" left
       --set $"focused_space.($display).item.last" label.padding_right=4
                                                   icon.drawing=false
                                                   label.padding_left=0
-                    display=($display)
+                                                  display=($display)
       --add bracket $"focused_space.($display).panel" $"/focused_space.($display).*/"
       --set         $"focused_space.($display).panel" background.color=(color macchiato base --alpha 0.9)
                                           background.corner_radius=5
@@ -57,7 +57,7 @@ def render_visible_workspace [item, table] {
                                           blur_radius=50
                                           background.border_width=(if $is_focused {2} else {1}),
                                           background.border_color=(if $is_focused {color macchiato mauve} else {color macchiato text})
-                    display=($display)
+                                          display=($display)
   ]
 
   return ($workspace_option | append $app_options)
