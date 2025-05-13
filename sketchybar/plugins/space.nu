@@ -9,59 +9,26 @@ def render_visible_workspace [item, table] {
   let display = $item.display;
   let workspace = $item.workspace;
   let is_focused = $item.focused;
-  let is_another_workspace_in_display = $table | where display == $display and workspace != $workspace | length | $in > 0;
-  print "display" $display
-  print "workspace" $workspace
-  print "is_focused" $is_focused
-  print "is_another_workspace_in_display" $is_another_workspace_in_display
+  let is_another_workspace_in_display = $table
+  | where display == $display and workspace != $workspace and ($it.apps | length) > 0
+  | length
+  | $in > 0;
 
   let separator_sid = $"space_separator.($display)"
-  let label_sid = $"focused_space.($display).label"
-  let panel_sid = $"focused_space.($display).panel"
-  let endind_paddind_sid = $"focused_space.($display).item.last"
-
-  let app_options = $item.apps | enumerate | each {|app_item|
-    print app_item $app_item
-    let app_sid = $"focused_space.($display).item.($app_item.index)"
-    return [
-      --add item $app_sid left
-      --set $app_sid "label.font=sketchybar-app-font:Regular:16.0"
-                     label=($app_item.item | get name | icon from name)
-                     label.color=(if $app_item.item.focused {color macchiato mauve} else {color macchiato text})
-                     icon.drawing=false
-                     label.padding_left=4
-                     label.padding_right=4
-                    display=($display)
-    ]
-  }
+  let focused_app = $item | get apps | where focused | get 0.name --ignore-errors | if ($in | is-not-empty ) {icon from name}
+  let unfocused_apps = $item | get apps | where focused == false | get name | each {icon from name} | str join ''
 
   let workspace_option = [
-    --set $separator_sid drawing=($is_another_workspace_in_display)
-    --remove $"/focused_space.($display).*/"
+      --set $separator_sid drawing=($is_another_workspace_in_display)
+      --set $"focused_space.($display).label" icon=($workspace)
+      --set $"focused_space.($display).focused_app" label=($focused_app) drawing=($focused_app | is-not-empty ) 
+      --set $"focused_space.($display).unfocused_apps" label=($unfocused_apps) drawing=($unfocused_apps | is-not-empty)
 
-      --add item $"focused_space.($display).label" left
-      --set $"focused_space.($display).label" "icon.font=SF Pro:Bold:15.0"
-                                              label.drawing=false
-                                              icon=($workspace)
-                                              display=($display)
-      ...$app_options
-      --add item $"focused_space.($display).item.last" left
-      --set $"focused_space.($display).item.last" label.padding_right=4
-                                                  icon.drawing=false
-                                                  label.padding_left=0
-                                                  display=($display)
-      --add bracket $"focused_space.($display).panel" $"/focused_space.($display).*/"
-      --set         $"focused_space.($display).panel" background.color=(color macchiato base --alpha 0.9)
-                                          background.corner_radius=5
-                                          background.height=25
-                                          blur_radius=50
-                                          background.border_width=(if $is_focused {2} else {1}),
-                                          background.border_color=(if $is_focused {color macchiato mauve} else {color macchiato text})
-                                          display=($display)
+      --set $"focused_space.($display).panel" background.border_width=(if $is_focused {2} else {1}),
+                                              background.border_color=(if $is_focused {color macchiato mauve} else {color macchiato text})
   ]
 
-  return ($workspace_option | append $app_options)
-
+  return $workspace_option
 }
 
 def render_workspace [
@@ -78,8 +45,7 @@ def render_workspace [
   | par-each {|space|
   let sid = $"space.($space.workspace)"
     if $space.visible {
-      let a = render_visible_workspace $space $aerospace_table
-      return ([ --set $sid drawing=off ] | append $a | flatten )
+      return ( render_visible_workspace $space $aerospace_table | prepend [ --set $sid drawing=off ] )
       } else {
       if ($space.apps | is-empty) {
         return [--set, $sid, drawing=off]
@@ -97,7 +63,6 @@ def render_workspace [
   }
 
   let all_options = $options | flatten --all
-  print $all_options
 
   sketchybar ...$all_options
 

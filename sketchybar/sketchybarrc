@@ -39,11 +39,11 @@ let space_icon_default = [
 let sketchybar_options = aerospace list-workspaces --all | lines | each {|workspace|
   let sid = $"space.($workspace)";
   [
-    --add, item, $sid, left,
-    --set, $sid, drawing=false,
-    icon=($workspace),
-    $"click_script=aerospace workspace ($workspace)",
-    ...$space_icon_default
+    --add item $sid left,
+    --set $sid drawing=false,
+               icon=($workspace),
+               $"click_script=aerospace workspace ($workspace)",
+               ...$space_icon_default
   ]
 } | flatten;
 
@@ -63,14 +63,24 @@ let visible_workspace_option = aerospace list-monitors --json
                                           label.padding_left=4
                                           label.padding_right=10
       --add item $"focused_space.($display).label" left
-      --set $"focused_space.($display).label" icon.font="SF Pro:Bold:15.0"
+      --set $"focused_space.($display).label" "icon.font=SF Pro:Bold:15.0"
                                               label.drawing=false
                                               display=($display)
-      --add item $"focused_space.($display).item.last" left
-      --set $"focused_space.($display).item.last" label.padding_right=4
-                                                  icon.drawing=false
-                                                  label.padding_left=0
-                                                  display=($display)
+                                              padding_right=4
+      --add item $"focused_space.($display).focused_app" left
+      --set $"focused_space.($display).focused_app" "label.font=sketchybar-app-font:Regular:16.0"
+                                               label.color=(color macchiato mauve)
+                                               icon.drawing=false
+                                               padding_left=0
+                                               padding_right=2
+                                               display=($display)
+      --add item $"focused_space.($display).unfocused_apps" left
+      --set $"focused_space.($display).unfocused_apps" "label.font=sketchybar-app-font:Regular:16.0"
+                                               label.color=(color macchiato text)
+                                               icon.drawing=false
+                                               padding_left=0
+                                               padding_right=2
+                                               display=($display)
       --add bracket $"focused_space.($display).panel" $"/focused_space.($display).*/"
       --set         $"focused_space.($display).panel" background.color=(color macchiato base --alpha 0.9)
                                                       background.corner_radius=5

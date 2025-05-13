@@ -23,8 +23,8 @@ export def table [] {
   | rename monitor display
   | select monitor display
 
-  let focused_window_id = aerospace list-windows --focused --json | from json | first | get window-id
-
+  let focused_window_id = aerospace list-windows --focused --json | from json | get 0.window-id --ignore-errors 
+  
   let app_table = aerospace list-workspaces --monitor all --empty no
   | lines
   | wrap workspace
@@ -36,12 +36,12 @@ export def table [] {
       | rename name id title focused
     }
   }
-
   $monitor_table
   | join -l $display_monitor_table monitor
-  | join -l $app_table workspace | par-each {
-    $in
-    | insert visible {$in.workspace in $visible_workspaces}
-    | insert focused {$in.workspace == $focused_workspace}
-  }
+  | join -l $app_table workspace
+  | each {|it|
+    $it
+    | insert visible {$it.workspace in $visible_workspaces}
+    | insert focused {$it.workspace == $focused_workspace}
+  } | default [] apps;
 }
