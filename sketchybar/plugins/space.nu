@@ -9,23 +9,23 @@ def render_visible_workspace [item, table] {
   let display = $item.display;
   let workspace = $item.workspace;
   let is_focused = $item.focused;
-  let is_another_workspace_in_display = $table
-  | where display == $display and workspace != $workspace and ($it.apps | length) > 0
-  | length
-  | $in > 0;
 
-  let separator_sid = $"space_separator.($display)"
   let focused_app = $item | get apps | where focused | get 0.name --ignore-errors | if ($in | is-not-empty ) {icon from name}
   let unfocused_apps = $item | get apps | where focused == false | get name | each {icon from name} | str join ''
+  let border_width = if $is_focused { 2 } else { 1 }
 
   let workspace_option = [
-      --set $separator_sid drawing=($is_another_workspace_in_display)
       --set $"focused_space.($display).label" icon=($workspace)
-      --set $"focused_space.($display).focused_app" label=($focused_app) drawing=($focused_app | is-not-empty ) 
+      --set $"focused_space.($display).focused_app" label=($focused_app) drawing=($focused_app | is-not-empty) 
       --set $"focused_space.($display).unfocused_apps" label=($unfocused_apps) drawing=($unfocused_apps | is-not-empty)
 
-      --set $"focused_space.($display).panel" background.border_width=(if $is_focused {2} else {1}),
-                                              background.border_color=(if $is_focused {color macchiato mauve} else {color macchiato text})
+      --set $"focused_space.($display).panel" background.border_width=($border_width),
+                                              background.border_color=( if $is_focused { color macchiato mauve } else { color macchiato text } )
+                                              background.height=( 25 + $border_width )
+      --move $"focused_space.($display).label" after $"space.($workspace)"
+      --move $"focused_space.($display).focused_app" after $"focused_space.($display).label"
+      --move $"focused_space.($display).unfocused_apps" after $"focused_space.($display).focused_app"
+      --move $"focused_space.($display).panel" after $"focused_space.($display).unfocused_apps"
   ]
 
   return $workspace_option

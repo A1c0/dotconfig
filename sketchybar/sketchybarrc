@@ -21,6 +21,7 @@ sketchybar --bar position=top height=35 blur_radius=0 color=0x00000000
 # Spaces
 sketchybar --add event aerospace_workspace_change
 sketchybar --add event aerospace_monitor_change
+sketchybar --add event aerospace_mode_change
 
 let space_icon_default = [
    "icon.font=SF Pro:Bold:15.0",
@@ -54,14 +55,6 @@ let visible_workspace_option = aerospace list-monitors --json
   | get monitor-id
   | each {|display|
     [
-      --add item $"space_separator.($display)" left
-      --set $"space_separator.($display)" label=▶
-                                          label.font.size=16
-                                          label.color=(color macchiato overlay0 --alpha 0.9)
-                                          display=($display)
-                                          icon.drawing=false
-                                          label.padding_left=4
-                                          label.padding_right=10
       --add item $"focused_space.($display).label" left
       --set $"focused_space.($display).label" "icon.font=SF Pro:Bold:15.0"
                                               label.drawing=false
@@ -89,9 +82,11 @@ let visible_workspace_option = aerospace list-monitors --json
                                                       display=($display)
     ]
   }
+
 sketchybar ...($visible_workspace_option | flatten)
 
 let space_subcriber = 'space_subcriber'
+
 
 (sketchybar --add item $space_subcriber left
             --subscribe $space_subcriber aerospace_workspace_change
@@ -101,6 +96,26 @@ let space_subcriber = 'space_subcriber'
             --set $space_subcriber drawing=false
                                    script=($PLUGIN_DIR)/space.nu)
 
+
+(sketchybar --add item aerospace_mode left
+            --subscribe aerospace_mode aerospace_mode_change
+            --set aerospace_mode background.color=(color macchiato base --alpha 0.7)
+                                 background.corner_radius=15
+                                 background.height=20
+                                 background.border_color=(color macchiato mauve --alpha 0.9)
+                                 background.border_width=2
+                                 background.padding_left=5
+                                 background.padding_right=5
+                                 icon.drawing=false
+                                 label.font="SF Pro:Bold:13.0"
+                                 label.color=(color macchiato mauve --alpha 0.9)
+                                 label.align=center
+                                 label.padding_left=7
+                                 label.padding_right=7
+                                 blur_radius=50
+                                 script=($PLUGIN_DIR)/space_mode.nu
+                                 display=1)
+
 (sketchybar --add item keyboard_switcher left
             --subscribe keyboard_switcher front_app_switched
             --set keyboard_switcher drawing=false
@@ -108,13 +123,14 @@ let space_subcriber = 'space_subcriber'
 
 # Right items
 (sketchybar --add item clock right
-            --set clock update_freq=10
+            --set clock update_freq=1
                         script=($PLUGIN_DIR)/clock.nu
                         icon=
-                        label.font="SF Pro Display:Medium:13.0"
+                        "label.font=SF Mono:Regular:13.0"
             --add item battery right
+            --subscribe battery power_source_change
             --set battery
-                  label.font="SF Pro Display:Medium:13.0"
+                  "label.font=SF Mono:Regular:13.0"
                   update_freq=10
                   click_script="open -a AlDente"
                   script=($PLUGIN_DIR)/battery.nu
@@ -185,5 +201,13 @@ let space_subcriber = 'space_subcriber'
                                        blur_radius=50)
 
 sketchybar --hotload true
+(sketchybar --add item remember right
+            --set remember icon=11:10:12
+                           icon.font="Hack Nerd Font:Regular:12.0"
+                           background.border_color=(color macchiato green)
+                           background.border_width=2
+
+                           icon.color=(color macchiato overlay2))
+
 ##### Force all scripts to run the first time (never do this in a script) #####
 sketchybar --update

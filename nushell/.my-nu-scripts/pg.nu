@@ -9,6 +9,14 @@ export def "from pg_uri" [] {
   | reject ...($in | columns | where $it =~ 'capture')
 }
 
+def "from psql" [] {
+  $in
+  | lines
+  | [$in.0, ...($in | skip 2 | drop 1)]
+  | str trim | split column -r '\s*\|\s*'
+  | headers 
+}
+
 # Run an sql query and parse output into table
 export def "pg query" [query: string] {psql -c $query --csv | from csv }
 

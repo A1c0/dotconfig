@@ -14,7 +14,7 @@ export def table [] {
 
   let display_monitor_table = sketchybar --query displays
   | from json
-  | insert sort-value { $in.frame.x - $in.frame.y }
+  | insert sort-value { $in.frame.x + $in.frame.y }
   | sort-by sort-value
   | enumerate
   | rename id
