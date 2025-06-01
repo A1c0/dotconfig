@@ -23,7 +23,11 @@ def get_icon [percentage:number, battery_state: string] {
 
 def get_color [aldente_state: string, battery_state: string] {
   if $battery_state == "AC" {
-    if ($aldente_state == "Sailing") { color macchiato blue } else { color macchiato green }
+    if ($aldente_state == "Sailing" or $aldente_state == "HeatProtect") {
+      color macchiato blue
+    } else {
+      color macchiato green
+    }
   } else {
     color macchiato text
   }
