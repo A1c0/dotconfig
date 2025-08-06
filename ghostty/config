@@ -1,4 +1,4 @@
-theme = catppuccin-macchiato
+theme = catppuccin-mocha
 
 command = "/opt/homebrew/bin/nu"
 

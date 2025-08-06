@@ -20,7 +20,7 @@ def main [] {
   if $there_is_not_internet {
     let options = $table
     | each {|item| [--set $item.skechybar_item drawing=false]}
-    | prepend [--set $env.NAME drawing=true icon.color=(color macchiato overlay2)]
+    | prepend [--set $env.NAME drawing=true icon.color=(color mocha overlay2)]
     | flatten
 
     sketchybar ...$options
@@ -43,7 +43,7 @@ def main [] {
         return [--set $item.skechybar_item drawing=true label=($item.count)]
       }
     }
-    | prepend [--set $env.NAME drawing=true icon.color=(color macchiato text)]
+    | prepend [--set $env.NAME drawing=true icon.color=(color mocha text)]
   }
   | flatten
   sketchybar ...$options 

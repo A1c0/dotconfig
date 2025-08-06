@@ -23,9 +23,9 @@ def get_icon [percentage:number, battery_state: string] {
 
 def get_color [state: string] {
   match $state {
-    "AC attached" => (color macchiato blue),
-    "charging" => (color macchiato green),
-    _ => (color macchiato text)
+    "AC attached" => (color mocha blue),
+    "charging" => (color mocha green),
+    _ => (color mocha text)
   }
 }
 

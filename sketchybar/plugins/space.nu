@@ -20,7 +20,7 @@ def render_visible_workspace [item, table] {
       --set $"focused_space.($display).unfocused_apps" label=($unfocused_apps) drawing=($unfocused_apps | is-not-empty)
 
       --set $"focused_space.($display).panel" background.border_width=($border_width),
-                                              background.border_color=( if $is_focused { color macchiato mauve } else { color macchiato text } )
+                                              background.border_color=( if $is_focused { color mocha mauve } else { color mocha text } )
                                               background.height=( 25 + $border_width )
       --move $"focused_space.($display).label" after $"space.($workspace)"
       --move $"focused_space.($display).focused_app" after $"focused_space.($display).label"
@@ -51,9 +51,9 @@ def render_workspace [
         return [--set, $sid, drawing=off]
       } else {
         return [ --set, $sid, label=($space.apps | get name | each {icon from name} | str join),
-                              icon.color=(color macchiato text --alpha 0.8),
-                              label.color=(color macchiato text --alpha 0.8),
-                              background.color=(color macchiato base --alpha .6),
+                              icon.color=(color mocha text --alpha 0.8),
+                              label.color=(color mocha text --alpha 0.8),
+                              background.color=(color mocha base --alpha .6),
                               background.border_width=0,
                               display=($space.display),
                               drawing=on,
