@@ -30,7 +30,8 @@ outer.bottom = 10
 outer.right = 10
 
 [mode.main.binding]
-cmd-alt-ctrl-f1 = 'exec-and-forget open -a Terminal'
+cmd-alt-ctrl-up = 'exec-and-forget ~/.config/aerospace/keyboard-brightness +0.1'
+cmd-alt-ctrl-down = 'exec-and-forget ~/.config/aerospace/keyboard-brightness -0.1'
 
 cmd-alt-ctrl-slash = 'layout tiles horizontal vertical'
 cmd-alt-ctrl-comma = 'layout accordion horizontal vertical'
