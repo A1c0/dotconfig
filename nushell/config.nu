@@ -89,13 +89,14 @@ def new-node-projet [] {
 def open-dot-env [file:string] {open $file | lines --skip-empty | where {$in =~ '^\s*[^#]'} | parse -r '(?<key>[^=#]+)=\"?(?<value>.*?)\"?$' | transpose -rd}
 
 alias za = zellij attach;
-def update_file [file: string, closure: closure] {open $file | do $closure $in | save -f $file};
+def update_file [file: path, closure: closure] {open $file | do $closure $in | save -f $file};
 
 def unlines [] {$in | str join (char newline)};
 
 module alacritty-config {
     export def opacity [ratio: float] {update_file ~/.config/alacritty/alacritty.toml { update window.opacity $ratio }}
     export def blur [blur: bool] {update_file ~/.config/alacritty/alacritty.toml { update window.blur $blur }}
+    export def "font size" [size: int] {update_file ~/.config/alacritty/alacritty.toml { update font.size $size }}
 }
 use alacritty-config;
 

@@ -1,4 +1,4 @@
-def git_current_branch [] {git rev-parse --abbrev-ref HEAD | str trim}
+def git-current-branch [] {git rev-parse --abbrev-ref HEAD | str trim}
 
 alias gst = git status
 alias grhh = git reset --hard
@@ -7,28 +7,28 @@ alias gfa = git fetch --all
 def gcam [msg: string] {git commit --all --message $msg}
 
 def ggl [] {
-    let current = git_current_branch
+    let current = git-current-branch
     git pull --rebase origin $current
 }
 
 def ggp [] {
-    let current = git_current_branch
-    git push origin $current
+    let current = git-current-branch
+    git push origin $current --no-verify
 }
 
 def ggfl [] {
-    let current = git_current_branch
-    git push --force-with-lease origin $current
+    let current = git-current-branch
+    git push --force-with-lease origin $current --no-verify
 }
 
 def groh [] {
-    let current   = git_current_branch
+    let current   = git-current-branch
     git reset --hard $"origin/($current)"
 }
 
 def gpsup [] {
-    let current   = git_current_branch
-    git push --set-upstream origin $current
+    let current   = git-current-branch
+    git push --set-upstream origin $current --no-verify 
 }
 
 def gstf [] {
@@ -39,7 +39,7 @@ def gstf [] {
 }
 
 def add_apr_in_branch [apr:string] {
-    let current = git_current_branch
+    let current = git-current-branch
     git branch -M $"($apr | str upcase)_($current)"
 }
 
