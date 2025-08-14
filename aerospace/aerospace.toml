@@ -29,9 +29,6 @@ outer.bottom = 10
 outer.right = 10
 
 [mode.main.binding]
-cmd-alt-ctrl-f2= 'exec-and-forget ~/.config/aerospace/keyboard-brightness +0.1'
-cmd-alt-ctrl-f1 = 'exec-and-forget ~/.config/aerospace/keyboard-brightness -0.1'
-
 cmd-alt-ctrl-slash = 'layout tiles horizontal vertical'
 cmd-alt-ctrl-comma = 'layout accordion horizontal vertical'
 
@@ -154,7 +151,7 @@ cmd-alt-ctrl-shift-z = ['move-node-to-workspace Z', 'workspace Z' ]
 
 cmd-alt-ctrl-tab = 'workspace-back-and-forth'
 
-cmd-alt-ctrl-shift-semicolon = ['mode service', 'exec-and-forget sketchybar --trigger aerospace_mode_change AEROSPACE_MODE=service'] 
+cmd-alt-ctrl-shift-semicolon = ['mode service', 'exec-and-forget sketchybar --trigger aerospace_mode_change AEROSPACE_MODE=service']
 cmd-alt-ctrl-shift-r = ['mode resize', 'exec-and-forget sketchybar --trigger aerospace_mode_change AEROSPACE_MODE=resize']
 
 
@@ -163,17 +160,21 @@ esc = ['reload-config', 'mode main', 'exec-and-forget sketchybar --trigger aeros
 r = ['flatten-workspace-tree', 'mode main', 'exec-and-forget sketchybar --trigger aerospace_mode_change AEROSPACE_MODE=main'] # reset layout
 f = ['layout floating tiling', 'mode main', 'exec-and-forget sketchybar --trigger aerospace_mode_change AEROSPACE_MODE=main'] # Toggle between floating and tiling layout
 backspace = ['close-all-windows-but-current', 'mode main', 'exec-and-forget sketchybar --trigger aerospace_mode_change AEROSPACE_MODE=main']
+s = ['exec-and-forget sketchybar --reload', 'mode main', 'exec-and-forget sketchybar --trigger aerospace_mode_change AEROSPACE_MODE=main']
+up = 'exec-and-forget ~/.config/aerospace/keyboard-brightness +0.05'
+down = 'exec-and-forget ~/.config/aerospace/keyboard-brightness -0.05'
+shift-up = 'exec-and-forget mac-brightnessctl 1'
+shift-down = 'exec-and-forget mac-brightnessctl 0'
 
 cmd-alt-ctrl-shift-h = ['join-with left', 'mode main', 'exec-and-forget sketchybar --trigger aerospace_mode_change AEROSPACE_MODE=main']
 cmd-alt-ctrl-shift-j = ['join-with down', 'mode main', 'exec-and-forget sketchybar --trigger aerospace_mode_change AEROSPACE_MODE=main']
 cmd-alt-ctrl-shift-k = ['join-with up', 'mode main', 'exec-and-forget sketchybar --trigger aerospace_mode_change AEROSPACE_MODE=main']
 cmd-alt-ctrl-shift-l = ['join-with right', 'mode main', 'exec-and-forget sketchybar --trigger aerospace_mode_change AEROSPACE_MODE=main']
 
-equal='enable toggle'
-down = 'volume down'
-up = 'volume up'
-shift-down = ['volume set 0', 'mode main', 'exec-and-forget sketchybar --trigger aerospace_mode_change AEROSPACE_MODE=main']
-
+cmd-alt-ctrl-shift-left = ['join-with left', 'mode main', 'exec-and-forget sketchybar --trigger aerospace_mode_change AEROSPACE_MODE=main']
+cmd-alt-ctrl-shift-down = ['join-with down', 'mode main', 'exec-and-forget sketchybar --trigger aerospace_mode_change AEROSPACE_MODE=main']
+cmd-alt-ctrl-shift-up = ['join-with up', 'mode main', 'exec-and-forget sketchybar --trigger aerospace_mode_change AEROSPACE_MODE=main']
+cmd-alt-ctrl-shift-right = ['join-with right', 'mode main', 'exec-and-forget sketchybar --trigger aerospace_mode_change AEROSPACE_MODE=main']
 
 [mode.resize.binding]
 minus = 'resize smart -50'
