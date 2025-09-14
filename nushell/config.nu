@@ -17,6 +17,20 @@
 # You can remove these comments if you want or leave
 # them for future reference.
 
+const shell_dependencies = [
+    "zoxide",
+    "carapace",
+    "atuin",
+    "mise",
+    "bat",
+    "vivid",
+    "starship",
+    "broot",
+]
+
+use check-install.nu;
+check-install $shell_dependencies
+
 $env.config.show_banner = false
 
 # Note: The conversions happen *after* config.nu is loaded
@@ -25,13 +39,10 @@ $env.ENV_CONVERSIONS = $env.ENV_CONVERSIONS | insert __zoxide_hooked $bool_conve
 
 source ~/.cache/zoxide/.zoxide.nu;
 source ~/.cache/carapace/init.nu;
-source ~/.cache/proto/completions.nu;
 source ~/.cache/atuin/init.nu;
+use ~/.cache/mise/activate.nu;
 
 alias meteo = curl v2.wttr.in
-
-# PUPPETEER Chromium fail on M1 chip
-$env.PUPPETEER_SKIP_CHROMIUM_DOWNLOAD = true
 
 alias clr = clear
 alias la = ls -la
@@ -59,28 +70,6 @@ use std/dirs shells-aliases *
 # Prompt
 use ~/.cache/starship/init.nu
 
-$env.__ORIG_PATH = $env.PATH;
-
-# Add node_module/.bin
-$env.config = ($env | default {} config).config
-$env.config = ($env.config | default {} hooks)
-$env.config = ($env.config | update hooks ($env.config.hooks | default {} env_change))
-$env.config = ($env.config | update hooks.env_change ($env.config.hooks.env_change | default [] PWD))
-$env.config = ($env.config | update hooks.env_change.PWD ($env.config.hooks.env_change.PWD | append {|before, after| 
-
-    let node_bin_path = $after | path join node_modules .bin;
-    let is_node_path = $after | path join package.json | path exists;
-
-    if $is_node_path {
-        $env.PATH = $env.__ORIG_PATH | prepend $node_bin_path
-    } else {
-        $env.PATH = $env.__ORIG_PATH
-    }
-}))
-
-# Utils
-def toxic-slack [] {input | str downcase | split chars | each {$":alphabet-white-($in):"} | str join '' | str replace --all ":alphabet-white- :" "   " | str replace --all ":alphabet-white-!:" ":alphabet-white-exclamation:" | pbcopy}
-
 # Spawn new Node.js projet 
 def new-node-projet [] {
     {name: (pwd | path basename), version: "0.0.0" licence: "MIT"} | save package.json
@@ -89,14 +78,15 @@ def new-node-projet [] {
 def open-dot-env [file:string] {open $file | lines --skip-empty | where {$in =~ '^\s*[^#]'} | parse -r '(?<key>[^=#]+)=\"?(?<value>.*?)\"?$' | transpose -rd}
 
 alias za = zellij attach;
-def update_file [file: path, closure: closure] {open $file | do $closure $in | save -f $file};
+
+def update-file [file: path, closure: closure] {open $file | do $closure $in | save -f $file};
 
 def unlines [] {$in | str join (char newline)};
 
 module alacritty-config {
-    export def opacity [ratio: float] {update_file ~/.config/alacritty/alacritty.toml { update window.opacity $ratio }}
-    export def blur [blur: bool] {update_file ~/.config/alacritty/alacritty.toml { update window.blur $blur }}
-    export def "font size" [size: int] {update_file ~/.config/alacritty/alacritty.toml { update font.size $size }}
+    export def "window opacity" [ratio: float] {update-file ~/.config/alacritty/alacritty.toml { update window.opacity $ratio }}
+    export def "window blur" [blur: bool] {update-file ~/.config/alacritty/alacritty.toml { update window.blur $blur }}
+    export def "font size" [size: int] {update-file ~/.config/alacritty/alacritty.toml { update font.size $size }}
 }
 use alacritty-config;
 
@@ -114,16 +104,6 @@ def "brew state" [] {
         | rename --block {str camel-case}}
 }
 
-def --env yy [...args] {
-	let tmp = (mktemp -t "yazi-cwd.XXXXXX")
-	yazi ...$args --cwd-file $tmp
-	let cwd = (open $tmp)
-	if $cwd != "" and $cwd != $env.PWD {
-		cd $cwd
-	}
-	rm -fp $tmp
-}
-
 def "dock hide delay" [second: int] {
     defaults write com.apple.dock autohide-delay -float $second
     killall Dock
@@ -135,6 +115,6 @@ def restart_superkey [] {
 }
 
 use '~/.config/broot/launcher/nushell/br' *
-alias br-zellij = with-env ({EDITOR: ("~/.config/extra/open-on-right" | path expand)}) {broot}
+alias br-zellij = with-env ({ EDITOR: ("~/.config/extra/open-on-right" | path expand) }) { broot }
 
 source localconfig.nu

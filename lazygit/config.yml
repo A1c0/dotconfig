@@ -1,0 +1,7 @@
+# Config relating to git
+git:
+  paging:
+    pager: "delta --dark --paging=never --width={{columnWidth}}"
+
+os:
+  editInTerminal: true

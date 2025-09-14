@@ -25,3 +25,4 @@ helix/runtime
 !ghostty/*
 !sketchybar/**/*
 !btop/**/*
+!lazygit/**/*

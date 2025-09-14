@@ -44,15 +44,17 @@ $env.NU_PLUGIN_DIRS = [
 # source ($nu.default-config-dir | path join 'custom.nu')
 
 $env.EDITOR = 'hx'
+
+$env.PATH = ($env.PATH | append [
+ "/opt/homebrew/bin",
+ "/opt/homebrew/sbin",
+ "/usr/local/bin",
+ "~/.local/bin",
+ "~/.cargo/bin",
+ "~/go/bin",
+ "node_modules/.bin"
+])
   
-$env.PATH = ($env.PATH | prepend "/opt/homebrew/bin")
-$env.PATH = ($env.PATH | prepend "/opt/homebrew/sbin")
-$env.PATH = ($env.PATH | prepend ($env.HOME + "/.proto/shims"))
-$env.PATH = ($env.PATH | prepend ($env.HOME + "/.custom_bin"))
-$env.PATH = ($env.PATH | append ($env.HOME + "/.cargo/bin"))
-$env.PATH = ($env.PATH | append ($env.HOME + "/go/bin"))
-$env.PATH = ($env.PATH | append ($env.HOME + "/.config/yarn/global/node_modules/.bin"))
-$env.PATH = ($env.PATH | append "/usr/local/bin")
 
 # Homebrew
 $env.HOMEBREW_NO_AUTO_UPDATE = 1;

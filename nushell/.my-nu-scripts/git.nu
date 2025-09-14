@@ -1,4 +1,5 @@
 def git-current-branch [] {git rev-parse --abbrev-ref HEAD | str trim}
+def git-previous-branch [] {git rev-parse --symbolic-full-name @{-1} | str trim}
 
 alias gst = git status
 alias grhh = git reset --hard
