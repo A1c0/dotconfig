@@ -14,12 +14,12 @@ def ggl [] {
 
 def ggp [] {
     let current = git-current-branch
-    git push origin $current --no-verify
+    git push origin $current
 }
 
 def ggfl [] {
     let current = git-current-branch
-    git push --force-with-lease origin $current --no-verify
+    git push --force-with-lease origin $current
 }
 
 def groh [] {
@@ -29,7 +29,7 @@ def groh [] {
 
 def gpsup [] {
     let current   = git-current-branch
-    git push --set-upstream origin $current --no-verify 
+    git push --set-upstream origin $current 
 }
 
 def gstf [] {
