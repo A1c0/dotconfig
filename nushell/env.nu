@@ -52,7 +52,6 @@ $env.PATH = ($env.PATH | append [
  "~/.local/bin",
  "~/.cargo/bin",
  "~/go/bin",
- "node_modules/.bin"
 ])
   
 
@@ -71,6 +70,11 @@ $env.TRANSIENT_PROMPT_INDICATOR_VI_INSERT = ""
 $env.TRANSIENT_PROMPT_INDICATOR_VI_NORMAL = ""
 $env.TRANSIENT_PROMPT_MULTILINE_INDICATOR = ""
 $env.TRANSIENT_PROMPT_COMMAND_RIGHT = ^starship module time
+
+# Overlay in starship
+$env.config.hooks.pre_prompt = ($env.config.hooks.pre_prompt | append {||
+    $env.NU_ACTIVE_OVERLAYS = (overlay list | where active and name != zero | get name | str join ',')
+})
 
 $env.config.table.missing_value_symbol = $"(ansi grey)∅(ansi reset)"
 
