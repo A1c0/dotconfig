@@ -30,3 +30,8 @@ mkdir ~/.cache/mise
 mise activate | save -f ~/.cache/mise/activate.nu
 print $'~/.cache/mise/activate.nu (ansi green_bold)created(ansi reset)'
 
+# Mise-en-place
+mkdir ~/.cache/pueue
+pueue completions nushell | save -f ~/.cache/pueue/completions.nu
+print $'~/.cache/pueue/completions.nu (ansi green_bold)created(ansi reset)'
+
