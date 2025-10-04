@@ -10,7 +10,7 @@ def render_visible_workspace [item, table] {
   let workspace = $item.workspace;
   let is_focused = $item.focused;
 
-  let focused_app = $item | get apps | where focused | get 0.name --ignore-errors | if ($in | is-not-empty ) {icon from name}
+  let focused_app = $item | get apps | where focused | get 0.name --optional | if ($in | is-not-empty ) {icon from name}
   let unfocused_apps = $item | get apps | where focused == false | get name | each {icon from name} | str join ''
   let border_width = if $is_focused { 2 } else { 1 }
 

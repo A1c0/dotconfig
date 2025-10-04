@@ -23,7 +23,7 @@ export def table [] {
   | rename monitor display
   | select monitor display
 
-  let focused_window_id = aerospace list-windows --focused --json | from json | get 0.window-id --ignore-errors 
+  let focused_window_id = aerospace list-windows --focused --json | from json | get 0.window-id --optional
   
   let app_table = aerospace list-workspaces --monitor all --empty no
   | lines
