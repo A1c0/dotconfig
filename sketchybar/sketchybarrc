@@ -199,26 +199,40 @@ let space_subcriber = 'space_subcriber'
                                        background.corner_radius=10
                                        background.height=25
                                        blur_radius=50)
+# Reminders
+if ('~/.cache/reminder.nuon' | path exists) {
 
-# (sketchybar --add item remember right
-#             --set remember icon=23min
-#                            icon.font="Hack Nerd Font:Regular:11.0"
-#                            background.color=(color mocha base --alpha 0.6)
-#                            background.corner_radius=10
-#                            background.height=25
-#                            background.border_width=2
-#                            background.padding_right=10
-#                            icon.color=(color mocha text)
-#                            icon.padding_right=10
-#                            icon.padding_left=10
-#                            label="Reunion"
-#                            label.font="Hack Nerd Font:Regular:11.0"
-#                            label.max_chars=10
-#                            scroll_texts=true
-#                            label.scroll_duration=200
-# )
-#                          # background.border_color=(color mocha green)
+  let items = open ~/.cache/reminder.nuon
 
-# sketchybar --hotload true
+  for $item in $items {
+  let reminder_item = $"reminder-($item.uuid)"
+  (sketchybar --add item $reminder_item right
+              --set $reminder_item icon=23min
+                             icon.font="Hack Nerd Font:Regular:11.0"
+                             background.color=(color mocha base --alpha 0.6)
+                             background.corner_radius=10
+                             background.height=25
+                             background.border_width=2
+                             background.padding_right=10
+                             icon.color=(color mocha text)
+                             icon.padding_right=10
+                             icon.padding_left=10
+                             label=($item.name)
+                             label.font="Hack Nerd Font:Regular:11.0"
+                             label.max_chars=10
+                             scroll_texts=true
+                             script=$"($PLUGIN_DIR)/reminder.nu ($item.uuid)"
+                             update_freq=1
+                             label.scroll_duration=200)
+  }
+}
+
+
+sketchybar --hotload true
 ##### Force all scripts to run the first time (never do this in a script) #####
 sketchybar --update
+
+watch ~/.cache/sketchybar.sqlite {|op|
+    let items = open ~/.cache/sketchybar.sqlite
+    | query db `SELECT * FROM reminder`
+}
