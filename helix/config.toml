@@ -2,8 +2,11 @@ theme = "catppuccin_mocha"
 
 [editor]
 shell = ["nu", "--stdin", "-c"]
-# Minimum severity to show a diagnostic after the end of a line:
+completion-replace = true
+trim-trailing-whitespace = true
 end-of-line-diagnostics = "hint"
+color-modes = true
+# rainbow-brackets = true
 
 [editor.soft-wrap]
 enable = true
@@ -13,9 +16,9 @@ hidden = false
 
 [editor.auto-save]
 focus-lost = true
+after-delay.enable = true
+after-delay.timeout = 300000
 
-# [editor.auto-save]
-# focus-lost = true
 
 [editor.inline-diagnostics]
 # Minimum severity to show a diagnostic on the primary cursor's line.
@@ -26,7 +29,7 @@ cursor-line = "error"
 
 [keys.normal]
 Cmd-s = ":write"
-Cmd-c = ":sh echo %{buffer_name} | pbcopy"
+Cmd-c = ":sh echo '%{buffer_name}' | pbcopy"
 S-C-up = ["extend_to_line_bounds", "delete_selection", "move_line_up", "paste_before"]
 S-C-down = ["extend_to_line_bounds", "delete_selection", "paste_after"]
 C-y = ":sh zellij run -f -x 10% -y 10% --width 80% --height 80% -- bash ~/.config/helix/yazi-picker.sh"
@@ -51,6 +54,10 @@ c = ":! zellij run -f -n Opencode -c -- opencode"
 n = "@:o <C-r>%<C-w>"
 x = "@:sh rm <C-r>%"
 d = "file_picker_in_current_buffer_directory"
+
+[keys.normal."space"."v"]
+b = ":sh git blame --date=short -L %{cursor_line},+1 %{buffer_name}"
+#  | parse -r '^(?<sha>[^ ]+) \((?<author>.*?)\s(?<date>\d{4}-\d{2}-\d{2})' | first | $'($in.author) - ($in.date) - ($in.sha)'"
 
 [keys.select]
 '{' = "rotate_selection_contents_forward"
