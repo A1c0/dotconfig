@@ -10,10 +10,7 @@ def normalize_duration [duration: duration] {
 }
 
 def send-push-notif [name : string] {
-  # (terminal-notifier -message "Reminder"
-  #                    -title $name
-  #                    -sound "Funk"
-  #                   )
+  osascript -e $"tell application "Notifier" to notify\("($name)", "Reminder")"
 }
 
 def on-event-finish [name: string] {
