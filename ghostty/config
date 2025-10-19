@@ -1,4 +1,4 @@
-theme = catppuccin-mocha
+theme = Catppuccin Mocha
 
 command = "/opt/homebrew/bin/nu"
 
@@ -7,7 +7,6 @@ font-size = 14
 mouse-hide-while-typing = true
 
 macos-titlebar-style = hidden
-
 macos-option-as-alt = true
 
 # Thx French keyboard

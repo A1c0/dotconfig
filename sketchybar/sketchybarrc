@@ -199,34 +199,18 @@ let space_subcriber = 'space_subcriber'
                                        background.corner_radius=10
                                        background.height=25
                                        blur_radius=50)
+
 # Reminders
 if ('~/.cache/reminder.nuon' | path exists) {
+  sketchybar --add event reminder_db_change;
 
-  let items = open ~/.cache/reminder.nuon
+  job spawn {watch '~/.cache/reminder.nuon' {sketchybar --trigger reminder_db_change}}
 
-  for $item in $items {
-    let reminder_item = $"reminder-($item.uuid)"
-
-    (sketchybar --add item $reminder_item right
-                --set $reminder_item icon.font="Hack Nerd Font:Regular:11.0"
-                                     background.color=(color mocha base --alpha 0.6)
-                                     background.corner_radius=10
-                                     background.height=25
-                                     background.border_width=2
-                                     background.padding_right=10
-                                     icon.color=(color mocha text)
-                                     icon.padding_right=10
-                                     icon.padding_left=10
-                                     label=($item.name)
-                                     label.font="Hack Nerd Font:Regular:11.0"
-                                     label.max_chars=10
-                                     scroll_texts=true
-                                     script=$"($PLUGIN_DIR)/reminder.nu ($item.name) ($item.done_date)"
-                                     update_freq=1
-                                     label.scroll_duration=200)
-  }
+  (sketchybar --add item reminder_updater left
+              --subscribe reminder_updater reminder_db_change
+              --set reminder_updater drawing=false
+                                     script=($PLUGIN_DIR)/reminder_updater.nu)
 }
-
 
 sketchybar --hotload true
 ##### Force all scripts to run the first time (never do this in a script) #####
