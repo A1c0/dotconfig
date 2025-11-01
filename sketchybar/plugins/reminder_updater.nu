@@ -22,13 +22,17 @@ def add_item [uuid: string, name: string, done_date: datetime] {
                                    label.font="Hack Nerd Font:Regular:11.0"
                                    label.max_chars=10
                                    scroll_texts=true
-                                   script=$"($PLUGIN_DIR)/reminder.nu ($name) ($done_date | format date '%+')"
+                                   script=$"($PLUGIN_DIR)/reminder.nu ($uuid)"
                                    update_freq=1
                                    label.scroll_duration=200)
 }
 
 def main [] {
+  let existing = sketchybar --query bar | from json | get items | where $it like reminder and $it not-like updater | each {str replace 'reminder-' ''}
+
   let items = open ~/.cache/reminder.nuon
+  | where done_date > ( date now )
+  | where uuid not-in $existing
 
   for $item in $items {
     add_item $item.uuid $item.name $item.done_date

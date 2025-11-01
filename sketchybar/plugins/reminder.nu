@@ -18,12 +18,19 @@ def on-event-finish [name: string] {
   send-push-notif $name
 }
 
-def main [name: string, done_date: string] {
-  let remaining_time = ($done_date | into datetime) - (date now);
+def main [uuid: string] {
+  let item = open ~/.cache/reminder.nuon
+  | where uuid == $uuid
+  | get 0 --optional
 
-  if ($remaining_time < 1sec) {
-    on-event-finish $name
-  } else {
-    sketchybar --set $env.NAME icon=(normalize_duration $remaining_time)
+  if ($item | is-not-empty) {
+    let remaining_time = ($item.done_date | into datetime) - (date now);
+
+    if ($remaining_time < 1sec) {
+      on-event-finish $item.name
+    } else {
+      sketchybar --set $env.NAME icon=(normalize_duration $remaining_time)
+    }
+
   }
 }

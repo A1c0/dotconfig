@@ -164,6 +164,11 @@ symbol = " "
 [zig]
 symbol = " "
 
+[jobs]
+symbol_threshold = 2
+number_threshold = 2
+format = '[$symbol$number]($style)'
+
 [custom.nu_overlay]
 command = "$env.NU_ACTIVE_OVERLAYS | default [] | str join ','"
 when = "$env.NU_ACTIVE_OVERLAYS | is-not-empty | if ($in) { exit 0 } else { exit 1 }"

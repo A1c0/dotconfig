@@ -202,9 +202,14 @@ let space_subcriber = 'space_subcriber'
 
 # Reminders
 if ('~/.cache/reminder.nuon' | path exists) {
+  open ~/.cache/reminder.nuon
+  | where done_date > ( date now )
+  | collect
+  | save -f ~/.cache/reminder.nuon
   sketchybar --add event reminder_db_change;
 
-  job spawn {watch '~/.cache/reminder.nuon' {sketchybar --trigger reminder_db_change}}
+  pueue group add watcher -p 1 | ignore
+  pueue add --group watcher -- "nu -c 'watch ~/.cache/reminder.nuon {sketchybar --trigger reminder_db_change }'"
 
   (sketchybar --add item reminder_updater left
               --subscribe reminder_updater reminder_db_change
@@ -212,7 +217,7 @@ if ('~/.cache/reminder.nuon' | path exists) {
                                      script=($PLUGIN_DIR)/reminder_updater.nu)
 }
 
-sketchybar --hotload true
+# sketchybar --hotload true
 ##### Force all scripts to run the first time (never do this in a script) #####
 sketchybar --update
 

@@ -38,7 +38,7 @@ let bool_conversion = { from_string: { |s| $s | into bool } to_string: { |v| $v 
 $env.ENV_CONVERSIONS = $env.ENV_CONVERSIONS | insert __zoxide_hooked $bool_conversion
 
 source ~/.cache/zoxide/.zoxide.nu;
-source ~/.cache/carapace/init.nu;
+# source ~/.cache/carapace/init.nu;
 source ~/.cache/atuin/init.nu;
 use ~/.cache/mise/activate.nu;
 
@@ -71,7 +71,7 @@ use std/dirs shells-aliases *
 # Prompt
 use ~/.cache/starship/init.nu
 
-# Spawn new Node.js projet 
+# Spawn new Node.js projet
 def new-node-projet [] {
     {name: (pwd | path basename), version: "0.0.0" licence: "MIT"} | save package.json
 }
@@ -93,15 +93,15 @@ use alacritty-config;
 
 # List of installed brew formulae and casks as a nu table
 def "brew state" [] {
-    let brew_formula = brew list --installed-on-request -1 | lines; 
-    brew info --json=v2 --installed 
-    | from json 
+    let brew_formula = brew list --installed-on-request -1 | lines;
+    brew info --json=v2 --installed
+    | from json
     | update formulae {
-        where name in $brew_formula 
-        | select name full_name tap versions 
-        | rename --block {str camel-case}} 
+        where name in $brew_formula
+        | select name full_name tap versions
+        | rename --block {str camel-case}}
     | update casks {
-        select token full_token tap name version 
+        select token full_token tap name version
         | rename --block {str camel-case}}
 }
 
@@ -117,5 +117,19 @@ def restart_superkey [] {
 
 use '~/.config/broot/launcher/nushell/br' *
 alias br-zellij = with-env ({ EDITOR: ("~/.config/extra/open-on-right" | path expand) }) { broot }
+
+def fish-completer [spans: list<string>] {
+	^fish --command $"complete '--do-complete=($spans | str replace --all "'" "\\'" | str join ' ')'"
+	| from tsv --flexible --noheaders --no-infer
+	| rename value description
+	| update value {|row|
+		let value = $row.value
+		let need_quote = ['\' ',' '[' ']' '(' ')' ' ' '\t' "'" '"' "`"] | any { $in in $value }
+		if ($need_quote and ($value | path exists)) {
+			let expanded_path = if ($value starts-with ~) { $value | path expand --no-symlink } else { $value }
+			$'"($expanded_path | str replace --all "\"" "\\\"")"'
+		} else { $value }
+	}
+}
 
 source localconfig.nu

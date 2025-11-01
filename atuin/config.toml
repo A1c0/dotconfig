@@ -6,5 +6,5 @@ history_filter = [
   ".*--password.*"
 ]
 
-[theme]
-name = "catppuccin-mocha-green"
+# [theme]
+# name = "catppuccin-mocha-green"
