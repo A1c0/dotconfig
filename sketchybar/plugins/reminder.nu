@@ -24,12 +24,12 @@ def main [uuid: string] {
   | get 0 --optional
 
   if ($item | is-not-empty) {
-    let remaining_time = ($item.done_date | into datetime) - (date now);
+    let remaining_time = ( $item.done_date | into datetime ) - ( date now );
 
     if ($remaining_time < 1sec) {
       on-event-finish $item.name
     } else {
-      sketchybar --set $env.NAME icon=(normalize_duration $remaining_time)
+      sketchybar --set $env.NAME icon=( normalize_duration $remaining_time )
     }
 
   }
