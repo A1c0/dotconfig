@@ -45,7 +45,7 @@ $env.NU_PLUGIN_DIRS = [
 
 $env.EDITOR = 'hx'
 
-$env.PATH = ($env.PATH | append [
+$env.PATH = ($env.PATH | prepend [
  "/opt/homebrew/bin",
  "/opt/homebrew/sbin",
  "/usr/local/bin",
@@ -53,7 +53,7 @@ $env.PATH = ($env.PATH | append [
  "~/.cargo/bin",
  "~/go/bin",
 ])
-  
+
 
 # Homebrew
 $env.HOMEBREW_NO_AUTO_UPDATE = 1;
