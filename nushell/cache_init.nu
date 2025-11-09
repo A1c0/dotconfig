@@ -1,6 +1,17 @@
 
 mkdir ~/.cache
 
+def fix_with_hash [hash: string, fix: closure]: string -> string {
+  let input: string = $in;
+  let input_hash: string = $input | hash md5
+  if $input_hash == $hash {
+    do $fix $input
+  } else {
+    print --stderr "The hash doesn't match"
+    exit 1
+  }
+}
+
 # Starship
 mkdir ~/.cache/starship
 starship init nu | save -f ~/.cache/starship/init.nu
@@ -19,15 +30,22 @@ atuin init nu
 | save -f ~/.cache/atuin/init.nu
 print $'~/.cache/atuin/init.nu (ansi green_bold)created(ansi reset)'
 
-# Carapace
-mkdir ~/.cache/carapace
-carapace _carapace nushell
-| save -f ~/.cache/carapace/init.nu
-print $'~/.cache/carapace/init.nu (ansi green_bold)created(ansi reset)'
+# # Carapace
+# mkdir ~/.cache/carapace
+# carapace _carapace nushell
+# | save -f ~/.cache/carapace/init.nu
+# print $'~/.cache/carapace/init.nu (ansi green_bold)created(ansi reset)'
 
 # Mise-en-place
 mkdir ~/.cache/mise
-mise activate | save -f ~/.cache/mise/activate.nu
+mise activate
+  | fix_with_hash "e1a048b27c3ba54f141823b5bcc67690" {|source|
+    $source
+    | lines
+    | skip 4
+    | str join (char newline)
+  }
+  | save -f ~/.cache/mise/activate.nu
 print $'~/.cache/mise/activate.nu (ansi green_bold)created(ansi reset)'
 
 # Mise-en-place

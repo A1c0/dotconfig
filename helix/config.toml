@@ -37,7 +37,7 @@ C-y = ":sh zellij run -f -x 10% -y 10% --width 80% --height 80% -- bash ~/.confi
 '{' = "rotate_selection_contents_forward"
 '}' = "rotate_selection_contents_backward"
 
-[keys.normal."space"]
+[keys.normal."space"] # Opencode
 c = ":! zellij run -f -n Opencode -c -- opencode"
 
 [keys.normal."space"."m"]
@@ -50,14 +50,15 @@ c = ":! zellij run -f -n Opencode -c -- opencode"
 7 = ":pipe str title-case"
 8 = ":pipe str upcase"
 
-[keys.normal."space"."o"]
+[keys.normal."space"."o"] # current buffer
 n = "@:o <C-r>%<C-w>"
 x = "@:sh rm <C-r>%"
 d = "file_picker_in_current_buffer_directory"
 
-[keys.normal."space"."v"]
-b = ":sh git blame --date=short -L %{cursor_line},+1 %{buffer_name}"
-#  | parse -r '^(?<sha>[^ ]+) \((?<author>.*?)\s(?<date>\d{4}-\d{2}-\d{2})' | first | $'($in.author) - ($in.date) - ($in.sha)'"
+[keys.normal."space"."v"] # Versinning (git)
+b = ":sh git blame --date=short -L %{cursor_line},+1 '%{buffer_name}' | parse -r '^(?<sha>[^ ]+) \\((?<author>.*?)\\s(?<date>\\d{4}-\\d{2}-\\d{2})' | first | $'($in.author) - ($in.date) - ($in.sha)'"
+y = ":sh git blame --date=short -L %{cursor_line},+1 '%{buffer_name}' | parse -r '^(?<sha>[^ ]+) \\((?<author>.*?)\\s(?<date>\\d{4}-\\d{2}-\\d{2})' | first | get sha | pbcopy"
+f = ":sh zellij run -f -- git blame '%{buffer_name}' | delta | less -RS"
 
 [keys.select]
 '{' = "rotate_selection_contents_forward"

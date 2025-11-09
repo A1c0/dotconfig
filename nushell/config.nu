@@ -19,7 +19,7 @@
 
 const shell_dependencies = [
     "zoxide",
-    "carapace",
+    "fish",
     "atuin",
     "mise",
     "bat",
@@ -38,7 +38,6 @@ let bool_conversion = { from_string: { |s| $s | into bool } to_string: { |v| $v 
 $env.ENV_CONVERSIONS = $env.ENV_CONVERSIONS | insert __zoxide_hooked $bool_conversion
 
 source ~/.cache/zoxide/.zoxide.nu;
-# source ~/.cache/carapace/init.nu;
 source ~/.cache/atuin/init.nu;
 use ~/.cache/mise/activate.nu;
 
@@ -51,7 +50,6 @@ alias lg = lazygit
 alias ld = lazydocker
 
 use ./nu_scripts/custom-completions/zellij/zellij-completions.nu *
-use ./nu_scripts/custom-completions/git/git-completions.nu *
 use ./nu_scripts/custom-completions/glow/glow-completions.nu *
 use  ~/.cache/pueue/completions.nu *
 
@@ -116,20 +114,22 @@ def restart_superkey [] {
 }
 
 use '~/.config/broot/launcher/nushell/br' *
-alias br-zellij = with-env ({ EDITOR: ("~/.config/extra/open-on-right" | path expand) }) { broot }
+alias br-zellij = with-env ({ EDITOR: ("~/.config/extra/open-on-right" | path expand) }) { br }
 
-def fish-completer [spans: list<string>] {
-	^fish --command $"complete '--do-complete=($spans | str replace --all "'" "\\'" | str join ' ')'"
-	| from tsv --flexible --noheaders --no-infer
-	| rename value description
-	| update value {|row|
-		let value = $row.value
-		let need_quote = ['\' ',' '[' ']' '(' ')' ' ' '\t' "'" '"' "`"] | any { $in in $value }
-		if ($need_quote and ($value | path exists)) {
-			let expanded_path = if ($value starts-with ~) { $value | path expand --no-symlink } else { $value }
-			$'"($expanded_path | str replace --all "\"" "\\\"")"'
-		} else { $value }
-	}
+let fish_completer = {|spans|
+    fish --command $"complete '--do-complete=($spans | str replace --all "'" "\\'" | str join ' ')'"
+    | from tsv --flexible --noheaders --no-infer
+    | rename value description
+    | update value {|row|
+      let value = $row.value
+      let need_quote = ['\' ',' '[' ']' '(' ')' ' ' '\t' "'" '"' "`"] | any {$in in $value}
+      if ($need_quote and ($value | path exists)) {
+        let expanded_path = if ($value starts-with ~) {$value | path expand --no-symlink} else {$value}
+        $'"($expanded_path | str replace --all "\"" "\\\"")"'
+      } else {$value}
+    }
 }
+
+$env.config.completions = { external: { enable: true completer: $fish_completer } }
 
 source localconfig.nu
