@@ -3,11 +3,13 @@ mkdir ~/.cache
 
 def fix_with_hash [hash: string, fix: closure]: string -> string {
   let input: string = $in;
-  let input_hash: string = $input | hash md5
+  let input_hash: string = $input | str replace -r -a \s '' | hash md5
   if $input_hash == $hash {
     do $fix $input
   } else {
     print --stderr "The hash doesn't match"
+    print $"expected : ($hash)"
+    print $"evaluated: ($input_hash)"
     exit 1
   }
 }
@@ -39,10 +41,10 @@ print $'~/.cache/atuin/init.nu (ansi green_bold)created(ansi reset)'
 # Mise-en-place
 mkdir ~/.cache/mise
 mise activate
-  | fix_with_hash "e1a048b27c3ba54f141823b5bcc67690" {|source|
+  | fix_with_hash "46e6cc44298931df1d21ca515c313422" {|source|
     $source
     | lines
-    | skip 4
+    | skip 7
     | str join (char newline)
   }
   | save -f ~/.cache/mise/activate.nu
