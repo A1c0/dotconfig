@@ -58,7 +58,7 @@ d = "file_picker_in_current_buffer_directory"
 [keys.normal."space"."v"] # Versinning (git)
 b = ":sh git blame --date=short -L %{cursor_line},+1 '%{buffer_name}' | parse -r '^(?<sha>[^ ]+) \\((?<author>.*?)\\s(?<date>\\d{4}-\\d{2}-\\d{2})' | first | $'($in.author) - ($in.date) - ($in.sha)'"
 y = ":sh git blame --date=short -L %{cursor_line},+1 '%{buffer_name}' | parse -r '^(?<sha>[^ ]+) \\((?<author>.*?)\\s(?<date>\\d{4}-\\d{2}-\\d{2})' | first | get sha | pbcopy"
-f = ":sh zellij run -f -- git blame '%{buffer_name}' | delta | less -RS"
+f = ":sh zellij run -f -n 'Git Blame' -c -- git blame '%{buffer_name}' | delta | less -RS"
 
 [keys.select]
 '{' = "rotate_selection_contents_forward"
