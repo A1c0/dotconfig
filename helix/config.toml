@@ -12,7 +12,7 @@ color-modes = true
 enable = true
 
 [editor.file-picker]
-hidden = false
+hidden = true
 
 [editor.auto-save]
 focus-lost = true
