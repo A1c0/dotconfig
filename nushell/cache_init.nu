@@ -35,7 +35,6 @@ print $'~/.cache/atuin/init.nu (ansi green_bold)created(ansi reset)'
 # Mise-en-place
 mkdir ~/.cache/mise
 mise activate --shell nu
-| str replace --regex --multiline '(.*\n)*(?=^export-env)' ''
 | save --force ~/.cache/mise/activate.nu
 print $'~/.cache/mise/activate.nu (ansi green_bold)created(ansi reset)'
 
